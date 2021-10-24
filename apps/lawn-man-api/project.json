@@ -5,16 +5,12 @@
   "targets": {
     "build": {
       "executor": "@nrwl/node:build",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/lawn-man-api",
         "main": "apps/lawn-man-api/src/main.ts",
         "tsConfig": "apps/lawn-man-api/tsconfig.app.json",
-        "assets": [
-          "apps/lawn-man-api/src/assets"
-        ]
+        "assets": ["apps/lawn-man-api/src/assets"]
       },
       "configurations": {
         "production": {
@@ -38,20 +34,14 @@
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": [
-        "{options.outputFile}"
-      ],
+      "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": [
-          "apps/lawn-man-api/**/*.ts"
-        ]
+        "lintFilePatterns": ["apps/lawn-man-api/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": [
-        "coverage/apps/lawn-man-api"
-      ],
+      "outputs": ["coverage/apps/lawn-man-api"],
       "options": {
         "jestConfig": "apps/lawn-man-api/jest.config.js",
         "passWithNoTests": true
