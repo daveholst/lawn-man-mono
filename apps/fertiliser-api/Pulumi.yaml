@@ -1,0 +1,3 @@
+name: fertiliser-api
+runtime: nodejs
+description: api to interact with fertiliser db

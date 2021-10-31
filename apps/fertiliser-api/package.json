@@ -1,0 +1,5 @@
+{
+  "name": "fertiliser-api",
+  "private": true,
+  "main": "src/init.ts"
+}

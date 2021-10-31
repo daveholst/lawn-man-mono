@@ -1,0 +1,4 @@
+config:
+  aws:profile: pulumi-admin
+  aws:region: ap-southeast-2
+
