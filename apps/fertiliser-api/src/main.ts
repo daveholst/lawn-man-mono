@@ -7,24 +7,35 @@ import * as aws from '@pulumi/aws'
 import * as awsx from '@pulumi/awsx'
 import { getDomainAndSubdomain } from './utils/get-domain'
 
+const domain = 'fert.lawnman.club'
+const domainParts = getDomainAndSubdomain(domain)
+const tenMinutes = 60 * 10
+
 // Create a public HTTP endpoint (using AWS APIGateway)
 const endpoint = new awsx.apigateway.API('fertiliser-api', {
     routes: [
         {
             path: '/',
             method: 'GET',
-            eventHandler: (req, ctx, cb) => {
-                cb(undefined, {
+            eventHandler: async (req, res) => {
+                return {
                     statusCode: 200,
-                    body: 'testing 123...',
-                })
+                    body: 'hello world!!!',
+                }
             },
         },
+        // {
+        //     path: '/',
+        //     method: 'POST',
+        //     eventHandler: async (req, res) => {
+        //         return {
+        //             statusCode: 200,
+        //             body: req.body,
+        //         }
+        //     },
+        // },
     ],
 })
-
-const domainParts = getDomainAndSubdomain('fert.lawnman.club')
-const tenMinutes = 60 * 10
 
 // Get the hosted zone by domain name
 const hostedZoneId = aws.route53
@@ -40,7 +51,7 @@ const eastRegion = new aws.Provider('east', {
 const certificate = new aws.acm.Certificate(
     'certificate',
     {
-        domainName: 'fert.lawnman.club',
+        domainName: domain,
         validationMethod: 'DNS',
     },
     { provider: eastRegion }
@@ -70,7 +81,7 @@ const certificateValidation = new aws.acm.CertificateValidation(
 // distribution behind the scenes and serve our API Gateway at a custom domain name over SSL.
 const apiGatewayDomain = new aws.apigateway.DomainName('apiGatewayCDN', {
     certificateArn: certificateValidation.certificateArn,
-    domainName: 'fert.lawnman.club',
+    domainName: domain,
 })
 
 const apiDomainMapping = new aws.apigateway.BasePathMapping(
@@ -99,5 +110,26 @@ const apiDnsRecord = new aws.route53.Record(
     },
     { dependsOn: certificateValidation }
 )
+
+// Create a Database infrastructure
+const fertiliserTable = new aws.dynamodb.Table('fertiliser-table', {
+    attributes: [
+        {
+            name: 'id',
+            type: 'S',
+        },
+    ],
+    hashKey: 'id',
+    billingMode: 'PAY_PER_REQUEST',
+})
+
+// Create Database access
+// function getdatabaseParams(fertiliserTable) {
+//     return {
+//         TableName: fertiliserTable.name.get(),
+//         ConsistentRead: true,
+//         ExclusiveStartKet: undefined,
+//     }
+// }
 
 exports.url = endpoint.url
