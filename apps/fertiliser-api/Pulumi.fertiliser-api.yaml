@@ -1,4 +1,4 @@
 config:
+  aws-native:profile: pulumi-admin
   aws:profile: pulumi-admin
   aws:region: ap-southeast-2
-
