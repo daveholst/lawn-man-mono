@@ -1,6 +1,5 @@
 {
-    // "extends": "../../tsconfig.base.json",
-    // added extra options from docs here so that native async would get sent to lambda
+    "extends": "./tsconfig.base.json",
     "compilerOptions": {
         "strict": true,
         "outDir": "bin",
@@ -14,14 +13,5 @@
         "noImplicitReturns": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": [],
-    "include": [],
-    "references": [
-        {
-            "path": "./tsconfig.app.json"
-        },
-        {
-            "path": "./tsconfig.spec.json"
-        }
-    ]
+    "exclude": ["node_modules", "tmp"]
 }

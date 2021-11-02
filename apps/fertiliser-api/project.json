@@ -1,52 +1,58 @@
 {
-  "root": "apps/fertiliser-api",
-  "sourceRoot": "apps/fertiliser-api/src",
-  "projectType": "application",
-  "targets": {
-    "build": {
-      "executor": "@nrwl/node:build",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/apps/fertiliser-api",
-        "main": "apps/fertiliser-api/src/main.ts",
-        "tsConfig": "apps/fertiliser-api/tsconfig.app.json",
-        "assets": ["apps/fertiliser-api/src/assets"]
-      },
-      "configurations": {
-        "production": {
-          "optimization": true,
-          "extractLicenses": true,
-          "inspect": false,
-          "fileReplacements": [
-            {
-              "replace": "apps/fertiliser-api/src/environments/environment.ts",
-              "with": "apps/fertiliser-api/src/environments/environment.prod.ts"
+    "root": "apps/fertiliser-api",
+    "sourceRoot": "apps/fertiliser-api/src",
+    "projectType": "application",
+    "targets": {
+        "build": {
+            "executor": "@nrwl/node:build",
+            "outputs": ["{options.outputPath}"],
+            "options": {
+                "outputPath": "dist/apps/fertiliser-api",
+                "main": "apps/fertiliser-api/src/main.ts",
+                "tsConfig": "apps/fertiliser-api/tsconfig.app.json",
+                "assets": ["apps/fertiliser-api/src/assets"]
+            },
+            "configurations": {
+                "production": {
+                    "optimization": true,
+                    "extractLicenses": true,
+                    "inspect": false,
+                    "fileReplacements": [
+                        {
+                            "replace": "apps/fertiliser-api/src/environments/environment.ts",
+                            "with": "apps/fertiliser-api/src/environments/environment.prod.ts"
+                        }
+                    ]
+                }
             }
-          ]
+        },
+        "serve": {
+            "executor": "@nrwl/node:execute",
+            "options": {
+                "buildTarget": "fertiliser-api:build"
+            }
+        },
+        "lint": {
+            "executor": "@nrwl/linter:eslint",
+            "outputs": ["{options.outputFile}"],
+            "options": {
+                "lintFilePatterns": ["apps/fertiliser-api/**/*.ts"]
+            }
+        },
+        "test": {
+            "executor": "@nrwl/jest:jest",
+            "outputs": ["coverage/apps/fertiliser-api"],
+            "options": {
+                "jestConfig": "apps/fertiliser-api/jest.config.js",
+                "passWithNoTests": true
+            }
         }
-      }
     },
-    "serve": {
-      "executor": "@nrwl/node:execute",
-      "options": {
-        "buildTarget": "fertiliser-api:build"
-      }
-    },
-    "lint": {
-      "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["apps/fertiliser-api/**/*.ts"]
-      }
-    },
-    "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/fertiliser-api"],
-      "options": {
-        "jestConfig": "apps/fertiliser-api/jest.config.js",
-        "passWithNoTests": true
-      }
+    "tags": [],
+    "dependencies": {
+        "@pulumi/aws": "^4.25.0",
+        "@pulumi/awsx": "^0.32.0",
+        "@pulumi/pulumi": "^3.16.0",
+        "tslib": "^2.0.0"
     }
-  },
-  "tags": []
 }

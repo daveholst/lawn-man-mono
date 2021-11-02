@@ -1,6 +1,7 @@
 {
   "version": 2,
   "projects": {
+    "fertiliser-api": "apps/fertiliser-api",
     "lawn-man-api": "apps/lawn-man-api"
   }
 }

@@ -1,0 +1,38 @@
+{
+    "workbench.colorCustomizations": {
+        "activityBar.activeBackground": "#5bbece",
+        "activityBar.activeBorder": "#c43bb1",
+        "activityBar.background": "#5bbece",
+        "activityBar.foreground": "#15202b",
+        "activityBar.inactiveForeground": "#15202b99",
+        "activityBarBadge.background": "#c43bb1",
+        "activityBarBadge.foreground": "#e7e7e7",
+        "editorGroup.border": "#5bbece",
+        "panel.border": "#5bbece",
+        "sash.hoverBorder": "#5bbece",
+        "sideBar.border": "#5bbece",
+        "statusBar.background": "#39abbd",
+        "statusBar.foreground": "#15202b",
+        "statusBarItem.hoverBackground": "#2d8896",
+        "statusBarItem.remoteBackground": "#39abbd",
+        "statusBarItem.remoteForeground": "#15202b",
+        "titleBar.activeBackground": "#39abbd",
+        "titleBar.activeForeground": "#15202b",
+        "titleBar.inactiveBackground": "#39abbd99",
+        "titleBar.inactiveForeground": "#15202b99"
+    },
+    "peacock.color": "#39abbd",
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "[typescript]": {
+        "editor.formatOnPaste": true,
+        "editor.formatOnSave": true
+    },
+    // The number of spaces a tab is equal to. This setting is overridden
+    // based on the file contents when `editor.detectIndentation` is true.
+    "editor.tabSize": 4,
+
+    // Insert spaces when pressing Tab. This setting is overriden
+    // based on the file contents when `editor.detectIndentation` is true.
+    "editor.insertSpaces": true,
+    "editor.detectIndentation": true
+}

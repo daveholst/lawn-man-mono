@@ -6,6 +6,7 @@ import * as pulumi from '@pulumi/pulumi'
 import * as aws from '@pulumi/aws'
 import * as awsx from '@pulumi/awsx'
 import { getDomainAndSubdomain } from './utils/get-domain'
+import { base64decode } from './utils/base-64'
 
 const domain = 'fert.lawnman.club'
 const domainParts = getDomainAndSubdomain(domain)
@@ -20,20 +21,35 @@ const endpoint = new awsx.apigateway.API('fertiliser-api', {
             eventHandler: async (req, res) => {
                 return {
                     statusCode: 200,
-                    body: 'hello world!!!',
+                    body: 'what did I breaK',
                 }
             },
         },
-        // {
-        //     path: '/',
-        //     method: 'POST',
-        //     eventHandler: async (req, res) => {
-        //         return {
-        //             statusCode: 200,
-        //             body: req.body,
-        //         }
-        //     },
-        // },
+        {
+            path: '/',
+            method: 'POST',
+            eventHandler: async (req, res) => {
+                if (!req.body) {
+                    return {
+                        statusCode: 400,
+                        body: 'no data provided :(',
+                    }
+                }
+                const { id, name } = JSON.parse(base64decode(req.body))
+                const db = new aws.sdk.DynamoDB.DocumentClient()
+                await db
+                    .put({
+                        TableName: fertiliserTable.name.get(),
+                        Item: { id, name },
+                    })
+                    .promise()
+                return {
+                    statusCode: 200,
+                    message: 'fert saved',
+                    body: base64decode(req.body),
+                }
+            },
+        },
     ],
 })
 
@@ -124,12 +140,12 @@ const fertiliserTable = new aws.dynamodb.Table('fertiliser-table', {
 })
 
 // Create Database access
-// function getdatabaseParams(fertiliserTable) {
-//     return {
-//         TableName: fertiliserTable.name.get(),
-//         ConsistentRead: true,
-//         ExclusiveStartKet: undefined,
-//     }
-// }
+function getdatabaseParams(fertiliserTable: aws.dynamodb.Table) {
+    return {
+        TableName: fertiliserTable.name.get(),
+        ConsistentRead: true,
+        ExclusiveStartKet: undefined,
+    }
+}
 
 exports.url = endpoint.url
