@@ -1,27 +1,19 @@
 {
-    // "extends": "../../tsconfig.base.json",
-    // added extra options from docs here so that native async would get sent to lambda
     "compilerOptions": {
-        "strict": true,
-        "outDir": "bin",
-        "target": "esnext",
         "module": "commonjs",
+        "target": "esnext",
+        "outDir": "./dist",
+        "strict": false,
+        "types": ["node"],
+        "resolveJsonModule": true,
         "moduleResolution": "node",
-        "sourceMap": true,
-        "experimentalDecorators": true,
-        "pretty": true,
-        "noFallthroughCasesInSwitch": true,
+        "noUnusedLocals": false,
+        "noUnusedParameters": false,
         "noImplicitReturns": true,
-        "forceConsistentCasingInFileNames": true
+        "noFallthroughCasesInSwitch": true,
+        "esModuleInterop": true,
+        "lib": ["ES2020.Promise"]
     },
-    "files": [],
-    "include": [],
-    "references": [
-        {
-            "path": "./tsconfig.app.json"
-        },
-        {
-            "path": "./tsconfig.spec.json"
-        }
-    ]
+    "include": ["src/**/*"],
+    "exclude": ["node_modules", "**/*.test.ts"]
 }

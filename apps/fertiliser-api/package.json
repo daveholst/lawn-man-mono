@@ -1,5 +1,31 @@
 {
-  "name": "fertiliser-api",
-  "private": true,
-  "main": "src/init.ts"
+    "name": "fertiliser-api",
+    "private": true,
+    "main": "infrastructure/main.ts",
+    "type": "commonjs",
+    "scripts": {
+        "dev": "parcel index.html",
+        "build": "webpack"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.16.0",
+        "@babel/preset-env": "^7.16.0",
+        "@babel/preset-typescript": "^7.16.0",
+        "babel": "^6.23.0",
+        "babel-loader": "^8.2.3",
+        "cache-loader": "^4.1.0",
+        "deps": "^1.0.0",
+        "fork-ts-checker-webpack-plugin": "^6.4.0",
+        "parcel": "^2.0.0",
+        "parcel-bundler": "^1.12.5",
+        "required": "^1.0.0",
+        "typescript": "^4.4.4",
+        "webpack": "^5.62.1",
+        "webpack-cli": "^4.9.1",
+        "zip-webpack-plugin": "^4.0.1"
+    },
+    "dependencies": {
+        "@pulumi/aws": "^4.25.0",
+        "@pulumi/awsx": "^0.32.0"
+    }
 }

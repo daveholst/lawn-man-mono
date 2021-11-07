@@ -9,6 +9,12 @@
   },
   "private": true,
   "devDependencies": {
+    "4": "^0.0.0",
+    "5": "^0.0.1",
+    "6": "^0.0.1",
+    "@babel/core": "^7.16.0",
+    "@babel/preset-env": "^7.16.0",
+    "@babel/preset-typescript": "^7.16.0",
     "@nrwl/cli": "13.0.2",
     "@nrwl/eslint-plugin-nx": "13.0.2",
     "@nrwl/express": "^13.0.2",
@@ -24,19 +30,33 @@
     "@types/node": "14.14.33",
     "@typescript-eslint/eslint-plugin": "~4.33.0",
     "@typescript-eslint/parser": "~4.33.0",
+    "@wanews/pulumi-apigateway-lambda-proxy": "^0.13.1",
+    "babel": "^6.23.0",
+    "babel-loader": "^8.2.3",
+    "cache-loader": "^4.1.0",
+    "deps": "^1.0.0",
     "eslint": "7.32.0",
     "eslint-config-prettier": "8.1.0",
+    "fork-ts-checker-webpack-plugin": "^6.4.0",
     "jest": "27.2.3",
     "prettier": "^2.3.1",
+    "required": "^1.0.0",
     "ts-jest": "27.0.5",
-    "typescript": "~4.3.5"
+    "typescript": "^4.4.4",
+    "webpack": "^5.62.1",
+    "webpack-cli": "^4.9.1"
   },
   "dependencies": {
     "@pulumi/aws": "^4.25.0",
     "@pulumi/awsx": "^0.32.0",
     "@pulumi/pulumi": "^3.16.0",
+    "aws-lambda-fastify": "^1.7.1",
+    "aws-sdk": "^2.1020.0",
     "express": "4.17.1",
-    "fastify": "3.x",
+    "fastify": "^3.23.0",
+    "parcel": "^2.0.0",
+    "parcel-bundler": "^1.12.5",
+    "pino-pretty": "^7.2.0",
     "tslib": "^2.0.0"
   }
 }
