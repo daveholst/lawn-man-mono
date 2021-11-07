@@ -17,11 +17,6 @@ const selectedZone = pulumi.output(
     aws.route53.getZone({ name: domainParts.parentDomain }, { async: true })
 )
 
-// Per AWS, ACM certificate must be in the us-east-1 region.
-// const eastRegion = new aws.Provider('east', {
-//     profile: aws.config.profile,
-//     region: 'us-east-1',
-// })
 //  Create the SSL Certificate
 const certificate = new aws.acm.Certificate(
     'certificate',
@@ -52,27 +47,53 @@ const certificateValidation = new aws.acm.CertificateValidation(
     }
     // { provider: eastRegion }
 )
-// Configure an edge-optimized domain for our API Gateway. This will configure a Cloudfront CDN
-// distribution behind the scenes and serve our API Gateway at a custom domain name over SSL.
-// const apiGatewayDomain = new aws.apigateway.DomainName('apiGatewayCDN', {
-//     certificateArn: certificateValidation.certificateArn,
-//     domainName: domain,
-// })
-// const apiGatewayDomainName = new aws.apigatewayv2.DomainName(
-//     `fertiliser-apigateway-domain`,
-//     {
-//         domainName: domain,
-//         domainNameConfiguration: {
-//             certificateArn: certificate.arn,
-//             endpointType: 'REGIONAL',
-//             securityPolicy: 'TLS_1_2',
-//         },
-//         // tags: getTags(name),
-//     }
-// )
+
+// Create a Database infrastructure
+const fertiliserTable = new aws.dynamodb.Table('fertiliser-table', {
+    attributes: [
+        {
+            name: 'id',
+            type: 'S',
+        },
+    ],
+    hashKey: 'id',
+    billingMode: 'PAY_PER_REQUEST',
+})
+
+// lambda policy
+const role = new aws.iam.Role('mylambda-role', {
+    assumeRolePolicy: aws.iam.assumeRolePolicyForPrincipal({
+        Service: 'lambda.amazonaws.com',
+    }),
+})
+
+const policy = new aws.iam.RolePolicy('mylambda-policy', {
+    role,
+    policy: pulumi.output({
+        Version: '2012-10-17',
+        Statement: [
+            {
+                Action: [
+                    'dynamodb:UpdateItem',
+                    'dynamodb:PutItem',
+                    'dynamodb:GetItem',
+                    'dynamodb:DescribeTable',
+                ],
+                Resource: fertiliserTable.arn,
+                Effect: 'Allow',
+            },
+            {
+                Action: ['logs:*', 'cloudwatch:*'],
+                Resource: '*',
+                Effect: 'Allow',
+            },
+        ],
+    }),
+})
 
 // create lambda from code (webpacked?) -> https://www.pulumi.com/registry/packages/aws/api-docs/lambda/function/
 const apiProxy = new ApiGatewayLambdaProxy(`fert-api`, {
+    executionRole: role,
     hostname: domain,
     apiGatewayCertificateArn: certificateValidation.certificateArn,
     apiGatewayOptions: {
@@ -99,6 +120,11 @@ const apiProxy = new ApiGatewayLambdaProxy(`fert-api`, {
         runtime: 'nodejs12.x',
         handler: 'index.handler', //TODO does this have to match the entry file in the zip?
         memorySize: 512,
+        environment: {
+            variables: {
+                DB_NAME: fertiliserTable.name,
+            },
+        },
     },
 })
 // create a followup route53 record?
@@ -121,29 +147,6 @@ const apiProxy = new ApiGatewayLambdaProxy(`fert-api`, {
 // )
 
 // Create DB
-// Create a Database infrastructure
-const fertiliserTable = new aws.dynamodb.Table('fertiliser-table', {
-    attributes: [
-        {
-            name: 'id',
-            type: 'S',
-        },
-    ],
-    hashKey: 'id',
-    billingMode: 'PAY_PER_REQUEST',
-})
-
-// const stage = new aws.apigatewayv2.Stage(`gateway-stage`, {
-//     apiId: apiProxy.apiGateway.id,
-//     name: 'stage',
-//     autoDeploy: true,
-// })
-
-// const apiDomainMapping = new aws.apigatewayv2.ApiMapping('apiDomainMapping', {
-//     apiId: apiProxy.apiGateway.id,
-//     stage: stage.id,
-//     domainName: apiGatewayDomainName.id,
-// })
 
 //  Create DNS record for apiGateway
 const apiDnsRecord = new aws.route53.Record(
@@ -171,14 +174,6 @@ const apiDnsRecord = new aws.route53.Record(
     // { dependsOn: certificateValidation }
 )
 
-// Create Database access
-function getdatabaseParams(fertiliserTable: aws.dynamodb.Table) {
-    return {
-        TableName: fertiliserTable.name.get(),
-        ConsistentRead: true,
-        ExclusiveStartKet: undefined,
-    }
-}
 function getTags(name: string) {
     // Use whatever logic you like to construct your tags
     return {
@@ -188,7 +183,4 @@ function getTags(name: string) {
     }
 }
 
-console.log(apiProxy.apiGatewayDomainName.domainName)
-
 exports.url = apiProxy.invokeUrl
-// exports.rawUrl = apiProxy.apiGatewayDomainName.id
