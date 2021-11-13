@@ -1,0 +1,30 @@
+{
+    "root": "apps/auth-site",
+    "projectType": "application",
+    "sourceRoot": "apps/auth-site/src",
+    "targets": {
+        "build": {
+            "executor": "@wanews/nx-vite:build",
+            "options": {}
+        },
+        "serve": {
+            "executor": "@wanews/nx-vite:serve",
+            "options": {}
+        },
+        "lint": {
+            "executor": "@nrwl/linter:eslint",
+            "options": {
+                "lintFilePatterns": ["apps/auth-site/**/*.ts"]
+            }
+        },
+        "test": {
+            "executor": "@nrwl/jest:jest",
+            "options": {
+                "jestConfig": "apps/auth-site/jest.config.js",
+                "passWithNoTests": true
+            },
+            "outputs": ["coverage/apps/auth-site"]
+        }
+    },
+    "tags": []
+}
