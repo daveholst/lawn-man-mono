@@ -2,7 +2,6 @@
     "version": 2,
     "projects": {
         "auth-site": "apps/auth-site",
-        "fertiliser-api": "apps/fertiliser-api",
-        "lawn-man-api": "apps/lawn-man-api"
+        "fertiliser-api": "apps/fertiliser-api"
     }
 }

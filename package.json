@@ -51,6 +51,9 @@
     "webpack-cli": "^4.9.1"
   },
   "dependencies": {
+    "@chakra-ui/react": "^1.7.1",
+    "@emotion/react": "^11",
+    "@emotion/styled": "^11",
     "@pulumi/aws": "^4.25.0",
     "@pulumi/awsx": "^0.32.0",
     "@pulumi/pulumi": "^3.16.0",
@@ -59,12 +62,14 @@
     "aws-sdk": "^2.1020.0",
     "express": "4.17.1",
     "fastify": "^3.23.0",
+    "framer-motion": "^4",
     "mime": "^3.0.0",
     "parcel": "^2.0.0",
     "parcel-bundler": "^1.12.5",
     "pino-pretty": "^7.2.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-icons": "^4.3.1",
     "tslib": "^2.0.0"
   }
 }
