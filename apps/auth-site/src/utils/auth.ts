@@ -18,10 +18,6 @@ export const login = async (email: string, password: string) => {
                         ? 'localhost'
                         : 'lawnman.club',
             }),
-            // Storage: new CookieStorage({
-            //     domain: 'localhost',
-            //     secure: false,
-            // }),
         }
 
         const user = new CognitoUser(userData)

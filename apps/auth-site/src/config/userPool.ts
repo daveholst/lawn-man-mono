@@ -10,10 +10,6 @@ const poolData = {
                 ? 'localhost'
                 : 'lawnman.club',
     }),
-    // Storage: new CookieStorage({
-    //     domain: 'localhost',
-    //     secure: false,
-    // }),
 }
 
 export default new CognitoUserPool(poolData)
