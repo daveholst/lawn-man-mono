@@ -17,7 +17,7 @@ import {
     InputRightElement
 } from "@chakra-ui/react";
 import { FaUserAlt, FaLock } from "react-icons/fa";
-import { login } from '../utils/auth'
+import { signup } from '../utils/auth'
 
 const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
@@ -33,10 +33,10 @@ export default function Login() {
     const onSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            const data = await login(email, password);
-            console.log('Logged In: ', data);
+            const data = await signup(email, password);
+            console.log('Signed Up: ', data);
         } catch (error) {
-            console.error('Failed to Login: ', error);
+            console.error('Failed to SignUp: ', error);
         }
     };
 
@@ -81,9 +81,9 @@ export default function Login() {
                                 </Button>
                             </InputRightElement>
                         </InputGroup>
-                        <FormHelperText textAlign="right">
+                        {/* <FormHelperText textAlign="right">
                             <Link>forgot password?</Link>
-                        </FormHelperText>
+                        </FormHelperText> */}
                     </FormControl>
                     <Button
                         borderRadius={0}
@@ -92,7 +92,7 @@ export default function Login() {
                         colorScheme="teal"
                         width="full"
                     >
-                        Login
+                        Signup
                     </Button>
                 </Stack>
             </form>

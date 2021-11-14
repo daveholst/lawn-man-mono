@@ -16,7 +16,8 @@ import {
     InputRightElement
 } from "@chakra-ui/react";
 
-import Login from './Components/Login'
+import Login from './components/Login'
+import Signup from './components/Signup'
 
 import { FaUserAlt, FaLock } from "react-icons/fa";
 
@@ -24,6 +25,8 @@ const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
 
 const App = () => {
+    const [signup, setSignup] = useState(false)
+
 
     return (
         <Flex
@@ -42,12 +45,12 @@ const App = () => {
             >
                 <Avatar bg="teal.500" />
                 <Heading color="teal.400">Welcome</Heading>
-                <Login></Login>
+                {!signup ? <Login /> : <Signup />}
             </Stack>
             <Box>
-                New to us?{" "}
-                <Link color="teal.500" href="#">
-                    Sign Up
+                {!signup ? "New to us? " : "Go back to "}
+                <Link color="teal.500" href="#" onClick={() => setSignup(!signup)}>
+                    {!signup ? "Sign Up" : "Login"}
                 </Link>
             </Box>
         </Flex>
