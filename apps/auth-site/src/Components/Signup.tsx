@@ -27,13 +27,14 @@ export default function Login() {
     const [showPassword, setShowPassword] = useState(false);
     const handleShowClick = () => setShowPassword(!showPassword);
 
+    const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     const onSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            const data = await signup(email, password);
+            const data = await signup(email, password, username);
             console.log('Signed Up: ', data);
         } catch (error) {
             console.error('Failed to SignUp: ', error);
@@ -57,9 +58,22 @@ export default function Login() {
                                 children={<CFaUserAlt color="gray.300" />}
                             />
                             <Input
+                                type="text"
+                                placeholder="username"
+                                onChange={(e: React.FormEvent) => setUsername(e.target.value)}
+                            />
+                        </InputGroup>
+                    </FormControl>
+                    <FormControl>
+                        <InputGroup>
+                            <InputLeftElement
+                                pointerEvents="none"
+                                children={<CFaUserAlt color="gray.300" />}
+                            />
+                            <Input
                                 type="email"
                                 placeholder="email address"
-                                onChange={(e) => setEmail(e.target.value)}
+                                onChange={(e: React.FormEvent) => setEmail(e.target.value)}
                             />
                         </InputGroup>
                     </FormControl>
@@ -73,7 +87,7 @@ export default function Login() {
                             <Input
                                 type={showPassword ? "text" : "password"}
                                 placeholder="Password"
-                                onChange={(e) => setPassword(e.target.value)}
+                                onChange={(e: React.FormEvent) => setPassword(e.target.value)}
                             />
                             <InputRightElement width="4.5rem">
                                 <Button h="1.75rem" size="sm" onClick={handleShowClick}>

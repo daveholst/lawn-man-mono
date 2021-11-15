@@ -35,6 +35,8 @@ export default function Login() {
         try {
             const data = await login(email, password);
             console.log('Logged In: ', data);
+            // redirect to page
+            window.location.replace("http://stackoverflow.com");
         } catch (error) {
             console.error('Failed to Login: ', error);
         }

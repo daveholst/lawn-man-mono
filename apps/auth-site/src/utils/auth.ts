@@ -1,6 +1,7 @@
 import {
     AuthenticationDetails,
     CognitoUser,
+    CognitoUserAttribute,
     CookieStorage,
 } from 'amazon-cognito-identity-js'
 import userPool from '../config/userPool'
@@ -44,8 +45,13 @@ export const login = async (email: string, password: string) => {
     })
 }
 
-export const signup = async (email: string, password: string) => {
-    userPool.signUp(email, password, [], [], (err, data) => {
+export const signup = async (
+    email: string,
+    password: string,
+    username: string
+) => {
+    const name = new CognitoUserAttribute({ Name: 'name', Value: username })
+    userPool.signUp(email, password, [name], [], (err, data) => {
         if (err) {
             console.error(err)
         }
