@@ -2,6 +2,13 @@
     "version": 2,
     "projects": {
         "auth-site": "apps/auth-site",
-        "fertiliser-api": "apps/fertiliser-api"
+        "fertiliser-api": {
+            "root": "apps/fertiliser-api",
+            "sorceRoot": "apps/fertiliser-api/src"
+        },
+        "fertiliser-site": {
+            "root": "apps/fertiliser-site",
+            "sorceRoot": "apps/fertiliser-site/src"
+        }
     }
 }

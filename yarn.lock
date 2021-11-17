@@ -3604,6 +3604,14 @@
     "@typescript-eslint/types" "4.33.0"
     eslint-visitor-keys "^2.0.0"
 
+"@wanews/nx-pulumi@^0.18.6":
+  version "0.18.6"
+  resolved "https://registry.yarnpkg.com/@wanews/nx-pulumi/-/nx-pulumi-0.18.6.tgz#d4ffb617db70a2b74f52bd43fb426ef0e799cf9f"
+  integrity sha512-UjQOvCfM/+QMsdt/rKW2VyC3q92yQNjvFBbSCF4MUy4CnVK2WrSDVNeaxh23a6MF5qIStGEeq1ThI5Su1fyVkQ==
+  dependencies:
+    execa "^5.0.0"
+    js-yaml "^4.0.0"
+
 "@wanews/nx-vite@^0.5.1":
   version "0.5.1"
   resolved "https://registry.yarnpkg.com/@wanews/nx-vite/-/nx-vite-0.5.1.tgz#af8db0d8816f1518d9bdf9b9c00dbfd28446ac7f"
@@ -4011,6 +4019,11 @@ argparse@^1.0.7:
   integrity sha512-o5Roy6tNG4SL/FOkCAN6RzjiakZS25RLYFrcMttJqbdd8BWrnA+fGz57iN5Pb06pvBGvl5gQ0B48dJlslXvoTg==
   dependencies:
     sprintf-js "~1.0.2"
+
+argparse@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/argparse/-/argparse-2.0.1.tgz#246f50f3ca78a3240f6c997e8a9bd1eac49e4b38"
+  integrity sha512-8+9WqebbFzpX9OR+Wa6O29asIogeRMzcGtAINdpMHHyAg10f05aSFVBbcEqGf/PXw1EjAZ+q2/bEBg3DvurK3Q==
 
 args@^5.0.1:
   version "5.0.1"
@@ -8759,6 +8772,13 @@ js-yaml@^3.10.0, js-yaml@^3.13.1, js-yaml@^3.14.0, js-yaml@^3.9.0:
   dependencies:
     argparse "^1.0.7"
     esprima "^4.0.0"
+
+js-yaml@^4.0.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-4.1.0.tgz#c1fb65f8f5017901cdd2c951864ba18458a10602"
+  integrity sha512-wpxZs9NoxZaJESJGIZTyDEaYpl0FKSA+FB9aJiyemKhMwkxQg63h4T1KJgUGHpTqPDNRcmmYLugrRjJlBtWvRA==
+  dependencies:
+    argparse "^2.0.1"
 
 jsbn@~0.1.0:
   version "0.1.1"
