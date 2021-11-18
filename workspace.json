@@ -1,7 +1,79 @@
 {
     "version": 2,
     "projects": {
-        "auth-site": "apps/auth-site",
+        "auth-site": {
+            "root": "apps/auth-site",
+            "projectType": "application",
+            "sourceRoot": "apps/auth-site/src",
+            "targets": {
+                "build": {
+                    "executor": "@wanews/nx-vite:build",
+                    "options": {}
+                },
+                "serve": {
+                    "executor": "@wanews/nx-vite:serve",
+                    "options": {}
+                },
+                "lint": {
+                    "executor": "@nrwl/linter:eslint",
+                    "options": {
+                        "lintFilePatterns": ["apps/auth-site/**/*.ts"]
+                    }
+                },
+                "test": {
+                    "executor": "@nrwl/jest:jest",
+                    "options": {
+                        "jestConfig": "apps/auth-site/jest.config.js",
+                        "passWithNoTests": true
+                    },
+                    "outputs": ["coverage/apps/auth-site"]
+                },
+                "deploy": {
+                    "executor": "@nrwl/workspace:run-commands",
+                    "options": {
+                        "commands": ["nx run auth-site-infrastructure:up"]
+                    }
+                }
+            },
+            "tags": []
+        },
+        "auth-site-infrastructure": {
+            "root": "apps/auth-site-infrastructure",
+            "projectType": "application",
+            "sourceRoot": "apps/auth-site-infrastructure/src",
+            "targets": {
+                "lint": {
+                    "executor": "@nrwl/linter:eslint",
+                    "options": {
+                        "lintFilePatterns": [
+                            "apps/auth-site-infrastructure/**/*.ts"
+                        ]
+                    }
+                },
+                "test": {
+                    "executor": "@nrwl/jest:jest",
+                    "options": {
+                        "jestConfig": "apps/auth-site-infrastructure/jest.config.js",
+                        "passWithNoTests": true
+                    },
+                    "outputs": ["coverage/apps/auth-site-infrastructure"]
+                },
+                "up": {
+                    "executor": "@wanews/nx-pulumi:up",
+                    "options": {
+                        "buildTargets": [
+                            {
+                                "project": "auth-site",
+                                "target": "build"
+                            }
+                        ]
+                    }
+                }
+            },
+            "tags": [],
+            "implicitDependencies": ["fert-site"]
+        },
+
         "fert-site": {
             "root": "apps/fert-site",
             "projectType": "application",

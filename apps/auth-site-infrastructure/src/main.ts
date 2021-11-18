@@ -1,9 +1,15 @@
 import * as pulumi from '@pulumi/pulumi'
 import * as aws from '@pulumi/aws'
-import * as awsx from '@pulumi/awsx'
+import * as path from 'path'
 import * as mime from 'mime'
 
-import { getDomainAndSubdomain } from '../fertiliser-api/src/utils/get-domain'
+import {
+    crawlDirectory,
+    getDomainAndSubdomain,
+} from '@lawn-man-mono/pulumi-utils'
+
+// This is the path to the other project relative to the CWD
+const projectRoot = '../auth-site/dist'
 
 const domain = 'auth.lawnman.club'
 const domainParts = getDomainAndSubdomain(domain)
@@ -58,6 +64,28 @@ const siteBucket = new aws.s3.Bucket('auth-lawnman-bucket', {
     website: {
         indexDocument: 'index.html',
     },
+})
+
+// Sync the contents of the source directory with the S3 bucket, which will in-turn show up on the CDN.
+const webContentsRootPath = path.join(process.cwd(), projectRoot)
+
+console.log('Syncing contents from local disk at', webContentsRootPath)
+crawlDirectory(webContentsRootPath, (filePath: string) => {
+    const relativeFilePath = filePath.replace(webContentsRootPath + '/', '')
+    const contentFile = new aws.s3.BucketObject(
+        relativeFilePath,
+        {
+            key: relativeFilePath,
+
+            acl: 'public-read',
+            bucket: siteBucket,
+            contentType: mime.getType(filePath) || undefined,
+            source: new pulumi.asset.FileAsset(filePath),
+        },
+        {
+            parent: siteBucket,
+        }
+    )
 })
 
 // distributionArgs configures the CloudFront distribution. Relevant documentation:
