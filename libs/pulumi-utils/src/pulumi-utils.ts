@@ -1,6 +1,6 @@
-export function pulumiUtils(): string {
-    return 'pulumi-utils'
-}
+// export function pulumiUtils(): string {
+//     return 'pulumi-utils'
+// }
 
 export function getDomainAndSubdomain(domain: string): {
     subdomain: string

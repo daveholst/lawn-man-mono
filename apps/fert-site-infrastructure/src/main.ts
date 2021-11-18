@@ -1,11 +1,20 @@
 import * as pulumi from '@pulumi/pulumi'
 import * as aws from '@pulumi/aws'
 import * as path from 'path'
+import * as mime from 'mime'
 
-import { getDomainAndSubdomain } from '@lawn-man-mono/pulumi-utils'
+import {
+    crawlDirectory,
+    getDomainAndSubdomain,
+} from '@lawn-man-mono/pulumi-utils'
 
 // This is the path to the other project relative to the CWD
-const projectRoot = '../fert-site'
+const projectRoot = '../fert-site/dist'
+// maybe move over to the pulumi config> idk? https://github.com/pulumi/examples/blob/master/aws-ts-static-website/index.ts
+// const webContentsRootPath = path.join(
+//     process.cwd(),
+//     config.pathToWebsiteContents
+// )
 
 const projectName = 'fert-site'
 const domain = 'fert.lawnman.club'
@@ -58,9 +67,33 @@ const certificateValidation = new aws.acm.CertificateValidation(
 const siteBucket = new aws.s3.Bucket(`${projectName}-lawnman-bucket`, {
     bucket: domain,
     acl: 'public-read',
+    // source: new pulumi.asset.FileAsset(), // use FileAsset to point to a file
+
     website: {
         indexDocument: 'index.html',
     },
+})
+
+// Sync the contents of the source directory with the S3 bucket, which will in-turn show up on the CDN.
+const webContentsRootPath = path.join(process.cwd(), projectRoot)
+
+console.log('Syncing contents from local disk at', webContentsRootPath)
+crawlDirectory(webContentsRootPath, (filePath: string) => {
+    const relativeFilePath = filePath.replace(webContentsRootPath + '/', '')
+    const contentFile = new aws.s3.BucketObject(
+        relativeFilePath,
+        {
+            key: relativeFilePath,
+
+            acl: 'public-read',
+            bucket: siteBucket,
+            contentType: mime.getType(filePath) || undefined,
+            source: new pulumi.asset.FileAsset(filePath),
+        },
+        {
+            parent: siteBucket,
+        }
+    )
 })
 
 // distributionArgs configures the CloudFront distribution. Relevant documentation:

@@ -1,17 +1,11 @@
 {
     "extends": "./tsconfig.base.json",
     "compilerOptions": {
-        "strict": true,
-        "outDir": "bin",
-        "target": "esnext",
-        "module": "commonjs",
-        "moduleResolution": "node",
-        "sourceMap": true,
-        "experimentalDecorators": true,
-        "pretty": true,
-        "noFallthroughCasesInSwitch": true,
-        "noImplicitReturns": true,
-        "forceConsistentCasingInFileNames": true
+        "declaration": true,
+        "noEmit": false,
+        "composite": true,
+        "incremental": true,
+        "esModuleInterop": true
     },
     "exclude": ["node_modules", "tmp"]
 }

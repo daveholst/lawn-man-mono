@@ -2,5 +2,5 @@
     "name": "fert-site-infrastructure",
     "private": true,
     "version": "0.0.1",
-    "main": "src/index.ts"
+    "main": "src/init.ts"
 }

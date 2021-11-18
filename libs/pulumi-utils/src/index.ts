@@ -1,1 +1,3 @@
-export * from './lib/pulumi-utils'
+export * from './pulumi-utils'
+export * from './crawl-directory'
+export * from './sync-files-to-s3'
