@@ -2,13 +2,104 @@
     "version": 2,
     "projects": {
         "auth-site": "apps/auth-site",
+        "fert-site": {
+            "root": "apps/fert-site",
+            "projectType": "application",
+            "sourceRoot": "apps/fert-site/src",
+            "targets": {
+                "build": {
+                    "executor": "@wanews/nx-vite:build",
+                    "options": {}
+                },
+                "serve": {
+                    "executor": "@wanews/nx-vite:serve",
+                    "options": {}
+                },
+                "lint": {
+                    "executor": "@nrwl/linter:eslint",
+                    "options": {
+                        "lintFilePatterns": ["apps/fert-site/**/*.ts"]
+                    }
+                },
+                "test": {
+                    "executor": "@nrwl/jest:jest",
+                    "options": {
+                        "jestConfig": "apps/fert-site/jest.config.js",
+                        "passWithNoTests": true
+                    },
+                    "outputs": ["coverage/apps/fert-site"]
+                },
+                "deploy": {
+                    "executor": "@nrwl/workspace:run-commands",
+                    "options": {
+                        "commands": ["nx run fert-site-infrastructure:up"]
+                    }
+                }
+            },
+            "tags": []
+        },
+        "fert-site-infrastructure": {
+            "root": "apps/fert-site-infrastructure",
+            "projectType": "application",
+            "sourceRoot": "apps/fert-site-infrastructure/src",
+            "targets": {
+                "lint": {
+                    "executor": "@nrwl/linter:eslint",
+                    "options": {
+                        "lintFilePatterns": [
+                            "apps/fert-site-infrastructure/**/*.ts"
+                        ]
+                    }
+                },
+                "test": {
+                    "executor": "@nrwl/jest:jest",
+                    "options": {
+                        "jestConfig": "apps/fert-site-infrastructure/jest.config.js",
+                        "passWithNoTests": true
+                    },
+                    "outputs": ["coverage/apps/fert-site-infrastructure"]
+                },
+                "up": {
+                    "executor": "@wanews/nx-pulumi:up",
+                    "options": {
+                        "buildTargets": [
+                            {
+                                "project": "fert-site",
+                                "target": "build"
+                            }
+                        ]
+                    }
+                }
+            },
+            "tags": [],
+            "implicitDependencies": ["fert-site"]
+        },
         "fertiliser-api": {
             "root": "apps/fertiliser-api",
             "sorceRoot": "apps/fertiliser-api/src"
         },
-        "fertiliser-site": {
-            "root": "apps/fertiliser-site",
-            "sorceRoot": "apps/fertiliser-site/src"
+        "pulumi-utils": {
+            "root": "libs/pulumi-utils",
+            "sourceRoot": "libs/pulumi-utils/src",
+            "projectType": "library",
+            "targets": {
+                "lint": {
+                    "executor": "@nrwl/linter:eslint",
+                    "outputs": ["{options.outputFile}"],
+                    "options": {
+                        "lintFilePatterns": ["libs/pulumi-utils/**/*.ts"]
+                    }
+                },
+                "test": {
+                    "executor": "@nrwl/jest:jest",
+                    "outputs": ["coverage/libs/pulumi-utils"],
+                    "options": {
+                        "jestConfig": "libs/pulumi-utils/jest.config.js",
+                        "passWithNoTests": true
+                    }
+                }
+            },
+            "tags": []
         }
     }
 }
