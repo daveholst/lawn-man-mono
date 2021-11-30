@@ -21,50 +21,50 @@ import { FaUserAlt, FaLock } from "react-icons/fa";
 
 // imports for cognito??
 import Pool from '../config/userPool';
+import { CognitoUserSession, ICognitoUserSessionData } from "amazon-cognito-identity-js";
 
 
 
 const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
 
-const getSession = async () => {
+const getSession = async (): Promise<ICognitoUserSessionData> => {
     return await new Promise((resolve, reject) => {
         const user = Pool.getCurrentUser();
         if (user) {
-            user.getSession((err: Error, session: any) => {
+            user.getSession((err: Error, session: ICognitoUserSessionData) => {
                 if (err) {
                     reject(err);
                 } else {
                     resolve(session);
-                    // console.log('Session Obj :: ', session);
                 }
             });
         }
-        // reject();
+        reject(undefined);
     });
 };
 
-interface userInfo {
+interface UserData {
     validUser: boolean
-    userInfo?: any //TODO type this properly.
+    sessionData?: ICognitoUserSessionData | undefined
 }
 
 const App = () => {
-    const [user, setUser] = useState(
+    const [user, setUser] = useState<UserData>(
         {
             validUser: false,
-            userInfo: {}
+            sessionData: undefined
         }
     )
     useEffect(() => {
-        getSession().then((session: any) => {
+        getSession().then((session) => {
             // console.log('Session :: ', session);
             // setStatus(true);
             setUser({
                 validUser: true,
-                userInfo: session
+                sessionData: session
             })
-        }).catch;
+        }).catch((err) => console.error(err));
     }, []);
     console.log('Status now :: ', user);
 
