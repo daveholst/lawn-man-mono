@@ -5,16 +5,22 @@
     },
     "references": [
         {
-            "path": "./apps/fert-site-infrastructure"
-        },
-        {
-            "path": "./apps/fert-site"
+            "path": "./apps/auth-site"
         },
         {
             "path": "./apps/auth-site-infrastructure"
         },
         {
-            "path": "./apps/auth-site"
+            "path": "./apps/fert-site"
+        },
+        {
+            "path": "./apps/fert-site-infrastructure"
+        },
+        {
+            "path": "./apps/juicebox-store-api"
+        },
+        {
+            "path": "./apps/juicebox-store-api-infrastructure"
         },
         {
             "path": "./libs/pulumi-utils"

@@ -58,8 +58,6 @@ const App = () => {
     )
     useEffect(() => {
         getSession().then((session) => {
-            // console.log('Session :: ', session);
-            // setStatus(true);
             setUser({
                 validUser: true,
                 sessionData: session

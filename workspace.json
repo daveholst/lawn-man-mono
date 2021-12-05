@@ -73,7 +73,6 @@
             "tags": [],
             "implicitDependencies": ["fert-site"]
         },
-
         "fert-site": {
             "root": "apps/fert-site",
             "projectType": "application",
@@ -149,6 +148,101 @@
         "fertiliser-api": {
             "root": "apps/fertiliser-api",
             "sorceRoot": "apps/fertiliser-api/src"
+        },
+        "juicebox-store-api": {
+            "root": "apps/juicebox-store-api",
+            "sourceRoot": "apps/juicebox-store-api/src",
+            "projectType": "application",
+            "targets": {
+                "build": {
+                    "executor": "@wanews/nx-esbuild:build",
+                    "options": {
+                        "external": ["aws-sdk"],
+                        "entryPoints": ["apps/juicebox-store-api/src/index.ts"],
+                        "outdir": "apps/juicebox-store-api/dist",
+                        "platform": "node",
+                        "target": "node14"
+                    }
+                },
+                "serve": {
+                    "executor": "@nrwl/node:execute",
+                    "options": {
+                        "buildTarget": "juicebox-store-api:build"
+                    }
+                },
+                "lint": {
+                    "executor": "@nrwl/linter:eslint",
+                    "outputs": ["{options.outputFile}"],
+                    "options": {
+                        "lintFilePatterns": ["apps/juicebox-store-api/**/*.ts"]
+                    }
+                },
+                "test": {
+                    "executor": "@nrwl/jest:jest",
+                    "outputs": ["coverage/apps/juicebox-store-api"],
+                    "options": {
+                        "jestConfig": "apps/juicebox-store-api/jest.config.js",
+                        "passWithNoTests": true
+                    }
+                },
+                "deploy": {
+                    "executor": "@nrwl/workspace:run-commands",
+                    "options": {
+                        "commands": [
+                            "nx run juicebox-store-api-infrastructure:up"
+                        ]
+                    }
+                },
+                "package": {
+                    "executor": "@wanews/nx-esbuild:package",
+                    "options": {
+                        "external": ["aws-sdk"],
+                        "entryPoints": ["apps/juicebox-store-api/src/index.ts"],
+                        "outdir": "apps/juicebox-store-api/dist",
+                        "platform": "node",
+                        "target": "node14"
+                    }
+                }
+            },
+            "tags": []
+        },
+        "juicebox-store-api-infrastructure": {
+            "root": "apps/juicebox-store-api-infrastructure",
+            "projectType": "application",
+            "sourceRoot": "apps/juicebox-store-api-infrastructure/src",
+            "targets": {
+                "lint": {
+                    "executor": "@nrwl/linter:eslint",
+                    "options": {
+                        "lintFilePatterns": [
+                            "apps/juicebox-store-api-infrastructure/**/*.ts"
+                        ]
+                    }
+                },
+                "test": {
+                    "executor": "@nrwl/jest:jest",
+                    "options": {
+                        "jestConfig": "apps/juicebox-store-api-infrastructure/jest.config.js",
+                        "passWithNoTests": true
+                    },
+                    "outputs": [
+                        "coverage/apps/juicebox-store-api-infrastructure"
+                    ]
+                },
+                "up": {
+                    "executor": "@wanews/nx-pulumi:up",
+                    "options": {
+                        "buildTargets": [
+                            {
+                                "project": "juicebox-store-api",
+                                "target": "package"
+                            }
+                        ]
+                    }
+                }
+            },
+            "tags": [],
+            "implicitDependencies": ["juicebox-store-api"]
         },
         "pulumi-utils": {
             "root": "libs/pulumi-utils",
