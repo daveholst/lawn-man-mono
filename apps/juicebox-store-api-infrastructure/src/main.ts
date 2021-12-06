@@ -2,12 +2,10 @@ import * as pulumi from '@pulumi/pulumi'
 import * as aws from '@pulumi/aws'
 import * as path from 'path'
 
-// This is the path to the other project relative to the CWD
-
 import { getDomainAndSubdomain } from '@lawn-man-mono/pulumi-utils'
-
 import { ApiGatewayLambdaProxy } from '@wanews/pulumi-apigateway-lambda-proxy'
 
+// This is the path to the other project relative to the CWD
 const projectRoot = '../juicebox-store-api'
 
 const name = 'juicebox-store-api'
