@@ -3,6 +3,9 @@ import {
     CognitoUser,
     CognitoUserAttribute,
     CookieStorage,
+    ICognitoUserSessionData,
+    CognitoIdToken,
+    CognitoUserSession,
 } from 'amazon-cognito-identity-js'
 import userPool from '../config/userPool'
 
@@ -58,3 +61,21 @@ export const signup = async (
         console.log(data)
     })
 }
+
+export const getCurrentUser = async (): Promise<any> => {
+    return await new Promise((resolve, reject) => {
+        const user = userPool.getCurrentUser()
+        user?.getSession(
+            async (err: Error, session: ICognitoUserSessionData | null) => {
+                if (err || !session) {
+                    reject(err || session)
+                } else {
+                    console.log('in getCurrentUer :: ', session.IdToken)
+                    resolve(session)
+                }
+            }
+        )
+    })
+}
+
+// TODO write a logout function?

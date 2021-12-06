@@ -5,17 +5,20 @@ import { ChakraProvider } from "@chakra-ui/react";
 import App from "./App";
 import { AddJuicebox } from "./routes/add-juicebox";
 import { Auth } from "./routes/auth";
+import { AuthProvider } from "./hooks/useAuth"
 
 // const rootElement = document.getElementById("root");
 ReactDOM.render(
     <StrictMode>
         <ChakraProvider>
             <BrowserRouter>
-                <Routes>
-                    <Route path='/' element={<App />} />
-                    <Route path='/add-juicebox' element={<AddJuicebox />} />
-                    <Route path='/auth' element={<Auth />} />
-                </Routes>
+                <AuthProvider>
+                    <Routes>
+                        <Route path='/' element={<App />} />
+                        <Route path='/add-juicebox' element={<AddJuicebox />} />
+                        <Route path='/auth' element={<Auth />} />
+                    </Routes>
+                </AuthProvider>
             </BrowserRouter>
         </ChakraProvider>
     </StrictMode>,

@@ -1,4 +1,5 @@
 import awsLambdaFastify from 'aws-lambda-fastify'
+import { Handler } from 'aws-lambda'
 
 import { app } from './app'
 
@@ -12,7 +13,4 @@ const proxy = awsLambdaFastify(app)
 // or
 // exports.handler = (event, context) => proxy(event, context)
 // or
-exports.handler = async (
-    event: any,
-    context: any //TODO type this.
-) => proxy(event, context)
+export const handler: Handler = async (event, context) => proxy(event, context)
