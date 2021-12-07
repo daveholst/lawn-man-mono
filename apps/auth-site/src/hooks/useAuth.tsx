@@ -8,15 +8,15 @@ import React, {
 } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
-import { signup, login, getCurrentUser } from '../utils/auth'
+import { signup, login, logout, getCurrentUser } from '../utils/auth'
 
 interface AuthContextType {
     user?: any, //TODO: type this out!
     loading: boolean,
     error?: any,
-    login: (email: string, password: string) => void
-    signup: (email: string, password: string, username: string) => void
-    //TODO add a logout here -> https://dev.to/finiam/predictable-react-authentication-with-the-context-api-g10
+    performLogin: (email: string, password: string) => void
+    performSignup: (email: string, password: string, username: string) => void
+    performLogout: () => void
 }
 
 const AuthContext = createContext<AuthContextType>(
@@ -46,6 +46,7 @@ export function AuthProvider({
             .then((user) => setUser(user.idToken.payload))
             .catch((_error) => console.error(_error)) // TODO seems jank kek? maybe actually set the error? idfk
             .finally(() => setLoadingInitial(false));
+        console.log(user)
     }, []);
 
     // perform login and set state
@@ -75,16 +76,22 @@ export function AuthProvider({
     }
 
     // TODO add a performLogout ere
-
+    function performLogout() {
+        setLoading(true)
+        logout()
+            .then(() => { navigate('/') })
+            .catch((error) => setError(error))
+            .finally(() => setLoading(false));
+    }
     //use useMemo to stop unneeded re-renders
     const memoedValue = useMemo(
         () => ({
             user,
             loading,
             error,
-            login,
-            signup,
-            //   logout,
+            performLogin,
+            performSignup,
+            performLogout,
         }),
         [user, loading, error]
     );
@@ -92,7 +99,8 @@ export function AuthProvider({
     // we only want re-render the app affter we have a currentUser
     return (
         <AuthContext.Provider value={memoedValue}>
-            {!loadingInitial && children}
+            {/* {!loadingInitial && children} */}
+            {children}
         </AuthContext.Provider>
     );
 }

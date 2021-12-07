@@ -62,6 +62,7 @@ export const signup = async (
     })
 }
 
+// not sure if below actually needs to expliciitly return a promise??
 export const getCurrentUser = async (): Promise<any> => {
     return await new Promise((resolve, reject) => {
         const user = userPool.getCurrentUser()
@@ -70,12 +71,21 @@ export const getCurrentUser = async (): Promise<any> => {
                 if (err || !session) {
                     reject(err || session)
                 } else {
-                    console.log('in getCurrentUer :: ', session.IdToken)
                     resolve(session)
                 }
             }
         )
     })
+}
+
+// something feels off here??
+export const logout = async () => {
+    try {
+        const user = userPool.getCurrentUser()
+        user?.signOut()
+    } catch (error) {
+        console.error(error)
+    }
 }
 
 // TODO write a logout function?
