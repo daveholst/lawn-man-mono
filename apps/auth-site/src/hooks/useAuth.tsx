@@ -40,13 +40,16 @@ export function AuthProvider({
         if (error) setError(null);
     }, [location.pathname]);
 
-    // Finally, just signal the component that the initial load is over.
+    // Check for a user only once on initial load
     useEffect(() => {
         getCurrentUser()
-            .then((user) => setUser(user.idToken.payload))
-            .catch((_error) => console.error(_error)) // TODO seems jank kek? maybe actually set the error? idfk
+            .then((user) => {
+                console.log('inneruser', user)
+                setUser(user)
+            })
+            .catch((err) => setError(err))
             .finally(() => setLoadingInitial(false));
-        console.log(user)
+
     }, []);
 
     // perform login and set state
@@ -75,11 +78,14 @@ export function AuthProvider({
             .finally(() => setLoading(false));
     }
 
-    // TODO add a performLogout ere
+    // log user out and clear cookies
     function performLogout() {
         setLoading(true)
         logout()
-            .then(() => { navigate('/') })
+            .then(() => {
+                setUser(undefined)
+                navigate('/')
+            })
             .catch((error) => setError(error))
             .finally(() => setLoading(false));
     }
@@ -99,8 +105,7 @@ export function AuthProvider({
     // we only want re-render the app affter we have a currentUser
     return (
         <AuthContext.Provider value={memoedValue}>
-            {/* {!loadingInitial && children} */}
-            {children}
+            {!loadingInitial && children}
         </AuthContext.Provider>
     );
 }
