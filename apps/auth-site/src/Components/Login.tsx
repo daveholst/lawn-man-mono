@@ -17,7 +17,9 @@ import {
     InputRightElement
 } from "@chakra-ui/react";
 import { FaUserAlt, FaLock } from "react-icons/fa";
-import { login } from '../utils/auth'
+// import { login } from '../utils/auth'
+import useAuth from "../hooks/useAuth";
+
 
 const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
@@ -30,18 +32,22 @@ export function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    const { performLogin, user } = useAuth()
+
+
     const onSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            const data = await login(email, password);
+            const data = await performLogin(email, password);
             console.log('Logged In: ', data);
             // redirect to page
-            window.location.replace("http://stackoverflow.com");
+            // window.location.replace("http://stackoverflow.com");
         } catch (error) {
             console.error('Failed to Login: ', error);
         }
     };
 
+    console.log('inside Login::', user)
 
     return (
         <Box minW={{ base: "90%", md: "468px" }}>
