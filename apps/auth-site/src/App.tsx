@@ -15,6 +15,7 @@ const App = () => {
         return <Navigate to="/login" />
     }
 
+    console.log(user)
 
 
     return (
@@ -24,7 +25,7 @@ const App = () => {
                 element={
                     <RequireAuth>
                         <h1>Base App</h1>
-                        <p>Hellooo {user?.email} </p>
+                        <p>Hellooo {user?.idToken.payload.email} </p>
                         <button onClick={performLogout}>Log Out!!!!!!!!</button>
                     </RequireAuth>
                 }

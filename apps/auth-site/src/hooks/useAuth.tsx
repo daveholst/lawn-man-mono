@@ -41,11 +41,12 @@ export function AuthProvider({
     }, [location.pathname]);
 
     // Check for a user only once on initial load
+    // not working when we have a cookie??
     useEffect(() => {
         getCurrentUser()
             .then((user) => {
-                console.log('inneruser', user)
                 setUser(user)
+                console.log('inneruser', user)
             })
             .catch((err) => setError(err))
             .finally(() => setLoadingInitial(false));
