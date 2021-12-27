@@ -189,3 +189,4 @@ function getTags(name: string) {
 }
 
 exports.url = apiProxy.invokeUrl
+exports.dbArn = juiceboxTable.arn

@@ -1,6 +1,31 @@
 {
     "version": 2,
     "projects": {
+        "auth-components": {
+            "root": "libs/auth-components",
+            "sourceRoot": "libs/auth-components/src",
+            "projectType": "library",
+            "tags": [],
+            "targets": {
+                "lint": {
+                    "executor": "@nrwl/linter:eslint",
+                    "outputs": ["{options.outputFile}"],
+                    "options": {
+                        "lintFilePatterns": [
+                            "libs/auth-components/**/*.{ts,tsx,js,jsx}"
+                        ]
+                    }
+                },
+                "test": {
+                    "executor": "@nrwl/jest:jest",
+                    "outputs": ["coverage/libs/auth-components"],
+                    "options": {
+                        "jestConfig": "libs/auth-components/jest.config.js",
+                        "passWithNoTests": true
+                    }
+                }
+            }
+        },
         "auth-site": {
             "root": "apps/auth-site",
             "projectType": "application",

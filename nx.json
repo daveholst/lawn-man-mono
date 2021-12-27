@@ -30,5 +30,12 @@
             }
         ]
     },
-    "defaultProject": "auth-site"
+    "defaultProject": "auth-site",
+    "generators": {
+        "@nrwl/react": {
+            "application": {
+                "babel": true
+            }
+        }
+    }
 }

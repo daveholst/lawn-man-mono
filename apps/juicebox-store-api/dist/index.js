@@ -25,6 +25,11 @@ var __markAsModule = (target) => __defProp(target, "__esModule", { value: true }
 var __commonJS = (cb, mod) => function __require() {
   return mod || (0, cb[Object.keys(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
 };
+var __export = (target, all) => {
+  __markAsModule(target);
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
 var __reExport = (target, module2, desc) => {
   if (module2 && typeof module2 === "object" || typeof module2 === "function") {
     for (let key of __getOwnPropNames(module2))
@@ -39,7 +44,7 @@ var __toModule = (module2) => {
 
 // node_modules/aws-lambda-fastify/index.js
 var require_aws_lambda_fastify = __commonJS({
-  "node_modules/aws-lambda-fastify/index.js"(exports2, module2) {
+  "node_modules/aws-lambda-fastify/index.js"(exports, module2) {
     module2.exports = (app2, options) => (event, context, callback) => {
       options = options || {};
       options.binaryMimeTypes = options.binaryMimeTypes || [];
@@ -127,7 +132,7 @@ var require_aws_lambda_fastify = __commonJS({
 
 // node_modules/reusify/reusify.js
 var require_reusify = __commonJS({
-  "node_modules/reusify/reusify.js"(exports2, module2) {
+  "node_modules/reusify/reusify.js"(exports, module2) {
     "use strict";
     function reusify(Constructor) {
       var head = new Constructor();
@@ -158,7 +163,7 @@ var require_reusify = __commonJS({
 
 // node_modules/fastq/queue.js
 var require_queue = __commonJS({
-  "node_modules/fastq/queue.js"(exports2, module2) {
+  "node_modules/fastq/queue.js"(exports, module2) {
     "use strict";
     var reusify = require_reusify();
     function fastqueue(context, worker, concurrency) {
@@ -305,8 +310,8 @@ var require_queue = __commonJS({
         self.drain();
         self.drain = noop;
       }
-      function error(handler) {
-        errorHandler = handler;
+      function error(handler2) {
+        errorHandler = handler2;
       }
     }
     function noop() {
@@ -394,7 +399,7 @@ var require_queue = __commonJS({
 
 // node_modules/archy/index.js
 var require_archy = __commonJS({
-  "node_modules/archy/index.js"(exports2, module2) {
+  "node_modules/archy/index.js"(exports, module2) {
     module2.exports = function archy(obj, prefix, opts) {
       if (prefix === void 0)
         prefix = "";
@@ -427,7 +432,7 @@ var require_archy = __commonJS({
 
 // node_modules/avvio/time-tree.js
 var require_time_tree = __commonJS({
-  "node_modules/avvio/time-tree.js"(exports2, module2) {
+  "node_modules/avvio/time-tree.js"(exports, module2) {
     "use strict";
     var archy = require_archy();
     function TimeTree() {
@@ -524,7 +529,7 @@ var require_time_tree = __commonJS({
 
 // node_modules/queue-microtask/index.js
 var require_queue_microtask = __commonJS({
-  "node_modules/queue-microtask/index.js"(exports2, module2) {
+  "node_modules/queue-microtask/index.js"(exports, module2) {
     var promise;
     module2.exports = typeof queueMicrotask === "function" ? queueMicrotask.bind(typeof window !== "undefined" ? window : global) : (cb) => (promise || (promise = Promise.resolve())).then(cb).catch((err) => setTimeout(() => {
       throw err;
@@ -532,9 +537,9 @@ var require_queue_microtask = __commonJS({
   }
 });
 
-// node_modules/ms/index.js
+// node_modules/debug/node_modules/ms/index.js
 var require_ms = __commonJS({
-  "node_modules/ms/index.js"(exports2, module2) {
+  "node_modules/debug/node_modules/ms/index.js"(exports, module2) {
     var s = 1e3;
     var m = s * 60;
     var h = m * 60;
@@ -646,7 +651,7 @@ var require_ms = __commonJS({
 
 // node_modules/debug/src/common.js
 var require_common = __commonJS({
-  "node_modules/debug/src/common.js"(exports2, module2) {
+  "node_modules/debug/src/common.js"(exports, module2) {
     function setup(env) {
       createDebug.debug = createDebug;
       createDebug.default = createDebug;
@@ -809,13 +814,13 @@ var require_common = __commonJS({
 
 // node_modules/debug/src/browser.js
 var require_browser = __commonJS({
-  "node_modules/debug/src/browser.js"(exports2, module2) {
-    exports2.formatArgs = formatArgs;
-    exports2.save = save;
-    exports2.load = load;
-    exports2.useColors = useColors;
-    exports2.storage = localstorage();
-    exports2.destroy = (() => {
+  "node_modules/debug/src/browser.js"(exports, module2) {
+    exports.formatArgs = formatArgs;
+    exports.save = save;
+    exports.load = load;
+    exports.useColors = useColors;
+    exports.storage = localstorage();
+    exports.destroy = (() => {
       let warned = false;
       return () => {
         if (!warned) {
@@ -824,7 +829,7 @@ var require_browser = __commonJS({
         }
       };
     })();
-    exports2.colors = [
+    exports.colors = [
       "#0000CC",
       "#0000FF",
       "#0033CC",
@@ -931,14 +936,14 @@ var require_browser = __commonJS({
       });
       args.splice(lastC, 0, c);
     }
-    exports2.log = console.debug || console.log || (() => {
+    exports.log = console.debug || console.log || (() => {
     });
     function save(namespaces) {
       try {
         if (namespaces) {
-          exports2.storage.setItem("debug", namespaces);
+          exports.storage.setItem("debug", namespaces);
         } else {
-          exports2.storage.removeItem("debug");
+          exports.storage.removeItem("debug");
         }
       } catch (error) {
       }
@@ -946,7 +951,7 @@ var require_browser = __commonJS({
     function load() {
       let r;
       try {
-        r = exports2.storage.getItem("debug");
+        r = exports.storage.getItem("debug");
       } catch (error) {
       }
       if (!r && typeof process !== "undefined" && "env" in process) {
@@ -960,7 +965,7 @@ var require_browser = __commonJS({
       } catch (error) {
       }
     }
-    module2.exports = require_common()(exports2);
+    module2.exports = require_common()(exports);
     var { formatters } = module2.exports;
     formatters.j = function(v) {
       try {
@@ -974,7 +979,7 @@ var require_browser = __commonJS({
 
 // node_modules/has-flag/index.js
 var require_has_flag = __commonJS({
-  "node_modules/has-flag/index.js"(exports2, module2) {
+  "node_modules/has-flag/index.js"(exports, module2) {
     "use strict";
     module2.exports = (flag, argv = process.argv) => {
       const prefix = flag.startsWith("-") ? "" : flag.length === 1 ? "-" : "--";
@@ -987,7 +992,7 @@ var require_has_flag = __commonJS({
 
 // node_modules/supports-color/index.js
 var require_supports_color = __commonJS({
-  "node_modules/supports-color/index.js"(exports2, module2) {
+  "node_modules/supports-color/index.js"(exports, module2) {
     "use strict";
     var os = require("os");
     var tty = require("tty");
@@ -1089,22 +1094,22 @@ var require_supports_color = __commonJS({
 
 // node_modules/debug/src/node.js
 var require_node = __commonJS({
-  "node_modules/debug/src/node.js"(exports2, module2) {
+  "node_modules/debug/src/node.js"(exports, module2) {
     var tty = require("tty");
     var util = require("util");
-    exports2.init = init;
-    exports2.log = log;
-    exports2.formatArgs = formatArgs;
-    exports2.save = save;
-    exports2.load = load;
-    exports2.useColors = useColors;
-    exports2.destroy = util.deprecate(() => {
+    exports.init = init2;
+    exports.log = log;
+    exports.formatArgs = formatArgs;
+    exports.save = save;
+    exports.load = load;
+    exports.useColors = useColors;
+    exports.destroy = util.deprecate(() => {
     }, "Instance method `debug.destroy()` is deprecated and no longer does anything. It will be removed in the next major version of `debug`.");
-    exports2.colors = [6, 2, 3, 4, 5, 1];
+    exports.colors = [6, 2, 3, 4, 5, 1];
     try {
       const supportsColor = require_supports_color();
       if (supportsColor && (supportsColor.stderr || supportsColor).level >= 2) {
-        exports2.colors = [
+        exports.colors = [
           20,
           21,
           26,
@@ -1185,7 +1190,7 @@ var require_node = __commonJS({
       }
     } catch (error) {
     }
-    exports2.inspectOpts = Object.keys(process.env).filter((key) => {
+    exports.inspectOpts = Object.keys(process.env).filter((key) => {
       return /^debug_/i.test(key);
     }).reduce((obj, key) => {
       const prop = key.substring(6).toLowerCase().replace(/_([a-z])/g, (_, k) => {
@@ -1205,7 +1210,7 @@ var require_node = __commonJS({
       return obj;
     }, {});
     function useColors() {
-      return "colors" in exports2.inspectOpts ? Boolean(exports2.inspectOpts.colors) : tty.isatty(process.stderr.fd);
+      return "colors" in exports.inspectOpts ? Boolean(exports.inspectOpts.colors) : tty.isatty(process.stderr.fd);
     }
     function formatArgs(args) {
       const { namespace: name, useColors: useColors2 } = this;
@@ -1220,7 +1225,7 @@ var require_node = __commonJS({
       }
     }
     function getDate() {
-      if (exports2.inspectOpts.hideDate) {
+      if (exports.inspectOpts.hideDate) {
         return "";
       }
       return new Date().toISOString() + " ";
@@ -1238,14 +1243,14 @@ var require_node = __commonJS({
     function load() {
       return process.env.DEBUG;
     }
-    function init(debug) {
+    function init2(debug) {
       debug.inspectOpts = {};
-      const keys = Object.keys(exports2.inspectOpts);
+      const keys = Object.keys(exports.inspectOpts);
       for (let i = 0; i < keys.length; i++) {
-        debug.inspectOpts[keys[i]] = exports2.inspectOpts[keys[i]];
+        debug.inspectOpts[keys[i]] = exports.inspectOpts[keys[i]];
       }
     }
-    module2.exports = require_common()(exports2);
+    module2.exports = require_common()(exports);
     var { formatters } = module2.exports;
     formatters.o = function(v) {
       this.inspectOpts.colors = this.useColors;
@@ -1260,7 +1265,7 @@ var require_node = __commonJS({
 
 // node_modules/debug/src/index.js
 var require_src = __commonJS({
-  "node_modules/debug/src/index.js"(exports2, module2) {
+  "node_modules/debug/src/index.js"(exports, module2) {
     if (typeof process === "undefined" || process.type === "renderer" || process.browser === true || process.__nwjs) {
       module2.exports = require_browser();
     } else {
@@ -1271,7 +1276,7 @@ var require_src = __commonJS({
 
 // node_modules/avvio/plugin.js
 var require_plugin = __commonJS({
-  "node_modules/avvio/plugin.js"(exports2, module2) {
+  "node_modules/avvio/plugin.js"(exports, module2) {
     "use strict";
     var queueMicrotask2 = require_queue_microtask();
     var fastq = require_queue();
@@ -1487,7 +1492,7 @@ var require_plugin = __commonJS({
 
 // node_modules/avvio/boot.js
 var require_boot = __commonJS({
-  "node_modules/avvio/boot.js"(exports2, module2) {
+  "node_modules/avvio/boot.js"(exports, module2) {
     "use strict";
     var fastq = require_queue();
     var EE = require("events").EventEmitter;
@@ -1942,7 +1947,7 @@ var require_boot = __commonJS({
 
 // node_modules/fastify/lib/symbols.js
 var require_symbols = __commonJS({
-  "node_modules/fastify/lib/symbols.js"(exports2, module2) {
+  "node_modules/fastify/lib/symbols.js"(exports, module2) {
     "use strict";
     var keys = {
       kAvvioBoot: Symbol("fastify.avvioBoot"),
@@ -1994,7 +1999,7 @@ var require_symbols = __commonJS({
 
 // node_modules/fastify-error/index.js
 var require_fastify_error = __commonJS({
-  "node_modules/fastify-error/index.js"(exports2, module2) {
+  "node_modules/fastify-error/index.js"(exports, module2) {
     "use strict";
     var { inherits, format } = require("util");
     function createError(code, message, statusCode = 500, Base = Error) {
@@ -2034,7 +2039,7 @@ var require_fastify_error = __commonJS({
 
 // node_modules/fastify/lib/errors.js
 var require_errors = __commonJS({
-  "node_modules/fastify/lib/errors.js"(exports2, module2) {
+  "node_modules/fastify/lib/errors.js"(exports, module2) {
     "use strict";
     var createError = require_fastify_error();
     var codes = {
@@ -2082,7 +2087,7 @@ var require_errors = __commonJS({
 
 // node_modules/fastify/lib/server.js
 var require_server = __commonJS({
-  "node_modules/fastify/lib/server.js"(exports2, module2) {
+  "node_modules/fastify/lib/server.js"(exports, module2) {
     "use strict";
     var assert = require("assert");
     var http = require("http");
@@ -2232,7 +2237,7 @@ var require_server = __commonJS({
 
 // node_modules/flatstr/index.js
 var require_flatstr = __commonJS({
-  "node_modules/flatstr/index.js"(exports2, module2) {
+  "node_modules/flatstr/index.js"(exports, module2) {
     "use strict";
     function flatstr(s) {
       s | 0;
@@ -2244,10 +2249,10 @@ var require_flatstr = __commonJS({
 
 // node_modules/uri-js/dist/es5/uri.all.js
 var require_uri_all = __commonJS({
-  "node_modules/uri-js/dist/es5/uri.all.js"(exports2, module2) {
+  "node_modules/uri-js/dist/es5/uri.all.js"(exports, module2) {
     (function(global2, factory) {
-      typeof exports2 === "object" && typeof module2 !== "undefined" ? factory(exports2) : typeof define === "function" && define.amd ? define(["exports"], factory) : factory(global2.URI = global2.URI || {});
-    })(exports2, function(exports3) {
+      typeof exports === "object" && typeof module2 !== "undefined" ? factory(exports) : typeof define === "function" && define.amd ? define(["exports"], factory) : factory(global2.URI = global2.URI || {});
+    })(exports, function(exports2) {
       "use strict";
       function merge() {
         for (var _len = arguments.length, sets = Array(_len), _key = 0; _key < _len; _key++) {
@@ -3003,7 +3008,7 @@ var require_uri_all = __commonJS({
       function unescapeComponent(str, options) {
         return str && str.toString().replace(!options || !options.iri ? URI_PROTOCOL.PCT_ENCODED : IRI_PROTOCOL.PCT_ENCODED, pctDecChars);
       }
-      var handler = {
+      var handler2 = {
         scheme: "http",
         domainHost: true,
         parse: function parse2(components, options) {
@@ -3025,9 +3030,9 @@ var require_uri_all = __commonJS({
       };
       var handler$1 = {
         scheme: "https",
-        domainHost: handler.domainHost,
-        parse: handler.parse,
-        serialize: handler.serialize
+        domainHost: handler2.domainHost,
+        parse: handler2.parse,
+        serialize: handler2.serialize
       };
       function isSecure(wsComponents) {
         return typeof wsComponents.secure === "boolean" ? wsComponents.secure : String(wsComponents.scheme).toLowerCase() === "wss";
@@ -3208,14 +3213,14 @@ var require_uri_all = __commonJS({
           return uriComponents;
         }
       };
-      var UUID = /^[0-9A-Fa-f]{8}(?:\-[0-9A-Fa-f]{4}){3}\-[0-9A-Fa-f]{12}$/;
+      var UUID2 = /^[0-9A-Fa-f]{8}(?:\-[0-9A-Fa-f]{4}){3}\-[0-9A-Fa-f]{12}$/;
       var handler$6 = {
         scheme: "urn:uuid",
         parse: function parse2(urnComponents, options) {
           var uuidComponents = urnComponents;
           uuidComponents.uuid = uuidComponents.nss;
           uuidComponents.nss = void 0;
-          if (!options.tolerant && (!uuidComponents.uuid || !uuidComponents.uuid.match(UUID))) {
+          if (!options.tolerant && (!uuidComponents.uuid || !uuidComponents.uuid.match(UUID2))) {
             uuidComponents.error = uuidComponents.error || "UUID is not valid.";
           }
           return uuidComponents;
@@ -3226,33 +3231,33 @@ var require_uri_all = __commonJS({
           return urnComponents;
         }
       };
-      SCHEMES[handler.scheme] = handler;
+      SCHEMES[handler2.scheme] = handler2;
       SCHEMES[handler$1.scheme] = handler$1;
       SCHEMES[handler$2.scheme] = handler$2;
       SCHEMES[handler$3.scheme] = handler$3;
       SCHEMES[handler$4.scheme] = handler$4;
       SCHEMES[handler$5.scheme] = handler$5;
       SCHEMES[handler$6.scheme] = handler$6;
-      exports3.SCHEMES = SCHEMES;
-      exports3.pctEncChar = pctEncChar;
-      exports3.pctDecChars = pctDecChars;
-      exports3.parse = parse;
-      exports3.removeDotSegments = removeDotSegments;
-      exports3.serialize = serialize;
-      exports3.resolveComponents = resolveComponents;
-      exports3.resolve = resolve;
-      exports3.normalize = normalize;
-      exports3.equal = equal;
-      exports3.escapeComponent = escapeComponent;
-      exports3.unescapeComponent = unescapeComponent;
-      Object.defineProperty(exports3, "__esModule", { value: true });
+      exports2.SCHEMES = SCHEMES;
+      exports2.pctEncChar = pctEncChar;
+      exports2.pctDecChars = pctDecChars;
+      exports2.parse = parse;
+      exports2.removeDotSegments = removeDotSegments;
+      exports2.serialize = serialize;
+      exports2.resolveComponents = resolveComponents;
+      exports2.resolve = resolve;
+      exports2.normalize = normalize;
+      exports2.equal = equal;
+      exports2.escapeComponent = escapeComponent;
+      exports2.unescapeComponent = unescapeComponent;
+      Object.defineProperty(exports2, "__esModule", { value: true });
     });
   }
 });
 
 // node_modules/fast-deep-equal/index.js
 var require_fast_deep_equal = __commonJS({
-  "node_modules/fast-deep-equal/index.js"(exports2, module2) {
+  "node_modules/fast-deep-equal/index.js"(exports, module2) {
     "use strict";
     module2.exports = function equal(a, b) {
       if (a === b)
@@ -3297,7 +3302,7 @@ var require_fast_deep_equal = __commonJS({
 
 // node_modules/ajv/lib/compile/ucs2length.js
 var require_ucs2length = __commonJS({
-  "node_modules/ajv/lib/compile/ucs2length.js"(exports2, module2) {
+  "node_modules/ajv/lib/compile/ucs2length.js"(exports, module2) {
     "use strict";
     module2.exports = function ucs2length(str) {
       var length = 0, len = str.length, pos = 0, value;
@@ -3317,7 +3322,7 @@ var require_ucs2length = __commonJS({
 
 // node_modules/ajv/lib/compile/util.js
 var require_util = __commonJS({
-  "node_modules/ajv/lib/compile/util.js"(exports2, module2) {
+  "node_modules/ajv/lib/compile/util.js"(exports, module2) {
     "use strict";
     module2.exports = {
       copy,
@@ -3523,7 +3528,7 @@ var require_util = __commonJS({
 
 // node_modules/ajv/lib/compile/schema_obj.js
 var require_schema_obj = __commonJS({
-  "node_modules/ajv/lib/compile/schema_obj.js"(exports2, module2) {
+  "node_modules/ajv/lib/compile/schema_obj.js"(exports, module2) {
     "use strict";
     var util = require_util();
     module2.exports = SchemaObject;
@@ -3535,7 +3540,7 @@ var require_schema_obj = __commonJS({
 
 // node_modules/json-schema-traverse/index.js
 var require_json_schema_traverse = __commonJS({
-  "node_modules/json-schema-traverse/index.js"(exports2, module2) {
+  "node_modules/json-schema-traverse/index.js"(exports, module2) {
     "use strict";
     var traverse = module2.exports = function(schema, opts, cb) {
       if (typeof opts == "function") {
@@ -3619,7 +3624,7 @@ var require_json_schema_traverse = __commonJS({
 
 // node_modules/ajv/lib/compile/resolve.js
 var require_resolve = __commonJS({
-  "node_modules/ajv/lib/compile/resolve.js"(exports2, module2) {
+  "node_modules/ajv/lib/compile/resolve.js"(exports, module2) {
     "use strict";
     var URI = require_uri_all();
     var equal = require_fast_deep_equal();
@@ -3863,7 +3868,7 @@ var require_resolve = __commonJS({
 
 // node_modules/ajv/lib/compile/error_classes.js
 var require_error_classes = __commonJS({
-  "node_modules/ajv/lib/compile/error_classes.js"(exports2, module2) {
+  "node_modules/ajv/lib/compile/error_classes.js"(exports, module2) {
     "use strict";
     var resolve = require_resolve();
     module2.exports = {
@@ -3893,7 +3898,7 @@ var require_error_classes = __commonJS({
 
 // node_modules/fast-json-stable-stringify/index.js
 var require_fast_json_stable_stringify = __commonJS({
-  "node_modules/fast-json-stable-stringify/index.js"(exports2, module2) {
+  "node_modules/fast-json-stable-stringify/index.js"(exports, module2) {
     "use strict";
     module2.exports = function(data, opts) {
       if (!opts)
@@ -3959,7 +3964,7 @@ var require_fast_json_stable_stringify = __commonJS({
 
 // node_modules/ajv/lib/dotjs/validate.js
 var require_validate = __commonJS({
-  "node_modules/ajv/lib/dotjs/validate.js"(exports2, module2) {
+  "node_modules/ajv/lib/dotjs/validate.js"(exports, module2) {
     "use strict";
     module2.exports = function generate_validate(it, $keyword, $ruleType) {
       var out = "";
@@ -4430,7 +4435,7 @@ var require_validate = __commonJS({
 
 // node_modules/ajv/lib/compile/index.js
 var require_compile = __commonJS({
-  "node_modules/ajv/lib/compile/index.js"(exports2, module2) {
+  "node_modules/ajv/lib/compile/index.js"(exports, module2) {
     "use strict";
     var resolve = require_resolve();
     var util = require_util();
@@ -4699,7 +4704,7 @@ var require_compile = __commonJS({
 
 // node_modules/ajv/lib/cache.js
 var require_cache = __commonJS({
-  "node_modules/ajv/lib/cache.js"(exports2, module2) {
+  "node_modules/ajv/lib/cache.js"(exports, module2) {
     "use strict";
     var Cache = module2.exports = function Cache2() {
       this._cache = {};
@@ -4721,7 +4726,7 @@ var require_cache = __commonJS({
 
 // node_modules/ajv/lib/compile/formats.js
 var require_formats = __commonJS({
-  "node_modules/ajv/lib/compile/formats.js"(exports2, module2) {
+  "node_modules/ajv/lib/compile/formats.js"(exports, module2) {
     "use strict";
     var util = require_util();
     var DATE = /^(\d\d\d\d)-(\d\d)-(\d\d)$/;
@@ -4732,7 +4737,7 @@ var require_formats = __commonJS({
     var URIREF = /^(?:[a-z][a-z0-9+\-.]*:)?(?:\/?\/(?:(?:[a-z0-9\-._~!$&'()*+,;=:]|%[0-9a-f]{2})*@)?(?:\[(?:(?:(?:(?:[0-9a-f]{1,4}:){6}|::(?:[0-9a-f]{1,4}:){5}|(?:[0-9a-f]{1,4})?::(?:[0-9a-f]{1,4}:){4}|(?:(?:[0-9a-f]{1,4}:){0,1}[0-9a-f]{1,4})?::(?:[0-9a-f]{1,4}:){3}|(?:(?:[0-9a-f]{1,4}:){0,2}[0-9a-f]{1,4})?::(?:[0-9a-f]{1,4}:){2}|(?:(?:[0-9a-f]{1,4}:){0,3}[0-9a-f]{1,4})?::[0-9a-f]{1,4}:|(?:(?:[0-9a-f]{1,4}:){0,4}[0-9a-f]{1,4})?::)(?:[0-9a-f]{1,4}:[0-9a-f]{1,4}|(?:(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d\d?))|(?:(?:[0-9a-f]{1,4}:){0,5}[0-9a-f]{1,4})?::[0-9a-f]{1,4}|(?:(?:[0-9a-f]{1,4}:){0,6}[0-9a-f]{1,4})?::)|[Vv][0-9a-f]+\.[a-z0-9\-._~!$&'()*+,;=:]+)\]|(?:(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d\d?)|(?:[a-z0-9\-._~!$&'"()*+,;=]|%[0-9a-f]{2})*)(?::\d*)?(?:\/(?:[a-z0-9\-._~!$&'"()*+,;=:@]|%[0-9a-f]{2})*)*|\/(?:(?:[a-z0-9\-._~!$&'"()*+,;=:@]|%[0-9a-f]{2})+(?:\/(?:[a-z0-9\-._~!$&'"()*+,;=:@]|%[0-9a-f]{2})*)*)?|(?:[a-z0-9\-._~!$&'"()*+,;=:@]|%[0-9a-f]{2})+(?:\/(?:[a-z0-9\-._~!$&'"()*+,;=:@]|%[0-9a-f]{2})*)*)?(?:\?(?:[a-z0-9\-._~!$&'"()*+,;=:@/?]|%[0-9a-f]{2})*)?(?:#(?:[a-z0-9\-._~!$&'"()*+,;=:@/?]|%[0-9a-f]{2})*)?$/i;
     var URITEMPLATE = /^(?:(?:[^\x00-\x20"'<>%\\^`{|}]|%[0-9a-f]{2})|\{[+#./;?&=,!@|]?(?:[a-z0-9_]|%[0-9a-f]{2})+(?::[1-9][0-9]{0,3}|\*)?(?:,(?:[a-z0-9_]|%[0-9a-f]{2})+(?::[1-9][0-9]{0,3}|\*)?)*\})*$/i;
     var URL = /^(?:(?:http[s\u017F]?|ftp):\/\/)(?:(?:[\0-\x08\x0E-\x1F!-\x9F\xA1-\u167F\u1681-\u1FFF\u200B-\u2027\u202A-\u202E\u2030-\u205E\u2060-\u2FFF\u3001-\uD7FF\uE000-\uFEFE\uFF00-\uFFFF]|[\uD800-\uDBFF][\uDC00-\uDFFF]|[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?:[^\uD800-\uDBFF]|^)[\uDC00-\uDFFF])+(?::(?:[\0-\x08\x0E-\x1F!-\x9F\xA1-\u167F\u1681-\u1FFF\u200B-\u2027\u202A-\u202E\u2030-\u205E\u2060-\u2FFF\u3001-\uD7FF\uE000-\uFEFE\uFF00-\uFFFF]|[\uD800-\uDBFF][\uDC00-\uDFFF]|[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?:[^\uD800-\uDBFF]|^)[\uDC00-\uDFFF])*)?@)?(?:(?!10(?:\.[0-9]{1,3}){3})(?!127(?:\.[0-9]{1,3}){3})(?!169\.254(?:\.[0-9]{1,3}){2})(?!192\.168(?:\.[0-9]{1,3}){2})(?!172\.(?:1[6-9]|2[0-9]|3[01])(?:\.[0-9]{1,3}){2})(?:[1-9][0-9]?|1[0-9][0-9]|2[01][0-9]|22[0-3])(?:\.(?:1?[0-9]{1,2}|2[0-4][0-9]|25[0-5])){2}(?:\.(?:[1-9][0-9]?|1[0-9][0-9]|2[0-4][0-9]|25[0-4]))|(?:(?:(?:[0-9a-z\xA1-\uD7FF\uE000-\uFFFF]|[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?:[^\uD800-\uDBFF]|^)[\uDC00-\uDFFF])+-)*(?:[0-9a-z\xA1-\uD7FF\uE000-\uFFFF]|[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?:[^\uD800-\uDBFF]|^)[\uDC00-\uDFFF])+)(?:\.(?:(?:[0-9a-z\xA1-\uD7FF\uE000-\uFFFF]|[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?:[^\uD800-\uDBFF]|^)[\uDC00-\uDFFF])+-)*(?:[0-9a-z\xA1-\uD7FF\uE000-\uFFFF]|[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?:[^\uD800-\uDBFF]|^)[\uDC00-\uDFFF])+)*(?:\.(?:(?:[a-z\xA1-\uD7FF\uE000-\uFFFF]|[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?:[^\uD800-\uDBFF]|^)[\uDC00-\uDFFF]){2,})))(?::[0-9]{2,5})?(?:\/(?:[\0-\x08\x0E-\x1F!-\x9F\xA1-\u167F\u1681-\u1FFF\u200B-\u2027\u202A-\u202E\u2030-\u205E\u2060-\u2FFF\u3001-\uD7FF\uE000-\uFEFE\uFF00-\uFFFF]|[\uD800-\uDBFF][\uDC00-\uDFFF]|[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?:[^\uD800-\uDBFF]|^)[\uDC00-\uDFFF])*)?$/i;
-    var UUID = /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i;
+    var UUID2 = /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i;
     var JSON_POINTER = /^(?:\/(?:[^~/]|~0|~1)*)*$/;
     var JSON_POINTER_URI_FRAGMENT = /^#(?:\/(?:[a-z0-9_\-.!$&'()*+,;:=@]|%[0-9a-f]{2}|~0|~1)*)*$/i;
     var RELATIVE_JSON_POINTER = /^(?:0|[1-9][0-9]*)(?:#|(?:\/(?:[^~/]|~0|~1)*)*)$/;
@@ -4754,7 +4759,7 @@ var require_formats = __commonJS({
       ipv4: /^(?:(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d\d?)$/,
       ipv6: /^\s*(?:(?:(?:[0-9a-f]{1,4}:){7}(?:[0-9a-f]{1,4}|:))|(?:(?:[0-9a-f]{1,4}:){6}(?::[0-9a-f]{1,4}|(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(?:(?:[0-9a-f]{1,4}:){5}(?:(?:(?::[0-9a-f]{1,4}){1,2})|:(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(?:(?:[0-9a-f]{1,4}:){4}(?:(?:(?::[0-9a-f]{1,4}){1,3})|(?:(?::[0-9a-f]{1,4})?:(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(?:(?:[0-9a-f]{1,4}:){3}(?:(?:(?::[0-9a-f]{1,4}){1,4})|(?:(?::[0-9a-f]{1,4}){0,2}:(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(?:(?:[0-9a-f]{1,4}:){2}(?:(?:(?::[0-9a-f]{1,4}){1,5})|(?:(?::[0-9a-f]{1,4}){0,3}:(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(?:(?:[0-9a-f]{1,4}:){1}(?:(?:(?::[0-9a-f]{1,4}){1,6})|(?:(?::[0-9a-f]{1,4}){0,4}:(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(?::(?:(?:(?::[0-9a-f]{1,4}){1,7})|(?:(?::[0-9a-f]{1,4}){0,5}:(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(?:%.+)?\s*$/i,
       regex,
-      uuid: UUID,
+      uuid: UUID2,
       "json-pointer": JSON_POINTER,
       "json-pointer-uri-fragment": JSON_POINTER_URI_FRAGMENT,
       "relative-json-pointer": RELATIVE_JSON_POINTER
@@ -4772,7 +4777,7 @@ var require_formats = __commonJS({
       ipv4: /^(?:(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d\d?)$/,
       ipv6: /^\s*(?:(?:(?:[0-9a-f]{1,4}:){7}(?:[0-9a-f]{1,4}|:))|(?:(?:[0-9a-f]{1,4}:){6}(?::[0-9a-f]{1,4}|(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(?:(?:[0-9a-f]{1,4}:){5}(?:(?:(?::[0-9a-f]{1,4}){1,2})|:(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(?:(?:[0-9a-f]{1,4}:){4}(?:(?:(?::[0-9a-f]{1,4}){1,3})|(?:(?::[0-9a-f]{1,4})?:(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(?:(?:[0-9a-f]{1,4}:){3}(?:(?:(?::[0-9a-f]{1,4}){1,4})|(?:(?::[0-9a-f]{1,4}){0,2}:(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(?:(?:[0-9a-f]{1,4}:){2}(?:(?:(?::[0-9a-f]{1,4}){1,5})|(?:(?::[0-9a-f]{1,4}){0,3}:(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(?:(?:[0-9a-f]{1,4}:){1}(?:(?:(?::[0-9a-f]{1,4}){1,6})|(?:(?::[0-9a-f]{1,4}){0,4}:(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(?::(?:(?:(?::[0-9a-f]{1,4}){1,7})|(?:(?::[0-9a-f]{1,4}){0,5}:(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(?:%.+)?\s*$/i,
       regex,
-      uuid: UUID,
+      uuid: UUID2,
       "json-pointer": JSON_POINTER,
       "json-pointer-uri-fragment": JSON_POINTER_URI_FRAGMENT,
       "relative-json-pointer": RELATIVE_JSON_POINTER
@@ -4824,7 +4829,7 @@ var require_formats = __commonJS({
 
 // node_modules/ajv/lib/dotjs/ref.js
 var require_ref = __commonJS({
-  "node_modules/ajv/lib/dotjs/ref.js"(exports2, module2) {
+  "node_modules/ajv/lib/dotjs/ref.js"(exports, module2) {
     "use strict";
     module2.exports = function generate_ref(it, $keyword, $ruleType) {
       var out = " ";
@@ -4953,7 +4958,7 @@ var require_ref = __commonJS({
 
 // node_modules/ajv/lib/dotjs/allOf.js
 var require_allOf = __commonJS({
-  "node_modules/ajv/lib/dotjs/allOf.js"(exports2, module2) {
+  "node_modules/ajv/lib/dotjs/allOf.js"(exports, module2) {
     "use strict";
     module2.exports = function generate_allOf(it, $keyword, $ruleType) {
       var out = " ";
@@ -4999,7 +5004,7 @@ var require_allOf = __commonJS({
 
 // node_modules/ajv/lib/dotjs/anyOf.js
 var require_anyOf = __commonJS({
-  "node_modules/ajv/lib/dotjs/anyOf.js"(exports2, module2) {
+  "node_modules/ajv/lib/dotjs/anyOf.js"(exports, module2) {
     "use strict";
     module2.exports = function generate_anyOf(it, $keyword, $ruleType) {
       var out = " ";
@@ -5076,7 +5081,7 @@ var require_anyOf = __commonJS({
 
 // node_modules/ajv/lib/dotjs/comment.js
 var require_comment = __commonJS({
-  "node_modules/ajv/lib/dotjs/comment.js"(exports2, module2) {
+  "node_modules/ajv/lib/dotjs/comment.js"(exports, module2) {
     "use strict";
     module2.exports = function generate_comment(it, $keyword, $ruleType) {
       var out = " ";
@@ -5096,7 +5101,7 @@ var require_comment = __commonJS({
 
 // node_modules/ajv/lib/dotjs/const.js
 var require_const = __commonJS({
-  "node_modules/ajv/lib/dotjs/const.js"(exports2, module2) {
+  "node_modules/ajv/lib/dotjs/const.js"(exports, module2) {
     "use strict";
     module2.exports = function generate_const(it, $keyword, $ruleType) {
       var out = " ";
@@ -5156,7 +5161,7 @@ var require_const = __commonJS({
 
 // node_modules/ajv/lib/dotjs/contains.js
 var require_contains = __commonJS({
-  "node_modules/ajv/lib/dotjs/contains.js"(exports2, module2) {
+  "node_modules/ajv/lib/dotjs/contains.js"(exports, module2) {
     "use strict";
     module2.exports = function generate_contains(it, $keyword, $ruleType) {
       var out = " ";
@@ -5238,7 +5243,7 @@ var require_contains = __commonJS({
 
 // node_modules/ajv/lib/dotjs/dependencies.js
 var require_dependencies = __commonJS({
-  "node_modules/ajv/lib/dotjs/dependencies.js"(exports2, module2) {
+  "node_modules/ajv/lib/dotjs/dependencies.js"(exports, module2) {
     "use strict";
     module2.exports = function generate_dependencies(it, $keyword, $ruleType) {
       var out = " ";
@@ -5404,7 +5409,7 @@ var require_dependencies = __commonJS({
 
 // node_modules/ajv/lib/dotjs/enum.js
 var require_enum = __commonJS({
-  "node_modules/ajv/lib/dotjs/enum.js"(exports2, module2) {
+  "node_modules/ajv/lib/dotjs/enum.js"(exports, module2) {
     "use strict";
     module2.exports = function generate_enum(it, $keyword, $ruleType) {
       var out = " ";
@@ -5473,7 +5478,7 @@ var require_enum = __commonJS({
 
 // node_modules/ajv/lib/dotjs/format.js
 var require_format = __commonJS({
-  "node_modules/ajv/lib/dotjs/format.js"(exports2, module2) {
+  "node_modules/ajv/lib/dotjs/format.js"(exports, module2) {
     "use strict";
     module2.exports = function generate_format(it, $keyword, $ruleType) {
       var out = " ";
@@ -5626,7 +5631,7 @@ var require_format = __commonJS({
 
 // node_modules/ajv/lib/dotjs/if.js
 var require_if = __commonJS({
-  "node_modules/ajv/lib/dotjs/if.js"(exports2, module2) {
+  "node_modules/ajv/lib/dotjs/if.js"(exports, module2) {
     "use strict";
     module2.exports = function generate_if(it, $keyword, $ruleType) {
       var out = " ";
@@ -5730,7 +5735,7 @@ var require_if = __commonJS({
 
 // node_modules/ajv/lib/dotjs/items.js
 var require_items = __commonJS({
-  "node_modules/ajv/lib/dotjs/items.js"(exports2, module2) {
+  "node_modules/ajv/lib/dotjs/items.js"(exports, module2) {
     "use strict";
     module2.exports = function generate_items(it, $keyword, $ruleType) {
       var out = " ";
@@ -5871,7 +5876,7 @@ var require_items = __commonJS({
 
 // node_modules/ajv/lib/dotjs/_limit.js
 var require_limit = __commonJS({
-  "node_modules/ajv/lib/dotjs/_limit.js"(exports2, module2) {
+  "node_modules/ajv/lib/dotjs/_limit.js"(exports, module2) {
     "use strict";
     module2.exports = function generate__limit(it, $keyword, $ruleType) {
       var out = " ";
@@ -6026,7 +6031,7 @@ var require_limit = __commonJS({
 
 // node_modules/ajv/lib/dotjs/_limitItems.js
 var require_limitItems = __commonJS({
-  "node_modules/ajv/lib/dotjs/_limitItems.js"(exports2, module2) {
+  "node_modules/ajv/lib/dotjs/_limitItems.js"(exports, module2) {
     "use strict";
     module2.exports = function generate__limitItems(it, $keyword, $ruleType) {
       var out = " ";
@@ -6110,7 +6115,7 @@ var require_limitItems = __commonJS({
 
 // node_modules/ajv/lib/dotjs/_limitLength.js
 var require_limitLength = __commonJS({
-  "node_modules/ajv/lib/dotjs/_limitLength.js"(exports2, module2) {
+  "node_modules/ajv/lib/dotjs/_limitLength.js"(exports, module2) {
     "use strict";
     module2.exports = function generate__limitLength(it, $keyword, $ruleType) {
       var out = " ";
@@ -6199,7 +6204,7 @@ var require_limitLength = __commonJS({
 
 // node_modules/ajv/lib/dotjs/_limitProperties.js
 var require_limitProperties = __commonJS({
-  "node_modules/ajv/lib/dotjs/_limitProperties.js"(exports2, module2) {
+  "node_modules/ajv/lib/dotjs/_limitProperties.js"(exports, module2) {
     "use strict";
     module2.exports = function generate__limitProperties(it, $keyword, $ruleType) {
       var out = " ";
@@ -6283,7 +6288,7 @@ var require_limitProperties = __commonJS({
 
 // node_modules/ajv/lib/dotjs/multipleOf.js
 var require_multipleOf = __commonJS({
-  "node_modules/ajv/lib/dotjs/multipleOf.js"(exports2, module2) {
+  "node_modules/ajv/lib/dotjs/multipleOf.js"(exports, module2) {
     "use strict";
     module2.exports = function generate_multipleOf(it, $keyword, $ruleType) {
       var out = " ";
@@ -6367,7 +6372,7 @@ var require_multipleOf = __commonJS({
 
 // node_modules/ajv/lib/dotjs/not.js
 var require_not = __commonJS({
-  "node_modules/ajv/lib/dotjs/not.js"(exports2, module2) {
+  "node_modules/ajv/lib/dotjs/not.js"(exports, module2) {
     "use strict";
     module2.exports = function generate_not(it, $keyword, $ruleType) {
       var out = " ";
@@ -6457,7 +6462,7 @@ var require_not = __commonJS({
 
 // node_modules/ajv/lib/dotjs/oneOf.js
 var require_oneOf = __commonJS({
-  "node_modules/ajv/lib/dotjs/oneOf.js"(exports2, module2) {
+  "node_modules/ajv/lib/dotjs/oneOf.js"(exports, module2) {
     "use strict";
     module2.exports = function generate_oneOf(it, $keyword, $ruleType) {
       var out = " ";
@@ -6532,7 +6537,7 @@ var require_oneOf = __commonJS({
 
 // node_modules/ajv/lib/dotjs/pattern.js
 var require_pattern = __commonJS({
-  "node_modules/ajv/lib/dotjs/pattern.js"(exports2, module2) {
+  "node_modules/ajv/lib/dotjs/pattern.js"(exports, module2) {
     "use strict";
     module2.exports = function generate_pattern(it, $keyword, $ruleType) {
       var out = " ";
@@ -6611,7 +6616,7 @@ var require_pattern = __commonJS({
 
 // node_modules/ajv/lib/dotjs/properties.js
 var require_properties = __commonJS({
-  "node_modules/ajv/lib/dotjs/properties.js"(exports2, module2) {
+  "node_modules/ajv/lib/dotjs/properties.js"(exports, module2) {
     "use strict";
     module2.exports = function generate_properties(it, $keyword, $ruleType) {
       var out = " ";
@@ -6927,7 +6932,7 @@ var require_properties = __commonJS({
 
 // node_modules/ajv/lib/dotjs/propertyNames.js
 var require_propertyNames = __commonJS({
-  "node_modules/ajv/lib/dotjs/propertyNames.js"(exports2, module2) {
+  "node_modules/ajv/lib/dotjs/propertyNames.js"(exports, module2) {
     "use strict";
     module2.exports = function generate_propertyNames(it, $keyword, $ruleType) {
       var out = " ";
@@ -7005,7 +7010,7 @@ var require_propertyNames = __commonJS({
 
 // node_modules/ajv/lib/dotjs/required.js
 var require_required = __commonJS({
-  "node_modules/ajv/lib/dotjs/required.js"(exports2, module2) {
+  "node_modules/ajv/lib/dotjs/required.js"(exports, module2) {
     "use strict";
     module2.exports = function generate_required(it, $keyword, $ruleType) {
       var out = " ";
@@ -7265,7 +7270,7 @@ var require_required = __commonJS({
 
 // node_modules/ajv/lib/dotjs/uniqueItems.js
 var require_uniqueItems = __commonJS({
-  "node_modules/ajv/lib/dotjs/uniqueItems.js"(exports2, module2) {
+  "node_modules/ajv/lib/dotjs/uniqueItems.js"(exports, module2) {
     "use strict";
     module2.exports = function generate_uniqueItems(it, $keyword, $ruleType) {
       var out = " ";
@@ -7354,7 +7359,7 @@ var require_uniqueItems = __commonJS({
 
 // node_modules/ajv/lib/dotjs/index.js
 var require_dotjs = __commonJS({
-  "node_modules/ajv/lib/dotjs/index.js"(exports2, module2) {
+  "node_modules/ajv/lib/dotjs/index.js"(exports, module2) {
     "use strict";
     module2.exports = {
       "$ref": require_ref(),
@@ -7391,7 +7396,7 @@ var require_dotjs = __commonJS({
 
 // node_modules/ajv/lib/compile/rules.js
 var require_rules = __commonJS({
-  "node_modules/ajv/lib/compile/rules.js"(exports2, module2) {
+  "node_modules/ajv/lib/compile/rules.js"(exports, module2) {
     "use strict";
     var ruleModules = require_dotjs();
     var toHash = require_util().toHash;
@@ -7486,7 +7491,7 @@ var require_rules = __commonJS({
 
 // node_modules/ajv/lib/data.js
 var require_data = __commonJS({
-  "node_modules/ajv/lib/data.js"(exports2, module2) {
+  "node_modules/ajv/lib/data.js"(exports, module2) {
     "use strict";
     var KEYWORDS = [
       "multipleOf",
@@ -7537,7 +7542,7 @@ var require_data = __commonJS({
 
 // node_modules/ajv/lib/compile/async.js
 var require_async = __commonJS({
-  "node_modules/ajv/lib/compile/async.js"(exports2, module2) {
+  "node_modules/ajv/lib/compile/async.js"(exports, module2) {
     "use strict";
     var MissingRefError = require_error_classes().MissingRef;
     module2.exports = compileAsync;
@@ -7604,7 +7609,7 @@ var require_async = __commonJS({
 
 // node_modules/ajv/lib/dotjs/custom.js
 var require_custom = __commonJS({
-  "node_modules/ajv/lib/dotjs/custom.js"(exports2, module2) {
+  "node_modules/ajv/lib/dotjs/custom.js"(exports, module2) {
     "use strict";
     module2.exports = function generate_custom(it, $keyword, $ruleType) {
       var out = " ";
@@ -7830,7 +7835,7 @@ var require_custom = __commonJS({
 
 // node_modules/ajv/lib/refs/json-schema-draft-07.json
 var require_json_schema_draft_07 = __commonJS({
-  "node_modules/ajv/lib/refs/json-schema-draft-07.json"(exports2, module2) {
+  "node_modules/ajv/lib/refs/json-schema-draft-07.json"(exports, module2) {
     module2.exports = {
       $schema: "http://json-schema.org/draft-07/schema#",
       $id: "http://json-schema.org/draft-07/schema#",
@@ -8004,7 +8009,7 @@ var require_json_schema_draft_07 = __commonJS({
 
 // node_modules/ajv/lib/definition_schema.js
 var require_definition_schema = __commonJS({
-  "node_modules/ajv/lib/definition_schema.js"(exports2, module2) {
+  "node_modules/ajv/lib/definition_schema.js"(exports, module2) {
     "use strict";
     var metaSchema = require_json_schema_draft_07();
     module2.exports = {
@@ -8045,7 +8050,7 @@ var require_definition_schema = __commonJS({
 
 // node_modules/ajv/lib/keyword.js
 var require_keyword = __commonJS({
-  "node_modules/ajv/lib/keyword.js"(exports2, module2) {
+  "node_modules/ajv/lib/keyword.js"(exports, module2) {
     "use strict";
     var IDENTIFIER = /^[a-z_$][a-z0-9_$-]*$/i;
     var customRuleCode = require_custom();
@@ -8146,7 +8151,7 @@ var require_keyword = __commonJS({
 
 // node_modules/ajv/lib/refs/data.json
 var require_data2 = __commonJS({
-  "node_modules/ajv/lib/refs/data.json"(exports2, module2) {
+  "node_modules/ajv/lib/refs/data.json"(exports, module2) {
     module2.exports = {
       $schema: "http://json-schema.org/draft-07/schema#",
       $id: "https://raw.githubusercontent.com/ajv-validator/ajv/master/lib/refs/data.json#",
@@ -8169,7 +8174,7 @@ var require_data2 = __commonJS({
 
 // node_modules/ajv/lib/ajv.js
 var require_ajv = __commonJS({
-  "node_modules/ajv/lib/ajv.js"(exports2, module2) {
+  "node_modules/ajv/lib/ajv.js"(exports, module2) {
     "use strict";
     var compileSchema = require_compile();
     var resolve = require_resolve();
@@ -8551,7 +8556,7 @@ var require_ajv = __commonJS({
 
 // node_modules/deepmerge/dist/cjs.js
 var require_cjs = __commonJS({
-  "node_modules/deepmerge/dist/cjs.js"(exports2, module2) {
+  "node_modules/deepmerge/dist/cjs.js"(exports, module2) {
     "use strict";
     var isMergeableObject = function isMergeableObject2(value) {
       return isNonNullObject(value) && !isSpecial(value);
@@ -8654,7 +8659,7 @@ var require_cjs = __commonJS({
 
 // node_modules/rfdc/index.js
 var require_rfdc = __commonJS({
-  "node_modules/rfdc/index.js"(exports2, module2) {
+  "node_modules/rfdc/index.js"(exports, module2) {
     "use strict";
     module2.exports = rfdc;
     function copyBuffer(cur) {
@@ -8862,7 +8867,7 @@ var require_rfdc = __commonJS({
 
 // node_modules/ajv/lib/compile/equal.js
 var require_equal = __commonJS({
-  "node_modules/ajv/lib/compile/equal.js"(exports2, module2) {
+  "node_modules/ajv/lib/compile/equal.js"(exports, module2) {
     "use strict";
     module2.exports = require_fast_deep_equal();
   }
@@ -8870,7 +8875,7 @@ var require_equal = __commonJS({
 
 // node_modules/fast-json-stringify/schema-validator.js
 var require_schema_validator = __commonJS({
-  "node_modules/fast-json-stringify/schema-validator.js"(exports2, module2) {
+  "node_modules/fast-json-stringify/schema-validator.js"(exports, module2) {
     function nop() {
       return true;
     }
@@ -10704,7 +10709,7 @@ var require_schema_validator = __commonJS({
 
 // node_modules/long/src/long.js
 var require_long = __commonJS({
-  "node_modules/long/src/long.js"(exports2, module2) {
+  "node_modules/long/src/long.js"(exports, module2) {
     module2.exports = Long;
     var wasm = null;
     try {
@@ -11529,7 +11534,7 @@ var require_long = __commonJS({
 
 // node_modules/string-similarity/src/index.js
 var require_src2 = __commonJS({
-  "node_modules/string-similarity/src/index.js"(exports2, module2) {
+  "node_modules/string-similarity/src/index.js"(exports, module2) {
     module2.exports = {
       compareTwoStrings,
       findBestMatch
@@ -11593,7 +11598,7 @@ var require_src2 = __commonJS({
 
 // node_modules/fast-json-stringify/index.js
 var require_fast_json_stringify = __commonJS({
-  "node_modules/fast-json-stringify/index.js"(exports2, module2) {
+  "node_modules/fast-json-stringify/index.js"(exports, module2) {
     "use strict";
     var Ajv = require_ajv();
     var merge = require_cjs();
@@ -12808,7 +12813,7 @@ function $asStringSmall (str) {
 
 // node_modules/fastify/lib/hooks.js
 var require_hooks = __commonJS({
-  "node_modules/fastify/lib/hooks.js"(exports2, module2) {
+  "node_modules/fastify/lib/hooks.js"(exports, module2) {
     "use strict";
     var applicationHooks = [
       "onRoute",
@@ -13028,7 +13033,7 @@ var require_hooks = __commonJS({
 
 // node_modules/fastify/lib/validation.js
 var require_validation = __commonJS({
-  "node_modules/fastify/lib/validation.js"(exports2, module2) {
+  "node_modules/fastify/lib/validation.js"(exports, module2) {
     "use strict";
     var {
       kSchemaHeaders: headersSchema,
@@ -13136,7 +13141,7 @@ var require_validation = __commonJS({
 
 // node_modules/fastify/lib/wrapThenable.js
 var require_wrapThenable = __commonJS({
-  "node_modules/fastify/lib/wrapThenable.js"(exports2, module2) {
+  "node_modules/fastify/lib/wrapThenable.js"(exports, module2) {
     "use strict";
     var {
       kReplyIsError,
@@ -13176,7 +13181,7 @@ var require_wrapThenable = __commonJS({
 
 // node_modules/fastify/lib/handleRequest.js
 var require_handleRequest = __commonJS({
-  "node_modules/fastify/lib/handleRequest.js"(exports2, module2) {
+  "node_modules/fastify/lib/handleRequest.js"(exports, module2) {
     "use strict";
     var { validate: validateSchema } = require_validation();
     var { hookRunner, hookIterator } = require_hooks();
@@ -13192,33 +13197,33 @@ var require_handleRequest = __commonJS({
       const method = request.raw.method;
       const headers = request.headers;
       if (method === "GET" || method === "HEAD") {
-        handler(request, reply);
+        handler2(request, reply);
         return;
       }
       const contentType = headers["content-type"];
       if (method === "POST" || method === "PUT" || method === "PATCH") {
         if (contentType === void 0) {
           if (headers["transfer-encoding"] === void 0 && (headers["content-length"] === "0" || headers["content-length"] === void 0)) {
-            handler(request, reply);
+            handler2(request, reply);
           } else {
-            reply.context.contentTypeParser.run("", handler, request, reply);
+            reply.context.contentTypeParser.run("", handler2, request, reply);
           }
         } else {
-          reply.context.contentTypeParser.run(contentType, handler, request, reply);
+          reply.context.contentTypeParser.run(contentType, handler2, request, reply);
         }
         return;
       }
       if (method === "OPTIONS" || method === "DELETE") {
         if (contentType !== void 0 && (headers["transfer-encoding"] !== void 0 || headers["content-length"] !== void 0)) {
-          reply.context.contentTypeParser.run(contentType, handler, request, reply);
+          reply.context.contentTypeParser.run(contentType, handler2, request, reply);
         } else {
-          handler(request, reply);
+          handler2(request, reply);
         }
         return;
       }
       reply.code(404).send(new Error("Not Found"));
     }
-    function handler(request, reply) {
+    function handler2(request, reply) {
       try {
         if (reply.context.preValidation !== null) {
           hookRunner(reply.context.preValidation, hookIterator, request, reply, preValidationCallback);
@@ -13276,13 +13281,13 @@ var require_handleRequest = __commonJS({
       }
     }
     module2.exports = handleRequest;
-    module2.exports[Symbol.for("internals")] = { handler, preHandlerCallback };
+    module2.exports[Symbol.for("internals")] = { handler: handler2, preHandlerCallback };
   }
 });
 
 // node_modules/abstract-logging/index.js
 var require_abstract_logging = __commonJS({
-  "node_modules/abstract-logging/index.js"(exports2, module2) {
+  "node_modules/abstract-logging/index.js"(exports, module2) {
     "use strict";
     function noop() {
     }
@@ -13304,7 +13309,7 @@ var require_abstract_logging = __commonJS({
 
 // node_modules/pino-std-serializers/lib/err.js
 var require_err = __commonJS({
-  "node_modules/pino-std-serializers/lib/err.js"(exports2, module2) {
+  "node_modules/pino-std-serializers/lib/err.js"(exports, module2) {
     "use strict";
     module2.exports = errSerializer;
     var { toString } = Object.prototype;
@@ -13370,7 +13375,7 @@ var require_err = __commonJS({
 
 // node_modules/pino-std-serializers/lib/req.js
 var require_req = __commonJS({
-  "node_modules/pino-std-serializers/lib/req.js"(exports2, module2) {
+  "node_modules/pino-std-serializers/lib/req.js"(exports, module2) {
     "use strict";
     module2.exports = {
       mapHttpRequest,
@@ -13460,7 +13465,7 @@ var require_req = __commonJS({
 
 // node_modules/pino-std-serializers/lib/res.js
 var require_res = __commonJS({
-  "node_modules/pino-std-serializers/lib/res.js"(exports2, module2) {
+  "node_modules/pino-std-serializers/lib/res.js"(exports, module2) {
     "use strict";
     module2.exports = {
       mapHttpResponse,
@@ -13509,7 +13514,7 @@ var require_res = __commonJS({
 
 // node_modules/pino-std-serializers/index.js
 var require_pino_std_serializers = __commonJS({
-  "node_modules/pino-std-serializers/index.js"(exports2, module2) {
+  "node_modules/pino-std-serializers/index.js"(exports, module2) {
     "use strict";
     var errSerializer = require_err();
     var reqSerializers = require_req();
@@ -13547,7 +13552,7 @@ var require_pino_std_serializers = __commonJS({
 
 // node_modules/fast-redact/lib/validator.js
 var require_validator = __commonJS({
-  "node_modules/fast-redact/lib/validator.js"(exports2, module2) {
+  "node_modules/fast-redact/lib/validator.js"(exports, module2) {
     "use strict";
     var { createContext, runInContext } = require("vm");
     module2.exports = validator;
@@ -13592,7 +13597,7 @@ var require_validator = __commonJS({
 
 // node_modules/fast-redact/lib/rx.js
 var require_rx = __commonJS({
-  "node_modules/fast-redact/lib/rx.js"(exports2, module2) {
+  "node_modules/fast-redact/lib/rx.js"(exports, module2) {
     "use strict";
     module2.exports = /[^.[\]]+|\[((?:.)*?)\]/g;
   }
@@ -13600,7 +13605,7 @@ var require_rx = __commonJS({
 
 // node_modules/fast-redact/lib/parse.js
 var require_parse = __commonJS({
-  "node_modules/fast-redact/lib/parse.js"(exports2, module2) {
+  "node_modules/fast-redact/lib/parse.js"(exports, module2) {
     "use strict";
     var rx = require_rx();
     module2.exports = parse;
@@ -13650,7 +13655,7 @@ var require_parse = __commonJS({
 
 // node_modules/fast-redact/lib/redactor.js
 var require_redactor = __commonJS({
-  "node_modules/fast-redact/lib/redactor.js"(exports2, module2) {
+  "node_modules/fast-redact/lib/redactor.js"(exports, module2) {
     "use strict";
     var rx = require_rx();
     module2.exports = redactor;
@@ -13741,7 +13746,7 @@ var require_redactor = __commonJS({
 
 // node_modules/fast-redact/lib/modifiers.js
 var require_modifiers = __commonJS({
-  "node_modules/fast-redact/lib/modifiers.js"(exports2, module2) {
+  "node_modules/fast-redact/lib/modifiers.js"(exports, module2) {
     "use strict";
     module2.exports = {
       groupRedact,
@@ -13849,7 +13854,7 @@ var require_modifiers = __commonJS({
 
 // node_modules/fast-redact/lib/restorer.js
 var require_restorer = __commonJS({
-  "node_modules/fast-redact/lib/restorer.js"(exports2, module2) {
+  "node_modules/fast-redact/lib/restorer.js"(exports, module2) {
     "use strict";
     var { groupRestore, nestedRestore } = require_modifiers();
     module2.exports = restorer;
@@ -13902,7 +13907,7 @@ var require_restorer = __commonJS({
 
 // node_modules/fast-redact/lib/state.js
 var require_state = __commonJS({
-  "node_modules/fast-redact/lib/state.js"(exports2, module2) {
+  "node_modules/fast-redact/lib/state.js"(exports, module2) {
     "use strict";
     module2.exports = state;
     function state(o) {
@@ -13928,7 +13933,7 @@ var require_state = __commonJS({
 
 // node_modules/fast-redact/index.js
 var require_fast_redact = __commonJS({
-  "node_modules/fast-redact/index.js"(exports2, module2) {
+  "node_modules/fast-redact/index.js"(exports, module2) {
     "use strict";
     var validator = require_validator();
     var parse = require_parse();
@@ -13976,7 +13981,7 @@ var require_fast_redact = __commonJS({
 
 // node_modules/pino/lib/symbols.js
 var require_symbols2 = __commonJS({
-  "node_modules/pino/lib/symbols.js"(exports2, module2) {
+  "node_modules/pino/lib/symbols.js"(exports, module2) {
     "use strict";
     var setLevelSym = Symbol("pino.setLevel");
     var getLevelSym = Symbol("pino.getLevel");
@@ -14037,7 +14042,7 @@ var require_symbols2 = __commonJS({
 
 // node_modules/pino/lib/redaction.js
 var require_redaction = __commonJS({
-  "node_modules/pino/lib/redaction.js"(exports2, module2) {
+  "node_modules/pino/lib/redaction.js"(exports, module2) {
     "use strict";
     var fastRedact = require_fast_redact();
     var { redactFmtSym, wildcardFirstSym } = require_symbols2();
@@ -14125,7 +14130,7 @@ var require_redaction = __commonJS({
 
 // node_modules/pino/lib/time.js
 var require_time = __commonJS({
-  "node_modules/pino/lib/time.js"(exports2, module2) {
+  "node_modules/pino/lib/time.js"(exports, module2) {
     "use strict";
     var nullTime = () => "";
     var epochTime = () => `,"time":${Date.now()}`;
@@ -14137,7 +14142,7 @@ var require_time = __commonJS({
 
 // node_modules/atomic-sleep/index.js
 var require_atomic_sleep = __commonJS({
-  "node_modules/atomic-sleep/index.js"(exports2, module2) {
+  "node_modules/atomic-sleep/index.js"(exports, module2) {
     "use strict";
     if (typeof SharedArrayBuffer !== "undefined" && typeof Atomics !== "undefined") {
       let sleep = function(ms) {
@@ -14172,7 +14177,7 @@ var require_atomic_sleep = __commonJS({
 
 // node_modules/pino/node_modules/sonic-boom/index.js
 var require_sonic_boom = __commonJS({
-  "node_modules/pino/node_modules/sonic-boom/index.js"(exports2, module2) {
+  "node_modules/pino/node_modules/sonic-boom/index.js"(exports, module2) {
     "use strict";
     var fs = require("fs");
     var EventEmitter = require("events");
@@ -14487,7 +14492,7 @@ var require_sonic_boom = __commonJS({
 
 // node_modules/fastify-warning/index.js
 var require_fastify_warning = __commonJS({
-  "node_modules/fastify-warning/index.js"(exports2, module2) {
+  "node_modules/fastify-warning/index.js"(exports, module2) {
     "use strict";
     var { format } = require("util");
     function build() {
@@ -14546,7 +14551,7 @@ var require_fastify_warning = __commonJS({
 
 // node_modules/pino/lib/deprecations.js
 var require_deprecations = __commonJS({
-  "node_modules/pino/lib/deprecations.js"(exports2, module2) {
+  "node_modules/pino/lib/deprecations.js"(exports, module2) {
     "use strict";
     var warning = require_fastify_warning()();
     module2.exports = warning;
@@ -14560,7 +14565,7 @@ var require_deprecations = __commonJS({
 
 // node_modules/quick-format-unescaped/index.js
 var require_quick_format_unescaped = __commonJS({
-  "node_modules/quick-format-unescaped/index.js"(exports2, module2) {
+  "node_modules/quick-format-unescaped/index.js"(exports, module2) {
     "use strict";
     function tryStringify(o) {
       try {
@@ -14681,7 +14686,7 @@ var require_quick_format_unescaped = __commonJS({
 
 // node_modules/fast-safe-stringify/index.js
 var require_fast_safe_stringify = __commonJS({
-  "node_modules/fast-safe-stringify/index.js"(exports2, module2) {
+  "node_modules/fast-safe-stringify/index.js"(exports, module2) {
     module2.exports = stringify;
     stringify.default = stringify;
     stringify.stable = deterministicStringify;
@@ -14875,9 +14880,9 @@ var require_fast_safe_stringify = __commonJS({
 
 // node_modules/colorette/index.cjs
 var require_colorette = __commonJS({
-  "node_modules/colorette/index.cjs"(exports2) {
+  "node_modules/colorette/index.cjs"(exports) {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
+    Object.defineProperty(exports, "__esModule", { value: true });
     var tty = require("tty");
     function _interopNamespace(e) {
       if (e && e.__esModule)
@@ -14911,49 +14916,49 @@ var require_colorette = __commonJS({
     var replaceClose = (index, string, close, replace, head = string.substring(0, index) + replace, tail = string.substring(index + close.length), next = tail.indexOf(close)) => head + (next < 0 ? tail : replaceClose(next, tail, close, replace));
     var clearBleed = (index, string, open, close, replace) => index < 0 ? open + string + close : open + replaceClose(index, string, close, replace) + close;
     var filterEmpty = (open, close, replace = open, at = open.length + 1) => (string) => string || !(string === "" || string === void 0) ? clearBleed(("" + string).indexOf(close, at), string, open, close, replace) : "";
-    var init = (open, close, replace) => filterEmpty(`[${open}m`, `[${close}m`, replace);
+    var init2 = (open, close, replace) => filterEmpty(`[${open}m`, `[${close}m`, replace);
     var colors = {
-      reset: init(0, 0),
-      bold: init(1, 22, "[22m[1m"),
-      dim: init(2, 22, "[22m[2m"),
-      italic: init(3, 23),
-      underline: init(4, 24),
-      inverse: init(7, 27),
-      hidden: init(8, 28),
-      strikethrough: init(9, 29),
-      black: init(30, 39),
-      red: init(31, 39),
-      green: init(32, 39),
-      yellow: init(33, 39),
-      blue: init(34, 39),
-      magenta: init(35, 39),
-      cyan: init(36, 39),
-      white: init(37, 39),
-      gray: init(90, 39),
-      bgBlack: init(40, 49),
-      bgRed: init(41, 49),
-      bgGreen: init(42, 49),
-      bgYellow: init(43, 49),
-      bgBlue: init(44, 49),
-      bgMagenta: init(45, 49),
-      bgCyan: init(46, 49),
-      bgWhite: init(47, 49),
-      blackBright: init(90, 39),
-      redBright: init(91, 39),
-      greenBright: init(92, 39),
-      yellowBright: init(93, 39),
-      blueBright: init(94, 39),
-      magentaBright: init(95, 39),
-      cyanBright: init(96, 39),
-      whiteBright: init(97, 39),
-      bgBlackBright: init(100, 49),
-      bgRedBright: init(101, 49),
-      bgGreenBright: init(102, 49),
-      bgYellowBright: init(103, 49),
-      bgBlueBright: init(104, 49),
-      bgMagentaBright: init(105, 49),
-      bgCyanBright: init(106, 49),
-      bgWhiteBright: init(107, 49)
+      reset: init2(0, 0),
+      bold: init2(1, 22, "[22m[1m"),
+      dim: init2(2, 22, "[22m[2m"),
+      italic: init2(3, 23),
+      underline: init2(4, 24),
+      inverse: init2(7, 27),
+      hidden: init2(8, 28),
+      strikethrough: init2(9, 29),
+      black: init2(30, 39),
+      red: init2(31, 39),
+      green: init2(32, 39),
+      yellow: init2(33, 39),
+      blue: init2(34, 39),
+      magenta: init2(35, 39),
+      cyan: init2(36, 39),
+      white: init2(37, 39),
+      gray: init2(90, 39),
+      bgBlack: init2(40, 49),
+      bgRed: init2(41, 49),
+      bgGreen: init2(42, 49),
+      bgYellow: init2(43, 49),
+      bgBlue: init2(44, 49),
+      bgMagenta: init2(45, 49),
+      bgCyan: init2(46, 49),
+      bgWhite: init2(47, 49),
+      blackBright: init2(90, 39),
+      redBright: init2(91, 39),
+      greenBright: init2(92, 39),
+      yellowBright: init2(93, 39),
+      blueBright: init2(94, 39),
+      magentaBright: init2(95, 39),
+      cyanBright: init2(96, 39),
+      whiteBright: init2(97, 39),
+      bgBlackBright: init2(100, 49),
+      bgRedBright: init2(101, 49),
+      bgGreenBright: init2(102, 49),
+      bgYellowBright: init2(103, 49),
+      bgBlueBright: init2(104, 49),
+      bgMagentaBright: init2(105, 49),
+      bgCyanBright: init2(106, 49),
+      bgWhiteBright: init2(107, 49)
     };
     var none = (any) => any;
     var createColors = ({ useColor = isColorSupported } = {}) => useColor ? colors : Object.keys(colors).reduce((colors2, key) => __spreadProps(__spreadValues({}, colors2), { [key]: none }), {});
@@ -15000,55 +15005,55 @@ var require_colorette = __commonJS({
       bgCyanBright,
       bgWhiteBright
     } = createColors();
-    exports2.bgBlack = bgBlack;
-    exports2.bgBlackBright = bgBlackBright;
-    exports2.bgBlue = bgBlue;
-    exports2.bgBlueBright = bgBlueBright;
-    exports2.bgCyan = bgCyan;
-    exports2.bgCyanBright = bgCyanBright;
-    exports2.bgGreen = bgGreen;
-    exports2.bgGreenBright = bgGreenBright;
-    exports2.bgMagenta = bgMagenta;
-    exports2.bgMagentaBright = bgMagentaBright;
-    exports2.bgRed = bgRed;
-    exports2.bgRedBright = bgRedBright;
-    exports2.bgWhite = bgWhite;
-    exports2.bgWhiteBright = bgWhiteBright;
-    exports2.bgYellow = bgYellow;
-    exports2.bgYellowBright = bgYellowBright;
-    exports2.black = black;
-    exports2.blackBright = blackBright;
-    exports2.blue = blue;
-    exports2.blueBright = blueBright;
-    exports2.bold = bold;
-    exports2.createColors = createColors;
-    exports2.cyan = cyan;
-    exports2.cyanBright = cyanBright;
-    exports2.dim = dim;
-    exports2.gray = gray;
-    exports2.green = green;
-    exports2.greenBright = greenBright;
-    exports2.hidden = hidden;
-    exports2.inverse = inverse;
-    exports2.isColorSupported = isColorSupported;
-    exports2.italic = italic;
-    exports2.magenta = magenta;
-    exports2.magentaBright = magentaBright;
-    exports2.red = red;
-    exports2.redBright = redBright;
-    exports2.reset = reset;
-    exports2.strikethrough = strikethrough;
-    exports2.underline = underline;
-    exports2.white = white;
-    exports2.whiteBright = whiteBright;
-    exports2.yellow = yellow;
-    exports2.yellowBright = yellowBright;
+    exports.bgBlack = bgBlack;
+    exports.bgBlackBright = bgBlackBright;
+    exports.bgBlue = bgBlue;
+    exports.bgBlueBright = bgBlueBright;
+    exports.bgCyan = bgCyan;
+    exports.bgCyanBright = bgCyanBright;
+    exports.bgGreen = bgGreen;
+    exports.bgGreenBright = bgGreenBright;
+    exports.bgMagenta = bgMagenta;
+    exports.bgMagentaBright = bgMagentaBright;
+    exports.bgRed = bgRed;
+    exports.bgRedBright = bgRedBright;
+    exports.bgWhite = bgWhite;
+    exports.bgWhiteBright = bgWhiteBright;
+    exports.bgYellow = bgYellow;
+    exports.bgYellowBright = bgYellowBright;
+    exports.black = black;
+    exports.blackBright = blackBright;
+    exports.blue = blue;
+    exports.blueBright = blueBright;
+    exports.bold = bold;
+    exports.createColors = createColors;
+    exports.cyan = cyan;
+    exports.cyanBright = cyanBright;
+    exports.dim = dim;
+    exports.gray = gray;
+    exports.green = green;
+    exports.greenBright = greenBright;
+    exports.hidden = hidden;
+    exports.inverse = inverse;
+    exports.isColorSupported = isColorSupported;
+    exports.italic = italic;
+    exports.magenta = magenta;
+    exports.magentaBright = magentaBright;
+    exports.red = red;
+    exports.redBright = redBright;
+    exports.reset = reset;
+    exports.strikethrough = strikethrough;
+    exports.underline = underline;
+    exports.white = white;
+    exports.whiteBright = whiteBright;
+    exports.yellow = yellow;
+    exports.yellowBright = yellowBright;
   }
 });
 
 // node_modules/wrappy/wrappy.js
 var require_wrappy = __commonJS({
-  "node_modules/wrappy/wrappy.js"(exports2, module2) {
+  "node_modules/wrappy/wrappy.js"(exports, module2) {
     module2.exports = wrappy;
     function wrappy(fn, cb) {
       if (fn && cb)
@@ -15079,7 +15084,7 @@ var require_wrappy = __commonJS({
 
 // node_modules/once/once.js
 var require_once = __commonJS({
-  "node_modules/once/once.js"(exports2, module2) {
+  "node_modules/once/once.js"(exports, module2) {
     var wrappy = require_wrappy();
     module2.exports = wrappy(once);
     module2.exports.strict = wrappy(onceStrict);
@@ -15124,7 +15129,7 @@ var require_once = __commonJS({
 
 // node_modules/end-of-stream/index.js
 var require_end_of_stream = __commonJS({
-  "node_modules/end-of-stream/index.js"(exports2, module2) {
+  "node_modules/end-of-stream/index.js"(exports, module2) {
     var once = require_once();
     var noop = function() {
     };
@@ -15219,7 +15224,7 @@ var require_end_of_stream = __commonJS({
 
 // node_modules/pump/index.js
 var require_pump = __commonJS({
-  "node_modules/pump/index.js"(exports2, module2) {
+  "node_modules/pump/index.js"(exports, module2) {
     var once = require_once();
     var eos = require_end_of_stream();
     var fs = require("fs");
@@ -15303,14 +15308,14 @@ var require_pump = __commonJS({
 
 // node_modules/readable-stream/lib/internal/streams/stream.js
 var require_stream = __commonJS({
-  "node_modules/readable-stream/lib/internal/streams/stream.js"(exports2, module2) {
+  "node_modules/readable-stream/lib/internal/streams/stream.js"(exports, module2) {
     module2.exports = require("stream");
   }
 });
 
 // node_modules/readable-stream/lib/internal/streams/buffer_list.js
 var require_buffer_list = __commonJS({
-  "node_modules/readable-stream/lib/internal/streams/buffer_list.js"(exports2, module2) {
+  "node_modules/readable-stream/lib/internal/streams/buffer_list.js"(exports, module2) {
     "use strict";
     function ownKeys(object, enumerableOnly) {
       var keys = Object.keys(object);
@@ -15557,7 +15562,7 @@ var require_buffer_list = __commonJS({
 
 // node_modules/readable-stream/lib/internal/streams/destroy.js
 var require_destroy = __commonJS({
-  "node_modules/readable-stream/lib/internal/streams/destroy.js"(exports2, module2) {
+  "node_modules/readable-stream/lib/internal/streams/destroy.js"(exports, module2) {
     "use strict";
     function destroy(err, cb) {
       var _this = this;
@@ -15650,7 +15655,7 @@ var require_destroy = __commonJS({
 
 // node_modules/readable-stream/errors.js
 var require_errors2 = __commonJS({
-  "node_modules/readable-stream/errors.js"(exports2, module2) {
+  "node_modules/readable-stream/errors.js"(exports, module2) {
     "use strict";
     var codes = {};
     function createErrorType(code, message, Base) {
@@ -15750,7 +15755,7 @@ var require_errors2 = __commonJS({
 
 // node_modules/readable-stream/lib/internal/streams/state.js
 var require_state2 = __commonJS({
-  "node_modules/readable-stream/lib/internal/streams/state.js"(exports2, module2) {
+  "node_modules/readable-stream/lib/internal/streams/state.js"(exports, module2) {
     "use strict";
     var ERR_INVALID_OPT_VALUE = require_errors2().codes.ERR_INVALID_OPT_VALUE;
     function highWaterMarkFrom(options, isDuplex, duplexKey) {
@@ -15775,7 +15780,7 @@ var require_state2 = __commonJS({
 
 // node_modules/inherits/inherits_browser.js
 var require_inherits_browser = __commonJS({
-  "node_modules/inherits/inherits_browser.js"(exports2, module2) {
+  "node_modules/inherits/inherits_browser.js"(exports, module2) {
     if (typeof Object.create === "function") {
       module2.exports = function inherits(ctor, superCtor) {
         if (superCtor) {
@@ -15807,7 +15812,7 @@ var require_inherits_browser = __commonJS({
 
 // node_modules/inherits/inherits.js
 var require_inherits = __commonJS({
-  "node_modules/inherits/inherits.js"(exports2, module2) {
+  "node_modules/inherits/inherits.js"(exports, module2) {
     try {
       util = require("util");
       if (typeof util.inherits !== "function")
@@ -15822,14 +15827,14 @@ var require_inherits = __commonJS({
 
 // node_modules/util-deprecate/node.js
 var require_node2 = __commonJS({
-  "node_modules/util-deprecate/node.js"(exports2, module2) {
+  "node_modules/util-deprecate/node.js"(exports, module2) {
     module2.exports = require("util").deprecate;
   }
 });
 
 // node_modules/readable-stream/lib/_stream_writable.js
 var require_stream_writable = __commonJS({
-  "node_modules/readable-stream/lib/_stream_writable.js"(exports2, module2) {
+  "node_modules/readable-stream/lib/_stream_writable.js"(exports, module2) {
     "use strict";
     module2.exports = Writable;
     function CorkedRequest(state) {
@@ -16317,7 +16322,7 @@ var require_stream_writable = __commonJS({
 
 // node_modules/readable-stream/lib/_stream_duplex.js
 var require_stream_duplex = __commonJS({
-  "node_modules/readable-stream/lib/_stream_duplex.js"(exports2, module2) {
+  "node_modules/readable-stream/lib/_stream_duplex.js"(exports, module2) {
     "use strict";
     var objectKeys = Object.keys || function(obj) {
       var keys2 = [];
@@ -16405,7 +16410,7 @@ var require_stream_duplex = __commonJS({
 
 // node_modules/string_decoder/node_modules/safe-buffer/index.js
 var require_safe_buffer = __commonJS({
-  "node_modules/string_decoder/node_modules/safe-buffer/index.js"(exports2, module2) {
+  "node_modules/string_decoder/node_modules/safe-buffer/index.js"(exports, module2) {
     var buffer = require("buffer");
     var Buffer2 = buffer.Buffer;
     function copyProps(src, dst) {
@@ -16416,8 +16421,8 @@ var require_safe_buffer = __commonJS({
     if (Buffer2.from && Buffer2.alloc && Buffer2.allocUnsafe && Buffer2.allocUnsafeSlow) {
       module2.exports = buffer;
     } else {
-      copyProps(buffer, exports2);
-      exports2.Buffer = SafeBuffer;
+      copyProps(buffer, exports);
+      exports.Buffer = SafeBuffer;
     }
     function SafeBuffer(arg, encodingOrOffset, length) {
       return Buffer2(arg, encodingOrOffset, length);
@@ -16463,7 +16468,7 @@ var require_safe_buffer = __commonJS({
 
 // node_modules/string_decoder/lib/string_decoder.js
 var require_string_decoder = __commonJS({
-  "node_modules/string_decoder/lib/string_decoder.js"(exports2) {
+  "node_modules/string_decoder/lib/string_decoder.js"(exports) {
     "use strict";
     var Buffer2 = require_safe_buffer().Buffer;
     var isEncoding = Buffer2.isEncoding || function(encoding) {
@@ -16520,7 +16525,7 @@ var require_string_decoder = __commonJS({
         throw new Error("Unknown encoding: " + enc);
       return nenc || enc;
     }
-    exports2.StringDecoder = StringDecoder;
+    exports.StringDecoder = StringDecoder;
     function StringDecoder(encoding) {
       this.encoding = normalizeEncoding(encoding);
       var nb;
@@ -16723,7 +16728,7 @@ var require_string_decoder = __commonJS({
 
 // node_modules/readable-stream/lib/internal/streams/end-of-stream.js
 var require_end_of_stream2 = __commonJS({
-  "node_modules/readable-stream/lib/internal/streams/end-of-stream.js"(exports2, module2) {
+  "node_modules/readable-stream/lib/internal/streams/end-of-stream.js"(exports, module2) {
     "use strict";
     var ERR_STREAM_PREMATURE_CLOSE = require_errors2().codes.ERR_STREAM_PREMATURE_CLOSE;
     function once(callback) {
@@ -16824,7 +16829,7 @@ var require_end_of_stream2 = __commonJS({
 
 // node_modules/readable-stream/lib/internal/streams/async_iterator.js
 var require_async_iterator = __commonJS({
-  "node_modules/readable-stream/lib/internal/streams/async_iterator.js"(exports2, module2) {
+  "node_modules/readable-stream/lib/internal/streams/async_iterator.js"(exports, module2) {
     "use strict";
     var _Object$setPrototypeO;
     function _defineProperty(obj, key, value) {
@@ -16992,7 +16997,7 @@ var require_async_iterator = __commonJS({
 
 // node_modules/readable-stream/lib/internal/streams/from.js
 var require_from = __commonJS({
-  "node_modules/readable-stream/lib/internal/streams/from.js"(exports2, module2) {
+  "node_modules/readable-stream/lib/internal/streams/from.js"(exports, module2) {
     "use strict";
     function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
       try {
@@ -17109,7 +17114,7 @@ var require_from = __commonJS({
 
 // node_modules/readable-stream/lib/_stream_readable.js
 var require_stream_readable = __commonJS({
-  "node_modules/readable-stream/lib/_stream_readable.js"(exports2, module2) {
+  "node_modules/readable-stream/lib/_stream_readable.js"(exports, module2) {
     "use strict";
     module2.exports = Readable;
     var Duplex;
@@ -17892,7 +17897,7 @@ var require_stream_readable = __commonJS({
 
 // node_modules/readable-stream/lib/_stream_transform.js
 var require_stream_transform = __commonJS({
-  "node_modules/readable-stream/lib/_stream_transform.js"(exports2, module2) {
+  "node_modules/readable-stream/lib/_stream_transform.js"(exports, module2) {
     "use strict";
     module2.exports = Transform;
     var _require$codes = require_errors2().codes;
@@ -18000,7 +18005,7 @@ var require_stream_transform = __commonJS({
 
 // node_modules/readable-stream/lib/_stream_passthrough.js
 var require_stream_passthrough = __commonJS({
-  "node_modules/readable-stream/lib/_stream_passthrough.js"(exports2, module2) {
+  "node_modules/readable-stream/lib/_stream_passthrough.js"(exports, module2) {
     "use strict";
     module2.exports = PassThrough;
     var Transform = require_stream_transform();
@@ -18018,7 +18023,7 @@ var require_stream_passthrough = __commonJS({
 
 // node_modules/readable-stream/lib/internal/streams/pipeline.js
 var require_pipeline = __commonJS({
-  "node_modules/readable-stream/lib/internal/streams/pipeline.js"(exports2, module2) {
+  "node_modules/readable-stream/lib/internal/streams/pipeline.js"(exports, module2) {
     "use strict";
     var eos;
     function once(callback) {
@@ -18117,29 +18122,29 @@ var require_pipeline = __commonJS({
 
 // node_modules/readable-stream/readable.js
 var require_readable = __commonJS({
-  "node_modules/readable-stream/readable.js"(exports2, module2) {
+  "node_modules/readable-stream/readable.js"(exports, module2) {
     var Stream = require("stream");
     if (process.env.READABLE_STREAM === "disable" && Stream) {
       module2.exports = Stream.Readable;
       Object.assign(module2.exports, Stream);
       module2.exports.Stream = Stream;
     } else {
-      exports2 = module2.exports = require_stream_readable();
-      exports2.Stream = Stream || exports2;
-      exports2.Readable = exports2;
-      exports2.Writable = require_stream_writable();
-      exports2.Duplex = require_stream_duplex();
-      exports2.Transform = require_stream_transform();
-      exports2.PassThrough = require_stream_passthrough();
-      exports2.finished = require_end_of_stream2();
-      exports2.pipeline = require_pipeline();
+      exports = module2.exports = require_stream_readable();
+      exports.Stream = Stream || exports;
+      exports.Readable = exports;
+      exports.Writable = require_stream_writable();
+      exports.Duplex = require_stream_duplex();
+      exports.Transform = require_stream_transform();
+      exports.PassThrough = require_stream_passthrough();
+      exports.finished = require_end_of_stream2();
+      exports.pipeline = require_pipeline();
     }
   }
 });
 
 // node_modules/split2/index.js
 var require_split2 = __commonJS({
-  "node_modules/split2/index.js"(exports2, module2) {
+  "node_modules/split2/index.js"(exports, module2) {
     "use strict";
     var { Transform } = require("stream");
     var { StringDecoder } = require("string_decoder");
@@ -18241,7 +18246,7 @@ var require_split2 = __commonJS({
 
 // node_modules/stream-shift/index.js
 var require_stream_shift = __commonJS({
-  "node_modules/stream-shift/index.js"(exports2, module2) {
+  "node_modules/stream-shift/index.js"(exports, module2) {
     module2.exports = shift;
     function shift(stream) {
       var rs = stream._readableState;
@@ -18263,7 +18268,7 @@ var require_stream_shift = __commonJS({
 
 // node_modules/duplexify/index.js
 var require_duplexify = __commonJS({
-  "node_modules/duplexify/index.js"(exports2, module2) {
+  "node_modules/duplexify/index.js"(exports, module2) {
     var stream = require_readable();
     var eos = require_end_of_stream();
     var inherits = require_inherits();
@@ -18495,7 +18500,7 @@ var require_duplexify = __commonJS({
 
 // node_modules/pino-abstract-transport/index.js
 var require_pino_abstract_transport = __commonJS({
-  "node_modules/pino-abstract-transport/index.js"(exports2, module2) {
+  "node_modules/pino-abstract-transport/index.js"(exports, module2) {
     "use strict";
     var metadata = Symbol.for("pino.metadata");
     var split = require_split2();
@@ -18565,7 +18570,7 @@ var require_pino_abstract_transport = __commonJS({
 
 // node_modules/sonic-boom/index.js
 var require_sonic_boom2 = __commonJS({
-  "node_modules/sonic-boom/index.js"(exports2, module2) {
+  "node_modules/sonic-boom/index.js"(exports, module2) {
     "use strict";
     var fs = require("fs");
     var EventEmitter = require("events");
@@ -18901,7 +18906,7 @@ var require_sonic_boom2 = __commonJS({
 
 // node_modules/secure-json-parse/index.js
 var require_secure_json_parse = __commonJS({
-  "node_modules/secure-json-parse/index.js"(exports2, module2) {
+  "node_modules/secure-json-parse/index.js"(exports, module2) {
     "use strict";
     var hasBuffer = typeof Buffer !== "undefined";
     var suspectProtoRx = /"(?:_|\\u005[Ff])(?:_|\\u005[Ff])(?:p|\\u0070)(?:r|\\u0072)(?:o|\\u006[Ff])(?:t|\\u0074)(?:o|\\u006[Ff])(?:_|\\u005[Ff])(?:_|\\u005[Ff])"\s*:/;
@@ -18990,7 +18995,7 @@ var require_secure_json_parse = __commonJS({
 
 // node_modules/pino-pretty/lib/constants.js
 var require_constants = __commonJS({
-  "node_modules/pino-pretty/lib/constants.js"(exports2, module2) {
+  "node_modules/pino-pretty/lib/constants.js"(exports, module2) {
     "use strict";
     module2.exports = {
       DATE_FORMAT: "yyyy-mm-dd HH:MM:ss.l o",
@@ -19031,7 +19036,7 @@ var require_constants = __commonJS({
 
 // node_modules/pino-pretty/lib/colors.js
 var require_colors = __commonJS({
-  "node_modules/pino-pretty/lib/colors.js"(exports2, module2) {
+  "node_modules/pino-pretty/lib/colors.js"(exports, module2) {
     "use strict";
     var { LEVELS, LEVEL_NAMES } = require_constants();
     var nocolor = (input) => input;
@@ -19084,7 +19089,7 @@ var require_colors = __commonJS({
 
 // node_modules/dateformat/lib/dateformat.js
 var require_dateformat = __commonJS({
-  "node_modules/dateformat/lib/dateformat.js"(exports2, module2) {
+  "node_modules/dateformat/lib/dateformat.js"(exports, module2) {
     "use strict";
     function _typeof(obj) {
       "@babel/helpers - typeof";
@@ -19326,7 +19331,7 @@ var require_dateformat = __commonJS({
         define(function() {
           return dateFormat;
         });
-      } else if ((typeof exports2 === "undefined" ? "undefined" : _typeof(exports2)) === "object") {
+      } else if ((typeof exports === "undefined" ? "undefined" : _typeof(exports)) === "object") {
         module2.exports = dateFormat;
       } else {
         global2.dateFormat = dateFormat;
@@ -19337,7 +19342,7 @@ var require_dateformat = __commonJS({
 
 // node_modules/pino-pretty/lib/utils.js
 var require_utils = __commonJS({
-  "node_modules/pino-pretty/lib/utils.js"(exports2, module2) {
+  "node_modules/pino-pretty/lib/utils.js"(exports, module2) {
     "use strict";
     var clone = require_rfdc()({ circles: true });
     var dateformat = require_dateformat();
@@ -19642,7 +19647,7 @@ var require_utils = __commonJS({
 
 // node_modules/pino-pretty/index.js
 var require_pino_pretty = __commonJS({
-  "node_modules/pino-pretty/index.js"(exports2, module2) {
+  "node_modules/pino-pretty/index.js"(exports, module2) {
     "use strict";
     var { isColorSupported } = require_colorette();
     var pump = require_pump();
@@ -19834,7 +19839,7 @@ var require_pino_pretty = __commonJS({
 
 // node_modules/pino/lib/tools.js
 var require_tools = __commonJS({
-  "node_modules/pino/lib/tools.js"(exports2, module2) {
+  "node_modules/pino/lib/tools.js"(exports, module2) {
     "use strict";
     var format = require_quick_format_unescaped();
     var { mapHttpRequest, mapHttpResponse } = require_pino_std_serializers();
@@ -20139,12 +20144,12 @@ var require_tools = __commonJS({
         return { opts, stream };
       };
     }
-    function final(logger, handler) {
+    function final(logger, handler2) {
       if (typeof logger === "undefined" || typeof logger.child !== "function") {
         throw Error("expected a pino logger instance");
       }
-      const hasHandler = typeof handler !== "undefined";
-      if (hasHandler && typeof handler !== "function") {
+      const hasHandler = typeof handler2 !== "undefined";
+      if (hasHandler && typeof handler2 !== "function") {
         throw Error("if supplied, the handler parameter should be a function");
       }
       const stream = logger[streamSym];
@@ -20170,7 +20175,7 @@ var require_tools = __commonJS({
           stream.flushSync();
         } catch (e) {
         }
-        return handler(err, finalLogger, ...args);
+        return handler2(err, finalLogger, ...args);
       };
     }
     function stringify(obj) {
@@ -20213,7 +20218,7 @@ var require_tools = __commonJS({
 
 // node_modules/pino/lib/levels.js
 var require_levels = __commonJS({
-  "node_modules/pino/lib/levels.js"(exports2, module2) {
+  "node_modules/pino/lib/levels.js"(exports, module2) {
     "use strict";
     var flatstr = require_flatstr();
     var {
@@ -20368,7 +20373,7 @@ var require_levels = __commonJS({
 
 // node_modules/pino/package.json
 var require_package = __commonJS({
-  "node_modules/pino/package.json"(exports2, module2) {
+  "node_modules/pino/package.json"(exports, module2) {
     module2.exports = {
       name: "pino",
       version: "6.13.3",
@@ -20475,7 +20480,7 @@ var require_package = __commonJS({
 
 // node_modules/pino/lib/meta.js
 var require_meta = __commonJS({
-  "node_modules/pino/lib/meta.js"(exports2, module2) {
+  "node_modules/pino/lib/meta.js"(exports, module2) {
     "use strict";
     var { version } = require_package();
     module2.exports = { version };
@@ -20484,7 +20489,7 @@ var require_meta = __commonJS({
 
 // node_modules/pino/lib/proto.js
 var require_proto = __commonJS({
-  "node_modules/pino/lib/proto.js"(exports2, module2) {
+  "node_modules/pino/lib/proto.js"(exports, module2) {
     "use strict";
     var { EventEmitter } = require("events");
     var SonicBoom = require_sonic_boom();
@@ -20688,7 +20693,7 @@ var require_proto = __commonJS({
 
 // node_modules/pino/pino.js
 var require_pino = __commonJS({
-  "node_modules/pino/pino.js"(exports2, module2) {
+  "node_modules/pino/pino.js"(exports, module2) {
     "use strict";
     var os = require("os");
     var stdSerializers = require_pino_std_serializers();
@@ -20893,7 +20898,7 @@ var require_pino = __commonJS({
 
 // node_modules/fastify/lib/logger.js
 var require_logger = __commonJS({
-  "node_modules/fastify/lib/logger.js"(exports2, module2) {
+  "node_modules/fastify/lib/logger.js"(exports, module2) {
     "use strict";
     var nullLogger = require_abstract_logging();
     var pino = require_pino();
@@ -21001,7 +21006,7 @@ var require_logger = __commonJS({
 
 // node_modules/fastify/lib/warnings.js
 var require_warnings = __commonJS({
-  "node_modules/fastify/lib/warnings.js"(exports2, module2) {
+  "node_modules/fastify/lib/warnings.js"(exports, module2) {
     "use strict";
     var warning = require_fastify_warning()();
     warning.create("FastifyDeprecation", "FSTDEP001", 'You are accessing the Node.js core request object via "request.req", Use "request.raw" instead.');
@@ -21019,7 +21024,7 @@ var require_warnings = __commonJS({
 
 // node_modules/fastify/lib/reply.js
 var require_reply = __commonJS({
-  "node_modules/fastify/lib/reply.js"(exports2, module2) {
+  "node_modules/fastify/lib/reply.js"(exports, module2) {
     "use strict";
     var eos = require("stream").finished;
     var statusCodes = require("http").STATUS_CODES;
@@ -21603,7 +21608,7 @@ var require_reply = __commonJS({
 
 // node_modules/forwarded/index.js
 var require_forwarded = __commonJS({
-  "node_modules/forwarded/index.js"(exports2, module2) {
+  "node_modules/forwarded/index.js"(exports, module2) {
     "use strict";
     module2.exports = forwarded;
     function forwarded(req) {
@@ -21650,7 +21655,7 @@ var require_forwarded = __commonJS({
 
 // node_modules/ipaddr.js/lib/ipaddr.js
 var require_ipaddr = __commonJS({
-  "node_modules/ipaddr.js/lib/ipaddr.js"(exports2, module2) {
+  "node_modules/ipaddr.js/lib/ipaddr.js"(exports, module2) {
     (function() {
       var expandIPv6, ipaddr, ipv4Part, ipv4Regexes, ipv6Part, ipv6Regexes, matchCIDR, root, zoneIndex;
       ipaddr = {};
@@ -22266,13 +22271,13 @@ var require_ipaddr = __commonJS({
           return addr;
         }
       };
-    }).call(exports2);
+    }).call(exports);
   }
 });
 
 // node_modules/proxy-addr/index.js
 var require_proxy_addr = __commonJS({
-  "node_modules/proxy-addr/index.js"(exports2, module2) {
+  "node_modules/proxy-addr/index.js"(exports, module2) {
     "use strict";
     module2.exports = proxyaddr;
     module2.exports.all = alladdrs;
@@ -22434,7 +22439,7 @@ var require_proxy_addr = __commonJS({
 
 // node_modules/semver/internal/constants.js
 var require_constants2 = __commonJS({
-  "node_modules/semver/internal/constants.js"(exports2, module2) {
+  "node_modules/semver/internal/constants.js"(exports, module2) {
     var SEMVER_SPEC_VERSION = "2.0.0";
     var MAX_LENGTH = 256;
     var MAX_SAFE_INTEGER = Number.MAX_SAFE_INTEGER || 9007199254740991;
@@ -22450,7 +22455,7 @@ var require_constants2 = __commonJS({
 
 // node_modules/semver/internal/debug.js
 var require_debug = __commonJS({
-  "node_modules/semver/internal/debug.js"(exports2, module2) {
+  "node_modules/semver/internal/debug.js"(exports, module2) {
     var debug = typeof process === "object" && process.env && process.env.NODE_DEBUG && /\bsemver\b/i.test(process.env.NODE_DEBUG) ? (...args) => console.error("SEMVER", ...args) : () => {
     };
     module2.exports = debug;
@@ -22459,13 +22464,13 @@ var require_debug = __commonJS({
 
 // node_modules/semver/internal/re.js
 var require_re = __commonJS({
-  "node_modules/semver/internal/re.js"(exports2, module2) {
+  "node_modules/semver/internal/re.js"(exports, module2) {
     var { MAX_SAFE_COMPONENT_LENGTH } = require_constants2();
     var debug = require_debug();
-    exports2 = module2.exports = {};
-    var re = exports2.re = [];
-    var src = exports2.src = [];
-    var t = exports2.t = {};
+    exports = module2.exports = {};
+    var re = exports.re = [];
+    var src = exports.src = [];
+    var t = exports.t = {};
     var R = 0;
     var createToken = (name, value, isGlobal) => {
       const index = R++;
@@ -22500,18 +22505,18 @@ var require_re = __commonJS({
     createToken("COERCERTL", src[t.COERCE], true);
     createToken("LONETILDE", "(?:~>?)");
     createToken("TILDETRIM", `(\\s*)${src[t.LONETILDE]}\\s+`, true);
-    exports2.tildeTrimReplace = "$1~";
+    exports.tildeTrimReplace = "$1~";
     createToken("TILDE", `^${src[t.LONETILDE]}${src[t.XRANGEPLAIN]}$`);
     createToken("TILDELOOSE", `^${src[t.LONETILDE]}${src[t.XRANGEPLAINLOOSE]}$`);
     createToken("LONECARET", "(?:\\^)");
     createToken("CARETTRIM", `(\\s*)${src[t.LONECARET]}\\s+`, true);
-    exports2.caretTrimReplace = "$1^";
+    exports.caretTrimReplace = "$1^";
     createToken("CARET", `^${src[t.LONECARET]}${src[t.XRANGEPLAIN]}$`);
     createToken("CARETLOOSE", `^${src[t.LONECARET]}${src[t.XRANGEPLAINLOOSE]}$`);
     createToken("COMPARATORLOOSE", `^${src[t.GTLT]}\\s*(${src[t.LOOSEPLAIN]})$|^$`);
     createToken("COMPARATOR", `^${src[t.GTLT]}\\s*(${src[t.FULLPLAIN]})$|^$`);
     createToken("COMPARATORTRIM", `(\\s*)${src[t.GTLT]}\\s*(${src[t.LOOSEPLAIN]}|${src[t.XRANGEPLAIN]})`, true);
-    exports2.comparatorTrimReplace = "$1$2$3";
+    exports.comparatorTrimReplace = "$1$2$3";
     createToken("HYPHENRANGE", `^\\s*(${src[t.XRANGEPLAIN]})\\s+-\\s+(${src[t.XRANGEPLAIN]})\\s*$`);
     createToken("HYPHENRANGELOOSE", `^\\s*(${src[t.XRANGEPLAINLOOSE]})\\s+-\\s+(${src[t.XRANGEPLAINLOOSE]})\\s*$`);
     createToken("STAR", "(<|>)?=?\\s*\\*");
@@ -22522,7 +22527,7 @@ var require_re = __commonJS({
 
 // node_modules/semver/internal/parse-options.js
 var require_parse_options = __commonJS({
-  "node_modules/semver/internal/parse-options.js"(exports2, module2) {
+  "node_modules/semver/internal/parse-options.js"(exports, module2) {
     var opts = ["includePrerelease", "loose", "rtl"];
     var parseOptions = (options) => !options ? {} : typeof options !== "object" ? { loose: true } : opts.filter((k) => options[k]).reduce((options2, k) => {
       options2[k] = true;
@@ -22534,7 +22539,7 @@ var require_parse_options = __commonJS({
 
 // node_modules/semver/internal/identifiers.js
 var require_identifiers = __commonJS({
-  "node_modules/semver/internal/identifiers.js"(exports2, module2) {
+  "node_modules/semver/internal/identifiers.js"(exports, module2) {
     var numeric = /^[0-9]+$/;
     var compareIdentifiers = (a, b) => {
       const anum = numeric.test(a);
@@ -22555,7 +22560,7 @@ var require_identifiers = __commonJS({
 
 // node_modules/semver/classes/semver.js
 var require_semver = __commonJS({
-  "node_modules/semver/classes/semver.js"(exports2, module2) {
+  "node_modules/semver/classes/semver.js"(exports, module2) {
     var debug = require_debug();
     var { MAX_LENGTH, MAX_SAFE_INTEGER } = require_constants2();
     var { re, t } = require_re();
@@ -22779,7 +22784,7 @@ var require_semver = __commonJS({
 
 // node_modules/semver/functions/parse.js
 var require_parse2 = __commonJS({
-  "node_modules/semver/functions/parse.js"(exports2, module2) {
+  "node_modules/semver/functions/parse.js"(exports, module2) {
     var { MAX_LENGTH } = require_constants2();
     var { re, t } = require_re();
     var SemVer = require_semver();
@@ -22811,7 +22816,7 @@ var require_parse2 = __commonJS({
 
 // node_modules/semver/functions/valid.js
 var require_valid = __commonJS({
-  "node_modules/semver/functions/valid.js"(exports2, module2) {
+  "node_modules/semver/functions/valid.js"(exports, module2) {
     var parse = require_parse2();
     var valid = (version, options) => {
       const v = parse(version, options);
@@ -22823,7 +22828,7 @@ var require_valid = __commonJS({
 
 // node_modules/semver/functions/clean.js
 var require_clean = __commonJS({
-  "node_modules/semver/functions/clean.js"(exports2, module2) {
+  "node_modules/semver/functions/clean.js"(exports, module2) {
     var parse = require_parse2();
     var clean = (version, options) => {
       const s = parse(version.trim().replace(/^[=v]+/, ""), options);
@@ -22835,7 +22840,7 @@ var require_clean = __commonJS({
 
 // node_modules/semver/functions/inc.js
 var require_inc = __commonJS({
-  "node_modules/semver/functions/inc.js"(exports2, module2) {
+  "node_modules/semver/functions/inc.js"(exports, module2) {
     var SemVer = require_semver();
     var inc = (version, release, options, identifier) => {
       if (typeof options === "string") {
@@ -22854,7 +22859,7 @@ var require_inc = __commonJS({
 
 // node_modules/semver/functions/compare.js
 var require_compare = __commonJS({
-  "node_modules/semver/functions/compare.js"(exports2, module2) {
+  "node_modules/semver/functions/compare.js"(exports, module2) {
     var SemVer = require_semver();
     var compare = (a, b, loose) => new SemVer(a, loose).compare(new SemVer(b, loose));
     module2.exports = compare;
@@ -22863,7 +22868,7 @@ var require_compare = __commonJS({
 
 // node_modules/semver/functions/eq.js
 var require_eq = __commonJS({
-  "node_modules/semver/functions/eq.js"(exports2, module2) {
+  "node_modules/semver/functions/eq.js"(exports, module2) {
     var compare = require_compare();
     var eq = (a, b, loose) => compare(a, b, loose) === 0;
     module2.exports = eq;
@@ -22872,7 +22877,7 @@ var require_eq = __commonJS({
 
 // node_modules/semver/functions/diff.js
 var require_diff = __commonJS({
-  "node_modules/semver/functions/diff.js"(exports2, module2) {
+  "node_modules/semver/functions/diff.js"(exports, module2) {
     var parse = require_parse2();
     var eq = require_eq();
     var diff = (version1, version2) => {
@@ -22900,7 +22905,7 @@ var require_diff = __commonJS({
 
 // node_modules/semver/functions/major.js
 var require_major = __commonJS({
-  "node_modules/semver/functions/major.js"(exports2, module2) {
+  "node_modules/semver/functions/major.js"(exports, module2) {
     var SemVer = require_semver();
     var major = (a, loose) => new SemVer(a, loose).major;
     module2.exports = major;
@@ -22909,7 +22914,7 @@ var require_major = __commonJS({
 
 // node_modules/semver/functions/minor.js
 var require_minor = __commonJS({
-  "node_modules/semver/functions/minor.js"(exports2, module2) {
+  "node_modules/semver/functions/minor.js"(exports, module2) {
     var SemVer = require_semver();
     var minor = (a, loose) => new SemVer(a, loose).minor;
     module2.exports = minor;
@@ -22918,7 +22923,7 @@ var require_minor = __commonJS({
 
 // node_modules/semver/functions/patch.js
 var require_patch = __commonJS({
-  "node_modules/semver/functions/patch.js"(exports2, module2) {
+  "node_modules/semver/functions/patch.js"(exports, module2) {
     var SemVer = require_semver();
     var patch = (a, loose) => new SemVer(a, loose).patch;
     module2.exports = patch;
@@ -22927,7 +22932,7 @@ var require_patch = __commonJS({
 
 // node_modules/semver/functions/prerelease.js
 var require_prerelease = __commonJS({
-  "node_modules/semver/functions/prerelease.js"(exports2, module2) {
+  "node_modules/semver/functions/prerelease.js"(exports, module2) {
     var parse = require_parse2();
     var prerelease = (version, options) => {
       const parsed = parse(version, options);
@@ -22939,7 +22944,7 @@ var require_prerelease = __commonJS({
 
 // node_modules/semver/functions/rcompare.js
 var require_rcompare = __commonJS({
-  "node_modules/semver/functions/rcompare.js"(exports2, module2) {
+  "node_modules/semver/functions/rcompare.js"(exports, module2) {
     var compare = require_compare();
     var rcompare = (a, b, loose) => compare(b, a, loose);
     module2.exports = rcompare;
@@ -22948,7 +22953,7 @@ var require_rcompare = __commonJS({
 
 // node_modules/semver/functions/compare-loose.js
 var require_compare_loose = __commonJS({
-  "node_modules/semver/functions/compare-loose.js"(exports2, module2) {
+  "node_modules/semver/functions/compare-loose.js"(exports, module2) {
     var compare = require_compare();
     var compareLoose = (a, b) => compare(a, b, true);
     module2.exports = compareLoose;
@@ -22957,7 +22962,7 @@ var require_compare_loose = __commonJS({
 
 // node_modules/semver/functions/compare-build.js
 var require_compare_build = __commonJS({
-  "node_modules/semver/functions/compare-build.js"(exports2, module2) {
+  "node_modules/semver/functions/compare-build.js"(exports, module2) {
     var SemVer = require_semver();
     var compareBuild = (a, b, loose) => {
       const versionA = new SemVer(a, loose);
@@ -22970,7 +22975,7 @@ var require_compare_build = __commonJS({
 
 // node_modules/semver/functions/sort.js
 var require_sort = __commonJS({
-  "node_modules/semver/functions/sort.js"(exports2, module2) {
+  "node_modules/semver/functions/sort.js"(exports, module2) {
     var compareBuild = require_compare_build();
     var sort = (list, loose) => list.sort((a, b) => compareBuild(a, b, loose));
     module2.exports = sort;
@@ -22979,7 +22984,7 @@ var require_sort = __commonJS({
 
 // node_modules/semver/functions/rsort.js
 var require_rsort = __commonJS({
-  "node_modules/semver/functions/rsort.js"(exports2, module2) {
+  "node_modules/semver/functions/rsort.js"(exports, module2) {
     var compareBuild = require_compare_build();
     var rsort = (list, loose) => list.sort((a, b) => compareBuild(b, a, loose));
     module2.exports = rsort;
@@ -22988,7 +22993,7 @@ var require_rsort = __commonJS({
 
 // node_modules/semver/functions/gt.js
 var require_gt = __commonJS({
-  "node_modules/semver/functions/gt.js"(exports2, module2) {
+  "node_modules/semver/functions/gt.js"(exports, module2) {
     var compare = require_compare();
     var gt = (a, b, loose) => compare(a, b, loose) > 0;
     module2.exports = gt;
@@ -22997,7 +23002,7 @@ var require_gt = __commonJS({
 
 // node_modules/semver/functions/lt.js
 var require_lt = __commonJS({
-  "node_modules/semver/functions/lt.js"(exports2, module2) {
+  "node_modules/semver/functions/lt.js"(exports, module2) {
     var compare = require_compare();
     var lt = (a, b, loose) => compare(a, b, loose) < 0;
     module2.exports = lt;
@@ -23006,7 +23011,7 @@ var require_lt = __commonJS({
 
 // node_modules/semver/functions/neq.js
 var require_neq = __commonJS({
-  "node_modules/semver/functions/neq.js"(exports2, module2) {
+  "node_modules/semver/functions/neq.js"(exports, module2) {
     var compare = require_compare();
     var neq = (a, b, loose) => compare(a, b, loose) !== 0;
     module2.exports = neq;
@@ -23015,7 +23020,7 @@ var require_neq = __commonJS({
 
 // node_modules/semver/functions/gte.js
 var require_gte = __commonJS({
-  "node_modules/semver/functions/gte.js"(exports2, module2) {
+  "node_modules/semver/functions/gte.js"(exports, module2) {
     var compare = require_compare();
     var gte = (a, b, loose) => compare(a, b, loose) >= 0;
     module2.exports = gte;
@@ -23024,7 +23029,7 @@ var require_gte = __commonJS({
 
 // node_modules/semver/functions/lte.js
 var require_lte = __commonJS({
-  "node_modules/semver/functions/lte.js"(exports2, module2) {
+  "node_modules/semver/functions/lte.js"(exports, module2) {
     var compare = require_compare();
     var lte = (a, b, loose) => compare(a, b, loose) <= 0;
     module2.exports = lte;
@@ -23033,7 +23038,7 @@ var require_lte = __commonJS({
 
 // node_modules/semver/functions/cmp.js
 var require_cmp = __commonJS({
-  "node_modules/semver/functions/cmp.js"(exports2, module2) {
+  "node_modules/semver/functions/cmp.js"(exports, module2) {
     var eq = require_eq();
     var neq = require_neq();
     var gt = require_gt();
@@ -23078,7 +23083,7 @@ var require_cmp = __commonJS({
 
 // node_modules/semver/functions/coerce.js
 var require_coerce = __commonJS({
-  "node_modules/semver/functions/coerce.js"(exports2, module2) {
+  "node_modules/semver/functions/coerce.js"(exports, module2) {
     var SemVer = require_semver();
     var parse = require_parse2();
     var { re, t } = require_re();
@@ -23116,7 +23121,7 @@ var require_coerce = __commonJS({
 
 // node_modules/yallist/iterator.js
 var require_iterator = __commonJS({
-  "node_modules/yallist/iterator.js"(exports2, module2) {
+  "node_modules/yallist/iterator.js"(exports, module2) {
     "use strict";
     module2.exports = function(Yallist) {
       Yallist.prototype[Symbol.iterator] = function* () {
@@ -23130,7 +23135,7 @@ var require_iterator = __commonJS({
 
 // node_modules/yallist/yallist.js
 var require_yallist = __commonJS({
-  "node_modules/yallist/yallist.js"(exports2, module2) {
+  "node_modules/yallist/yallist.js"(exports, module2) {
     "use strict";
     module2.exports = Yallist;
     Yallist.Node = Node;
@@ -23499,7 +23504,7 @@ var require_yallist = __commonJS({
 
 // node_modules/lru-cache/index.js
 var require_lru_cache = __commonJS({
-  "node_modules/lru-cache/index.js"(exports2, module2) {
+  "node_modules/lru-cache/index.js"(exports, module2) {
     "use strict";
     var Yallist = require_yallist();
     var MAX = Symbol("max");
@@ -23767,7 +23772,7 @@ var require_lru_cache = __commonJS({
 
 // node_modules/semver/classes/range.js
 var require_range = __commonJS({
-  "node_modules/semver/classes/range.js"(exports2, module2) {
+  "node_modules/semver/classes/range.js"(exports, module2) {
     var Range = class {
       constructor(range, options) {
         options = parseOptions(options);
@@ -24116,7 +24121,7 @@ var require_range = __commonJS({
 
 // node_modules/semver/classes/comparator.js
 var require_comparator = __commonJS({
-  "node_modules/semver/classes/comparator.js"(exports2, module2) {
+  "node_modules/semver/classes/comparator.js"(exports, module2) {
     var ANY = Symbol("SemVer ANY");
     var Comparator = class {
       static get ANY() {
@@ -24217,7 +24222,7 @@ var require_comparator = __commonJS({
 
 // node_modules/semver/functions/satisfies.js
 var require_satisfies = __commonJS({
-  "node_modules/semver/functions/satisfies.js"(exports2, module2) {
+  "node_modules/semver/functions/satisfies.js"(exports, module2) {
     var Range = require_range();
     var satisfies = (version, range, options) => {
       try {
@@ -24233,7 +24238,7 @@ var require_satisfies = __commonJS({
 
 // node_modules/semver/ranges/to-comparators.js
 var require_to_comparators = __commonJS({
-  "node_modules/semver/ranges/to-comparators.js"(exports2, module2) {
+  "node_modules/semver/ranges/to-comparators.js"(exports, module2) {
     var Range = require_range();
     var toComparators = (range, options) => new Range(range, options).set.map((comp) => comp.map((c) => c.value).join(" ").trim().split(" "));
     module2.exports = toComparators;
@@ -24242,7 +24247,7 @@ var require_to_comparators = __commonJS({
 
 // node_modules/semver/ranges/max-satisfying.js
 var require_max_satisfying = __commonJS({
-  "node_modules/semver/ranges/max-satisfying.js"(exports2, module2) {
+  "node_modules/semver/ranges/max-satisfying.js"(exports, module2) {
     var SemVer = require_semver();
     var Range = require_range();
     var maxSatisfying = (versions, range, options) => {
@@ -24270,7 +24275,7 @@ var require_max_satisfying = __commonJS({
 
 // node_modules/semver/ranges/min-satisfying.js
 var require_min_satisfying = __commonJS({
-  "node_modules/semver/ranges/min-satisfying.js"(exports2, module2) {
+  "node_modules/semver/ranges/min-satisfying.js"(exports, module2) {
     var SemVer = require_semver();
     var Range = require_range();
     var minSatisfying = (versions, range, options) => {
@@ -24298,7 +24303,7 @@ var require_min_satisfying = __commonJS({
 
 // node_modules/semver/ranges/min-version.js
 var require_min_version = __commonJS({
-  "node_modules/semver/ranges/min-version.js"(exports2, module2) {
+  "node_modules/semver/ranges/min-version.js"(exports, module2) {
     var SemVer = require_semver();
     var Range = require_range();
     var gt = require_gt();
@@ -24353,7 +24358,7 @@ var require_min_version = __commonJS({
 
 // node_modules/semver/ranges/valid.js
 var require_valid2 = __commonJS({
-  "node_modules/semver/ranges/valid.js"(exports2, module2) {
+  "node_modules/semver/ranges/valid.js"(exports, module2) {
     var Range = require_range();
     var validRange = (range, options) => {
       try {
@@ -24368,7 +24373,7 @@ var require_valid2 = __commonJS({
 
 // node_modules/semver/ranges/outside.js
 var require_outside = __commonJS({
-  "node_modules/semver/ranges/outside.js"(exports2, module2) {
+  "node_modules/semver/ranges/outside.js"(exports, module2) {
     var SemVer = require_semver();
     var Comparator = require_comparator();
     var { ANY } = Comparator;
@@ -24436,7 +24441,7 @@ var require_outside = __commonJS({
 
 // node_modules/semver/ranges/gtr.js
 var require_gtr = __commonJS({
-  "node_modules/semver/ranges/gtr.js"(exports2, module2) {
+  "node_modules/semver/ranges/gtr.js"(exports, module2) {
     var outside = require_outside();
     var gtr = (version, range, options) => outside(version, range, ">", options);
     module2.exports = gtr;
@@ -24445,7 +24450,7 @@ var require_gtr = __commonJS({
 
 // node_modules/semver/ranges/ltr.js
 var require_ltr = __commonJS({
-  "node_modules/semver/ranges/ltr.js"(exports2, module2) {
+  "node_modules/semver/ranges/ltr.js"(exports, module2) {
     var outside = require_outside();
     var ltr = (version, range, options) => outside(version, range, "<", options);
     module2.exports = ltr;
@@ -24454,7 +24459,7 @@ var require_ltr = __commonJS({
 
 // node_modules/semver/ranges/intersects.js
 var require_intersects = __commonJS({
-  "node_modules/semver/ranges/intersects.js"(exports2, module2) {
+  "node_modules/semver/ranges/intersects.js"(exports, module2) {
     var Range = require_range();
     var intersects = (r1, r2, options) => {
       r1 = new Range(r1, options);
@@ -24467,7 +24472,7 @@ var require_intersects = __commonJS({
 
 // node_modules/semver/ranges/simplify.js
 var require_simplify = __commonJS({
-  "node_modules/semver/ranges/simplify.js"(exports2, module2) {
+  "node_modules/semver/ranges/simplify.js"(exports, module2) {
     var satisfies = require_satisfies();
     var compare = require_compare();
     module2.exports = (versions, range, options) => {
@@ -24513,7 +24518,7 @@ var require_simplify = __commonJS({
 
 // node_modules/semver/ranges/subset.js
 var require_subset = __commonJS({
-  "node_modules/semver/ranges/subset.js"(exports2, module2) {
+  "node_modules/semver/ranges/subset.js"(exports, module2) {
     var Range = require_range();
     var Comparator = require_comparator();
     var { ANY } = Comparator;
@@ -24651,7 +24656,7 @@ var require_subset = __commonJS({
 
 // node_modules/semver/index.js
 var require_semver2 = __commonJS({
-  "node_modules/semver/index.js"(exports2, module2) {
+  "node_modules/semver/index.js"(exports, module2) {
     var internalRe = require_re();
     module2.exports = {
       re: internalRe.re,
@@ -24704,7 +24709,7 @@ var require_semver2 = __commonJS({
 
 // node_modules/fastify/lib/request.js
 var require_request = __commonJS({
-  "node_modules/fastify/lib/request.js"(exports2, module2) {
+  "node_modules/fastify/lib/request.js"(exports, module2) {
     "use strict";
     var proxyAddr = require_proxy_addr();
     var semver = require_semver2();
@@ -24891,7 +24896,7 @@ var require_request = __commonJS({
 
 // node_modules/fastify/lib/decorate.js
 var require_decorate = __commonJS({
-  "node_modules/fastify/lib/decorate.js"(exports2, module2) {
+  "node_modules/fastify/lib/decorate.js"(exports, module2) {
     "use strict";
     var {
       kReply,
@@ -25009,7 +25014,7 @@ var require_decorate = __commonJS({
 
 // node_modules/tiny-lru/lib/tiny-lru.cjs.js
 var require_tiny_lru_cjs = __commonJS({
-  "node_modules/tiny-lru/lib/tiny-lru.cjs.js"(exports2, module2) {
+  "node_modules/tiny-lru/lib/tiny-lru.cjs.js"(exports, module2) {
     "use strict";
     var LRU = class {
       constructor(max = 0, ttl = 0) {
@@ -25133,7 +25138,7 @@ var require_tiny_lru_cjs = __commonJS({
 
 // node_modules/fastify/lib/contentTypeParser.js
 var require_contentTypeParser = __commonJS({
-  "node_modules/fastify/lib/contentTypeParser.js"(exports2, module2) {
+  "node_modules/fastify/lib/contentTypeParser.js"(exports, module2) {
     "use strict";
     var lru = require_tiny_lru_cjs();
     lru = typeof lru === "function" ? lru : lru.default;
@@ -25242,7 +25247,7 @@ var require_contentTypeParser = __commonJS({
         parsers.splice(idx, 1);
       }
     };
-    ContentTypeParser.prototype.run = function(contentType, handler, request, reply) {
+    ContentTypeParser.prototype.run = function(contentType, handler2, request, reply) {
       const parser = this.cache.get(contentType) || this.getParser(contentType);
       if (parser === void 0) {
         reply.send(new FST_ERR_CTP_INVALID_MEDIA_TYPE(contentType));
@@ -25264,7 +25269,7 @@ var require_contentTypeParser = __commonJS({
           reply.send(error);
         } else {
           request.body = body;
-          handler(request, reply);
+          handler2(request, reply);
         }
       }
     };
@@ -25420,7 +25425,7 @@ var require_contentTypeParser = __commonJS({
 
 // node_modules/fastify/lib/schemas.js
 var require_schemas = __commonJS({
-  "node_modules/fastify/lib/schemas.js"(exports2, module2) {
+  "node_modules/fastify/lib/schemas.js"(exports, module2) {
     "use strict";
     var fastClone = require_rfdc()({ circles: false, proto: true });
     var { kSchemaVisited } = require_symbols();
@@ -25525,7 +25530,7 @@ var require_schemas = __commonJS({
 
 // node_modules/fastify/lib/schema-compilers.js
 var require_schema_compilers = __commonJS({
-  "node_modules/fastify/lib/schema-compilers.js"(exports2, module2) {
+  "node_modules/fastify/lib/schema-compilers.js"(exports, module2) {
     "use strict";
     var fastJsonStringify = require_fast_json_stringify();
     function serializerFactory(externalSchemas, serializerOpts) {
@@ -25540,7 +25545,7 @@ var require_schema_compilers = __commonJS({
 
 // node_modules/@fastify/ajv-compiler/index.js
 var require_ajv_compiler = __commonJS({
-  "node_modules/@fastify/ajv-compiler/index.js"(exports2, module2) {
+  "node_modules/@fastify/ajv-compiler/index.js"(exports, module2) {
     "use strict";
     var Ajv = require_ajv();
     function ValidatorSelector() {
@@ -25596,7 +25601,7 @@ var require_ajv_compiler = __commonJS({
 
 // node_modules/fastify/lib/schema-controller.js
 var require_schema_controller = __commonJS({
-  "node_modules/fastify/lib/schema-controller.js"(exports2, module2) {
+  "node_modules/fastify/lib/schema-controller.js"(exports, module2) {
     "use strict";
     var { buildSchemas } = require_schemas();
     var { serializerCompiler } = require_schema_compilers();
@@ -25682,7 +25687,7 @@ var require_schema_controller = __commonJS({
 
 // node_modules/fastify/lib/pluginUtils.js
 var require_pluginUtils = __commonJS({
-  "node_modules/fastify/lib/pluginUtils.js"(exports2, module2) {
+  "node_modules/fastify/lib/pluginUtils.js"(exports, module2) {
     "use strict";
     var semver = require_semver2();
     var assert = require("assert");
@@ -25802,7 +25807,7 @@ var require_pluginUtils = __commonJS({
 
 // node_modules/fastify/lib/reqIdGenFactory.js
 var require_reqIdGenFactory = __commonJS({
-  "node_modules/fastify/lib/reqIdGenFactory.js"(exports2, module2) {
+  "node_modules/fastify/lib/reqIdGenFactory.js"(exports, module2) {
     "use strict";
     module2.exports = function() {
       const maxInt = 2147483647;
@@ -25817,7 +25822,7 @@ var require_reqIdGenFactory = __commonJS({
 
 // node_modules/fast-decode-uri-component/index.js
 var require_fast_decode_uri_component = __commonJS({
-  "node_modules/fast-decode-uri-component/index.js"(exports2, module2) {
+  "node_modules/fast-decode-uri-component/index.js"(exports, module2) {
     "use strict";
     var UTF8_ACCEPT = 12;
     var UTF8_REJECT = 0;
@@ -26267,7 +26272,7 @@ var require_fast_decode_uri_component = __commonJS({
 
 // node_modules/ret/lib/types.js
 var require_types = __commonJS({
-  "node_modules/ret/lib/types.js"(exports2, module2) {
+  "node_modules/ret/lib/types.js"(exports, module2) {
     module2.exports = {
       ROOT: 0,
       GROUP: 1,
@@ -26283,7 +26288,7 @@ var require_types = __commonJS({
 
 // node_modules/ret/lib/sets.js
 var require_sets = __commonJS({
-  "node_modules/ret/lib/sets.js"(exports2) {
+  "node_modules/ret/lib/sets.js"(exports) {
     var types = require_types();
     var INTS = () => [{ type: types.RANGE, from: 48, to: 57 }];
     var WORDS = () => {
@@ -26320,24 +26325,24 @@ var require_sets = __commonJS({
         { type: types.CHAR, value: 8233 }
       ];
     };
-    exports2.words = () => ({ type: types.SET, set: WORDS(), not: false });
-    exports2.notWords = () => ({ type: types.SET, set: WORDS(), not: true });
-    exports2.ints = () => ({ type: types.SET, set: INTS(), not: false });
-    exports2.notInts = () => ({ type: types.SET, set: INTS(), not: true });
-    exports2.whitespace = () => ({ type: types.SET, set: WHITESPACE(), not: false });
-    exports2.notWhitespace = () => ({ type: types.SET, set: WHITESPACE(), not: true });
-    exports2.anyChar = () => ({ type: types.SET, set: NOTANYCHAR(), not: true });
+    exports.words = () => ({ type: types.SET, set: WORDS(), not: false });
+    exports.notWords = () => ({ type: types.SET, set: WORDS(), not: true });
+    exports.ints = () => ({ type: types.SET, set: INTS(), not: false });
+    exports.notInts = () => ({ type: types.SET, set: INTS(), not: true });
+    exports.whitespace = () => ({ type: types.SET, set: WHITESPACE(), not: false });
+    exports.notWhitespace = () => ({ type: types.SET, set: WHITESPACE(), not: true });
+    exports.anyChar = () => ({ type: types.SET, set: NOTANYCHAR(), not: true });
   }
 });
 
 // node_modules/ret/lib/util.js
 var require_util2 = __commonJS({
-  "node_modules/ret/lib/util.js"(exports2) {
+  "node_modules/ret/lib/util.js"(exports) {
     var types = require_types();
     var sets = require_sets();
     var CTRL = "@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^ ?";
     var SLSH = { "0": 0, "t": 9, "n": 10, "v": 11, "f": 12, "r": 13 };
-    exports2.strToChars = function(str) {
+    exports.strToChars = function(str) {
       var chars_regex = /(\[\\b\])|(\\)?\\(?:u([A-F0-9]{4})|x([A-F0-9]{2})|(0?[0-7]{2})|c([@A-Z[\\\]^?])|([0tnvfr]))/g;
       str = str.replace(chars_regex, function(s, b, lbs, a16, b16, c8, dctrl, eslsh) {
         if (lbs) {
@@ -26352,7 +26357,7 @@ var require_util2 = __commonJS({
       });
       return str;
     };
-    exports2.tokenizeClass = (str, regexpStr) => {
+    exports.tokenizeClass = (str, regexpStr) => {
       var tokens = [];
       var regexp = /\\(?:(w)|(d)|(s)|(W)|(D)|(S))|((?:(?:\\)(.)|([^\]\\]))-(?:\\)?([^\]]))|(\])|(?:\\)?([^])/g;
       var rs, c;
@@ -26384,9 +26389,9 @@ var require_util2 = __commonJS({
           return [tokens, regexp.lastIndex];
         }
       }
-      exports2.error(regexpStr, "Unterminated character class");
+      exports.error(regexpStr, "Unterminated character class");
     };
-    exports2.error = (regexp, msg) => {
+    exports.error = (regexp, msg) => {
       throw new SyntaxError("Invalid regular expression: /" + regexp + "/: " + msg);
     };
   }
@@ -26394,18 +26399,18 @@ var require_util2 = __commonJS({
 
 // node_modules/ret/lib/positions.js
 var require_positions = __commonJS({
-  "node_modules/ret/lib/positions.js"(exports2) {
+  "node_modules/ret/lib/positions.js"(exports) {
     var types = require_types();
-    exports2.wordBoundary = () => ({ type: types.POSITION, value: "b" });
-    exports2.nonWordBoundary = () => ({ type: types.POSITION, value: "B" });
-    exports2.begin = () => ({ type: types.POSITION, value: "^" });
-    exports2.end = () => ({ type: types.POSITION, value: "$" });
+    exports.wordBoundary = () => ({ type: types.POSITION, value: "b" });
+    exports.nonWordBoundary = () => ({ type: types.POSITION, value: "B" });
+    exports.begin = () => ({ type: types.POSITION, value: "^" });
+    exports.end = () => ({ type: types.POSITION, value: "$" });
   }
 });
 
 // node_modules/ret/lib/index.js
 var require_lib = __commonJS({
-  "node_modules/ret/lib/index.js"(exports2, module2) {
+  "node_modules/ret/lib/index.js"(exports, module2) {
     var util = require_util2();
     var types = require_types();
     var sets = require_sets();
@@ -26593,7 +26598,7 @@ var require_lib = __commonJS({
 
 // node_modules/safe-regex2/index.js
 var require_safe_regex2 = __commonJS({
-  "node_modules/safe-regex2/index.js"(exports2, module2) {
+  "node_modules/safe-regex2/index.js"(exports, module2) {
     "use strict";
     var parse = require_lib();
     var types = parse.types;
@@ -26649,7 +26654,7 @@ var require_safe_regex2 = __commonJS({
 
 // node_modules/find-my-way/lib/pretty-print.js
 var require_pretty_print = __commonJS({
-  "node_modules/find-my-way/lib/pretty-print.js"(exports2, module2) {
+  "node_modules/find-my-way/lib/pretty-print.js"(exports, module2) {
     "use strict";
     var indent = "    ";
     var branchIndent = "\u2502   ";
@@ -26781,17 +26786,17 @@ var require_pretty_print = __commonJS({
           }
           return acc;
         }, []);
-        flatHandlers.forEach((handler, idx) => {
+        flatHandlers.forEach((handler2, idx) => {
           if (idx > 0)
             branch += `${noPrefix ? "" : prefix || ""}${endBranch ? indent : branchIndent}${pathSeg.path}`;
-          branch += ` (${handler.method || "-"})`;
-          if (handler.opts && JSON.stringify(handler.opts) !== "{}")
-            branch += ` ${JSON.stringify(handler.opts)}`;
-          if (handler.meta) {
-            Reflect.ownKeys(handler.meta).forEach((m, hidx) => {
+          branch += ` (${handler2.method || "-"})`;
+          if (handler2.opts && JSON.stringify(handler2.opts) !== "{}")
+            branch += ` ${JSON.stringify(handler2.opts)}`;
+          if (handler2.meta) {
+            Reflect.ownKeys(handler2.meta).forEach((m, hidx) => {
               branch += `
 ${noPrefix ? "" : prefix || ""}${endBranch ? indent : branchIndent}`;
-              branch += `\u2022 (${m}) ${JSON.stringify(handler.meta[m])}`;
+              branch += `\u2022 (${m}) ${JSON.stringify(handler2.meta[m])}`;
             });
           }
           if (flatHandlers.length > 1 && idx !== flatHandlers.length - 1)
@@ -26817,15 +26822,15 @@ ${noPrefix ? "" : prefix || ""}${endBranch ? indent : branchIndent}`;
       let paramName = "";
       const printHandlers = [];
       for (const node of flattenedNode.nodes) {
-        for (const handler of node.handlers) {
-          printHandlers.push(__spreadValues({ method: node.method }, handler));
+        for (const handler2 of node.handlers) {
+          printHandlers.push(__spreadValues({ method: node.method }, handler2));
         }
       }
       if (printHandlers.length) {
-        printHandlers.forEach((handler, index) => {
-          let suffix = `(${handler.method || "-"})`;
-          if (Object.keys(handler.constraints).length > 0) {
-            suffix += " " + JSON.stringify(handler.constraints);
+        printHandlers.forEach((handler2, index) => {
+          let suffix = `(${handler2.method || "-"})`;
+          if (Object.keys(handler2.constraints).length > 0) {
+            suffix += " " + JSON.stringify(handler2.constraints);
           }
           let name = "";
           const paramIndices = flattenedNode.prefix.split("").map((ch, idx) => ch === ":" ? idx : null).filter((idx) => idx !== null);
@@ -26833,7 +26838,7 @@ ${noPrefix ? "" : prefix || ""}${endBranch ? indent : branchIndent}`;
             let prevLoc = 0;
             paramIndices.forEach((loc, idx) => {
               name += flattenedNode.prefix.slice(prevLoc, loc + 1);
-              name += handler.params[handler.params.length - paramIndices.length + idx];
+              name += handler2.params[handler2.params.length - paramIndices.length + idx];
               if (idx === paramIndices.length - 1)
                 name += flattenedNode.prefix.slice(loc + 1);
               prevLoc = loc + 1;
@@ -26848,7 +26853,7 @@ ${noPrefix ? "" : prefix || ""}${endBranch ? indent : branchIndent}`;
 ${prefix}${tail ? indent : branchIndent}${name} ${suffix}`;
           }
           if (opts.includeMeta) {
-            const meta = buildMetaObject.call(this, handler, opts.includeMeta);
+            const meta = buildMetaObject.call(this, handler2, opts.includeMeta);
             Object.keys(meta).forEach((m, hidx) => {
               paramName += `
 ${prefix || ""}${tail ? indent : branchIndent}`;
@@ -26917,7 +26922,7 @@ ${prefix || ""}${tail ? indent : branchIndent}`;
 
 // node_modules/find-my-way/node.js
 var require_node3 = __commonJS({
-  "node_modules/find-my-way/node.js"(exports2, module2) {
+  "node_modules/find-my-way/node.js"(exports, module2) {
     "use strict";
     var assert = require("assert");
     var deepEqual = require_fast_deep_equal();
@@ -27051,12 +27056,12 @@ var require_node3 = __commonJS({
       }
       return null;
     };
-    Node.prototype.addHandler = function(handler, params, store, constraints) {
-      if (!handler)
+    Node.prototype.addHandler = function(handler2, params, store, constraints) {
+      if (!handler2)
         return;
       assert(!this.getHandler(constraints), `There is already a handler with constraints '${JSON.stringify(constraints)}' and method '${this.method}'`);
       const handlerObject = {
-        handler,
+        handler: handler2,
         params,
         constraints,
         store: store || null,
@@ -27075,7 +27080,7 @@ var require_node3 = __commonJS({
       this._decompileGetHandlerMatchingConstraints();
     };
     Node.prototype.getHandler = function(constraints) {
-      return this.handlers.filter((handler) => deepEqual(constraints, handler.constraints))[0];
+      return this.handlers.filter((handler2) => deepEqual(constraints, handler2.constraints))[0];
     };
     function compileThenGetHandlerMatchingConstraints(derivedConstraints) {
       this._compileGetHandlerMatchingConstraints();
@@ -27100,8 +27105,8 @@ var require_node3 = __commonJS({
     Node.prototype._buildConstraintStore = function(constraint) {
       const store = this.constrainer.newStoreForConstraint(constraint);
       for (let i = 0; i < this.handlers.length; i++) {
-        const handler = this.handlers[i];
-        const mustMatchValue = handler.constraints[constraint];
+        const handler2 = this.handlers[i];
+        const mustMatchValue = handler2.constraints[constraint];
         if (typeof mustMatchValue !== "undefined") {
           let indexes = store.get(mustMatchValue);
           if (!indexes) {
@@ -27116,8 +27121,8 @@ var require_node3 = __commonJS({
     Node.prototype._constrainedIndexBitmask = function(constraint) {
       let mask = 0;
       for (let i = 0; i < this.handlers.length; i++) {
-        const handler = this.handlers[i];
-        if (handler.constraints && constraint in handler.constraints) {
+        const handler2 = this.handlers[i];
+        if (handler2.constraints && constraint in handler2.constraints) {
           mask |= 1 << i;
         }
       }
@@ -27126,8 +27131,8 @@ var require_node3 = __commonJS({
     Node.prototype._compileGetHandlerMatchingConstraints = function() {
       this.constrainedHandlerStores = {};
       let constraints = new Set();
-      for (const handler of this.handlers) {
-        for (const key of Object.keys(handler.constraints)) {
+      for (const handler2 of this.handlers) {
+        for (const key of Object.keys(handler2.constraints)) {
           constraints.add(key);
         }
       }
@@ -27171,7 +27176,7 @@ var require_node3 = __commonJS({
 
 // node_modules/semver-store/index.js
 var require_semver_store = __commonJS({
-  "node_modules/semver-store/index.js"(exports2, module2) {
+  "node_modules/semver-store/index.js"(exports, module2) {
     "use strict";
     function SemVerStore() {
       if (!(this instanceof SemVerStore)) {
@@ -27317,7 +27322,7 @@ var require_semver_store = __commonJS({
 
 // node_modules/find-my-way/lib/strategies/accept-version.js
 var require_accept_version = __commonJS({
-  "node_modules/find-my-way/lib/strategies/accept-version.js"(exports2, module2) {
+  "node_modules/find-my-way/lib/strategies/accept-version.js"(exports, module2) {
     "use strict";
     var SemVerStore = require_semver_store();
     var assert = require("assert");
@@ -27334,7 +27339,7 @@ var require_accept_version = __commonJS({
 
 // node_modules/find-my-way/lib/strategies/accept-host.js
 var require_accept_host = __commonJS({
-  "node_modules/find-my-way/lib/strategies/accept-host.js"(exports2, module2) {
+  "node_modules/find-my-way/lib/strategies/accept-host.js"(exports, module2) {
     "use strict";
     var assert = require("assert");
     function HostStorage() {
@@ -27384,7 +27389,7 @@ var require_accept_host = __commonJS({
 
 // node_modules/find-my-way/lib/constrainer.js
 var require_constrainer = __commonJS({
-  "node_modules/find-my-way/lib/constrainer.js"(exports2, module2) {
+  "node_modules/find-my-way/lib/constrainer.js"(exports, module2) {
     "use strict";
     var acceptVersionStrategy = require_accept_version();
     var acceptHostStrategy = require_accept_host();
@@ -27486,7 +27491,7 @@ var require_constrainer = __commonJS({
 
 // node_modules/find-my-way/index.js
 var require_find_my_way = __commonJS({
-  "node_modules/find-my-way/index.js"(exports2, module2) {
+  "node_modules/find-my-way/index.js"(exports, module2) {
     "use strict";
     var assert = require("assert");
     var http = require("http");
@@ -27536,40 +27541,40 @@ var require_find_my_way = __commonJS({
       this.trees = {};
       this.routes = [];
     }
-    Router.prototype.on = function on(method, path, opts, handler, store) {
+    Router.prototype.on = function on(method, path, opts, handler2, store) {
       if (typeof opts === "function") {
-        if (handler !== void 0) {
-          store = handler;
+        if (handler2 !== void 0) {
+          store = handler2;
         }
-        handler = opts;
+        handler2 = opts;
         opts = {};
       }
       assert(typeof path === "string", "Path should be a string");
       assert(path.length > 0, "The path could not be empty");
       assert(path[0] === "/" || path[0] === "*", "The first character of a path should be `/` or `*`");
-      assert(typeof handler === "function", "Handler should be a function");
+      assert(typeof handler2 === "function", "Handler should be a function");
       const optionalParamMatch = path.match(OPTIONAL_PARAM_REGEXP);
       if (optionalParamMatch) {
         assert(path.length === optionalParamMatch.index + optionalParamMatch[0].length, "Optional Parameter needs to be the last parameter of the path");
         const pathFull = path.replace(OPTIONAL_PARAM_REGEXP, "$1$2");
         const pathOptional = path.replace(OPTIONAL_PARAM_REGEXP, "$2");
-        this.on(method, pathFull, opts, handler, store);
-        this.on(method, pathOptional, opts, handler, store);
+        this.on(method, pathFull, opts, handler2, store);
+        this.on(method, pathOptional, opts, handler2, store);
         return;
       }
-      this._on(method, path, opts, handler, store);
+      this._on(method, path, opts, handler2, store);
       if (this.ignoreTrailingSlash && path !== "/" && !path.endsWith("*")) {
         if (path.endsWith("/")) {
-          this._on(method, path.slice(0, -1), opts, handler, store);
+          this._on(method, path.slice(0, -1), opts, handler2, store);
         } else {
-          this._on(method, path + "/", opts, handler, store);
+          this._on(method, path + "/", opts, handler2, store);
         }
       }
     };
-    Router.prototype._on = function _on(method, path, opts, handler, store) {
+    Router.prototype._on = function _on(method, path, opts, handler2, store) {
       if (Array.isArray(method)) {
         for (var k = 0; k < method.length; k++) {
-          this._on(method[k], path, opts, handler, store);
+          this._on(method[k], path, opts, handler2, store);
         }
         return;
       }
@@ -27590,7 +27595,7 @@ var require_find_my_way = __commonJS({
         method,
         path,
         opts,
-        handler,
+        handler: handler2,
         store
       });
       for (var i2 = 0, len = path.length; i2 < len; i2++) {
@@ -27641,7 +27646,7 @@ var require_find_my_way = __commonJS({
             if (this.caseSensitive === false) {
               completedPath = completedPath.toLowerCase();
             }
-            return this._insert(method, completedPath, nodeType, params, handler, store, regex, constraints);
+            return this._insert(method, completedPath, nodeType, params, handler2, store, regex, constraints);
           }
           staticPart = path.slice(0, i2);
           if (this.caseSensitive === false) {
@@ -27652,15 +27657,15 @@ var require_find_my_way = __commonJS({
         } else if (path.charCodeAt(i2) === 42) {
           this._insert(method, path.slice(0, i2), NODE_TYPES.STATIC, null, null, null, null, constraints);
           params.push("*");
-          return this._insert(method, path.slice(0, len), NODE_TYPES.MATCH_ALL, params, handler, store, null, constraints);
+          return this._insert(method, path.slice(0, len), NODE_TYPES.MATCH_ALL, params, handler2, store, null, constraints);
         }
       }
       if (this.caseSensitive === false) {
         path = path.toLowerCase();
       }
-      this._insert(method, path, NODE_TYPES.STATIC, params, handler, store, null, constraints);
+      this._insert(method, path, NODE_TYPES.STATIC, params, handler2, store, null, constraints);
     };
-    Router.prototype._insert = function _insert(method, path, kind, params, handler, store, regex, constraints) {
+    Router.prototype._insert = function _insert(method, path, kind, params, handler2, store, regex, constraints) {
       const route = path;
       var prefix = "";
       var pathLen = 0;
@@ -27685,7 +27690,7 @@ var require_find_my_way = __commonJS({
           node = currentNode.split(len);
           if (len === pathLen) {
             assert(!currentNode.getHandler(constraints), `Method '${method}' already declared for route '${route}' with constraints '${JSON.stringify(constraints)}'`);
-            currentNode.addHandler(handler, params, store, constraints);
+            currentNode.addHandler(handler2, params, store, constraints);
             currentNode.kind = kind;
           } else {
             node = new Node({
@@ -27696,7 +27701,7 @@ var require_find_my_way = __commonJS({
               regex,
               constrainer: this.constrainer
             });
-            node.addHandler(handler, params, store, constraints);
+            node.addHandler(handler2, params, store, constraints);
             currentNode.addChild(node);
           }
         } else if (len < pathLen) {
@@ -27707,11 +27712,11 @@ var require_find_my_way = __commonJS({
             continue;
           }
           node = new Node({ method, prefix: path, kind, handlers: null, regex, constrainer: this.constrainer });
-          node.addHandler(handler, params, store, constraints);
+          node.addHandler(handler2, params, store, constraints);
           currentNode.addChild(node);
-        } else if (handler) {
+        } else if (handler2) {
           assert(!currentNode.getHandler(constraints), `Method '${method}' already declared for route '${route}' with constraints '${JSON.stringify(constraints)}'`);
-          currentNode.addHandler(handler, params, store, constraints);
+          currentNode.addHandler(handler2, params, store, constraints);
         }
         return;
       }
@@ -27996,13 +28001,13 @@ var require_find_my_way = __commonJS({
       const methodName = m.toLowerCase();
       if (Router.prototype[methodName])
         throw new Error("Method already exists: " + methodName);
-      Router.prototype[methodName] = function(path, handler, store) {
-        return this.on(m, path, handler, store);
+      Router.prototype[methodName] = function(path, handler2, store) {
+        return this.on(m, path, handler2, store);
       };
     }
     var i;
-    Router.prototype.all = function(path, handler, store) {
-      this.on(httpMethods, path, handler, store);
+    Router.prototype.all = function(path, handler2, store) {
+      this.on(httpMethods, path, handler2, store);
     };
     module2.exports = Router;
     function sanitizeUrl(url) {
@@ -28044,12 +28049,12 @@ var require_find_my_way = __commonJS({
 
 // node_modules/fastify/lib/context.js
 var require_context = __commonJS({
-  "node_modules/fastify/lib/context.js"(exports2, module2) {
+  "node_modules/fastify/lib/context.js"(exports, module2) {
     "use strict";
     var { kFourOhFourContext, kReplySerializerDefault } = require_symbols();
-    function Context(schema, handler, Reply, Request, contentTypeParser, config, errorHandler, bodyLimit, logLevel, logSerializers, attachValidation, replySerializer, schemaErrorFormatter) {
+    function Context(schema, handler2, Reply, Request, contentTypeParser, config, errorHandler, bodyLimit, logLevel, logSerializers, attachValidation, replySerializer, schemaErrorFormatter) {
       this.schema = schema;
-      this.handler = handler;
+      this.handler = handler2;
       this.Reply = Reply;
       this.Request = Request;
       this.contentTypeParser = contentTypeParser;
@@ -28085,7 +28090,7 @@ var require_context = __commonJS({
 
 // node_modules/fastify/lib/headRoute.js
 var require_headRoute = __commonJS({
-  "node_modules/fastify/lib/headRoute.js"(exports2, module2) {
+  "node_modules/fastify/lib/headRoute.js"(exports, module2) {
     "use strict";
     function headRouteOnSendHandler(req, reply, payload, done) {
       if (payload === void 0) {
@@ -28116,7 +28121,7 @@ var require_headRoute = __commonJS({
 
 // node_modules/fastify/lib/route.js
 var require_route = __commonJS({
-  "node_modules/fastify/lib/route.js"(exports2, module2) {
+  "node_modules/fastify/lib/route.js"(exports, module2) {
     "use strict";
     var FindMyWay = require_find_my_way();
     var Context = require_context();
@@ -28205,11 +28210,11 @@ var require_route = __commonJS({
         },
         printRoutes: router.prettyPrint.bind(router)
       };
-      function prepareRoute(method, url, options2, handler) {
-        if (!handler && typeof options2 === "function") {
-          handler = options2;
+      function prepareRoute(method, url, options2, handler2) {
+        if (!handler2 && typeof options2 === "function") {
+          handler2 = options2;
           options2 = {};
-        } else if (handler && typeof handler === "function") {
+        } else if (handler2 && typeof handler2 === "function") {
           if (Object.prototype.toString.call(options2) !== "[object Object]") {
             throw new Error(`Options for ${method}:${url} route must be an object`);
           } else if (options2.handler) {
@@ -28224,7 +28229,7 @@ var require_route = __commonJS({
           method,
           url,
           path: url,
-          handler: handler || options2 && options2.handler
+          handler: handler2 || options2 && options2.handler
         });
         return route.call(this, options2);
       }
@@ -28487,7 +28492,7 @@ var require_route = __commonJS({
 
 // node_modules/fastify/lib/fourOhFour.js
 var require_fourOhFour = __commonJS({
-  "node_modules/fastify/lib/fourOhFour.js"(exports2, module2) {
+  "node_modules/fastify/lib/fourOhFour.js"(exports, module2) {
     "use strict";
     var FindMyWay = require_find_my_way();
     var Reply = require_reply();
@@ -28535,7 +28540,7 @@ var require_fourOhFour = __commonJS({
         _404Context.onSend = context.onSend;
         context[kFourOhFourContext] = _404Context;
       }
-      function setNotFoundHandler(opts, handler, avvio, routeHandler) {
+      function setNotFoundHandler(opts, handler2, avvio, routeHandler) {
         if (this[kCanSetNotFoundHandler] === void 0) {
           this[kCanSetNotFoundHandler] = true;
         }
@@ -28564,23 +28569,23 @@ var require_fourOhFour = __commonJS({
           }
         }
         if (typeof opts === "function") {
-          handler = opts;
+          handler2 = opts;
           opts = void 0;
         }
         opts = opts || {};
-        if (handler) {
+        if (handler2) {
           this[kFourOhFourLevelInstance][kCanSetNotFoundHandler] = false;
-          handler = handler.bind(this);
+          handler2 = handler2.bind(this);
         } else {
-          handler = basic404;
+          handler2 = basic404;
         }
         this.after((notHandledErr, done) => {
-          _setNotFoundHandler.call(this, prefix, opts, handler, avvio, routeHandler);
+          _setNotFoundHandler.call(this, prefix, opts, handler2, avvio, routeHandler);
           done(notHandledErr);
         });
       }
-      function _setNotFoundHandler(prefix, opts, handler, avvio, routeHandler) {
-        const context = new Context(opts.schema, handler, this[kReply], this[kRequest], this[kContentTypeParser], opts.config || {}, this[kErrorHandler], this[kBodyLimit], this[kLogLevel]);
+      function _setNotFoundHandler(prefix, opts, handler2, avvio, routeHandler) {
+        const context = new Context(opts.schema, handler2, this[kReply], this[kRequest], this[kContentTypeParser], opts.config || {}, this[kErrorHandler], this[kBodyLimit], this[kLogLevel]);
         avvio.once("preReady", () => {
           const context2 = this[kFourOhFourContext];
           for (const hook of lifecycleHooks) {
@@ -28613,7 +28618,7 @@ var require_fourOhFour = __commonJS({
 
 // node_modules/fastify/lib/configValidator.js
 var require_configValidator = __commonJS({
-  "node_modules/fastify/lib/configValidator.js"(exports2, module2) {
+  "node_modules/fastify/lib/configValidator.js"(exports, module2) {
     var self = {};
     var validate = function() {
       var refVal = [];
@@ -29755,7 +29760,7 @@ var require_configValidator = __commonJS({
 
 // node_modules/fastify/lib/initialConfigValidation.js
 var require_initialConfigValidation = __commonJS({
-  "node_modules/fastify/lib/initialConfigValidation.js"(exports2, module2) {
+  "node_modules/fastify/lib/initialConfigValidation.js"(exports, module2) {
     "use strict";
     var validate = require_configValidator();
     var deepClone = require_rfdc()({ circles: true, proto: false });
@@ -29788,7 +29793,7 @@ var require_initialConfigValidation = __commonJS({
 
 // node_modules/fastify/lib/pluginOverride.js
 var require_pluginOverride = __commonJS({
-  "node_modules/fastify/lib/pluginOverride.js"(exports2, module2) {
+  "node_modules/fastify/lib/pluginOverride.js"(exports, module2) {
     "use strict";
     var {
       kAvvioBoot,
@@ -29859,18 +29864,18 @@ var require_pluginOverride = __commonJS({
 
 // node_modules/light-my-request/node_modules/ajv/dist/compile/codegen/code.js
 var require_code = __commonJS({
-  "node_modules/light-my-request/node_modules/ajv/dist/compile/codegen/code.js"(exports2) {
+  "node_modules/light-my-request/node_modules/ajv/dist/compile/codegen/code.js"(exports) {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.regexpCode = exports2.getProperty = exports2.safeStringify = exports2.stringify = exports2.strConcat = exports2.addCodeArg = exports2.str = exports2._ = exports2.nil = exports2._Code = exports2.Name = exports2.IDENTIFIER = exports2._CodeOrName = void 0;
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.regexpCode = exports.getProperty = exports.safeStringify = exports.stringify = exports.strConcat = exports.addCodeArg = exports.str = exports._ = exports.nil = exports._Code = exports.Name = exports.IDENTIFIER = exports._CodeOrName = void 0;
     var _CodeOrName = class {
     };
-    exports2._CodeOrName = _CodeOrName;
-    exports2.IDENTIFIER = /^[a-z$_][a-z$_0-9]*$/i;
+    exports._CodeOrName = _CodeOrName;
+    exports.IDENTIFIER = /^[a-z$_][a-z$_0-9]*$/i;
     var Name = class extends _CodeOrName {
       constructor(s) {
         super();
-        if (!exports2.IDENTIFIER.test(s))
+        if (!exports.IDENTIFIER.test(s))
           throw new Error("CodeGen: name must be a valid identifier");
         this.str = s;
       }
@@ -29884,7 +29889,7 @@ var require_code = __commonJS({
         return { [this.str]: 1 };
       }
     };
-    exports2.Name = Name;
+    exports.Name = Name;
     var _Code = class extends _CodeOrName {
       constructor(code) {
         super();
@@ -29912,8 +29917,8 @@ var require_code = __commonJS({
         }, {});
       }
     };
-    exports2._Code = _Code;
-    exports2.nil = new _Code("");
+    exports._Code = _Code;
+    exports.nil = new _Code("");
     function _(strs, ...args) {
       const code = [strs[0]];
       let i = 0;
@@ -29923,7 +29928,7 @@ var require_code = __commonJS({
       }
       return new _Code(code);
     }
-    exports2._ = _;
+    exports._ = _;
     var plus = new _Code("+");
     function str(strs, ...args) {
       const expr = [safeStringify(strs[0])];
@@ -29936,7 +29941,7 @@ var require_code = __commonJS({
       optimize(expr);
       return new _Code(expr);
     }
-    exports2.str = str;
+    exports.str = str;
     function addCodeArg(code, arg) {
       if (arg instanceof _Code)
         code.push(...arg._items);
@@ -29945,7 +29950,7 @@ var require_code = __commonJS({
       else
         code.push(interpolate(arg));
     }
-    exports2.addCodeArg = addCodeArg;
+    exports.addCodeArg = addCodeArg;
     function optimize(expr) {
       let i = 1;
       while (i < expr.length - 1) {
@@ -29981,35 +29986,35 @@ var require_code = __commonJS({
     function strConcat(c1, c2) {
       return c2.emptyStr() ? c1 : c1.emptyStr() ? c2 : str`${c1}${c2}`;
     }
-    exports2.strConcat = strConcat;
+    exports.strConcat = strConcat;
     function interpolate(x) {
       return typeof x == "number" || typeof x == "boolean" || x === null ? x : safeStringify(Array.isArray(x) ? x.join(",") : x);
     }
     function stringify(x) {
       return new _Code(safeStringify(x));
     }
-    exports2.stringify = stringify;
+    exports.stringify = stringify;
     function safeStringify(x) {
       return JSON.stringify(x).replace(/\u2028/g, "\\u2028").replace(/\u2029/g, "\\u2029");
     }
-    exports2.safeStringify = safeStringify;
+    exports.safeStringify = safeStringify;
     function getProperty(key) {
-      return typeof key == "string" && exports2.IDENTIFIER.test(key) ? new _Code(`.${key}`) : _`[${key}]`;
+      return typeof key == "string" && exports.IDENTIFIER.test(key) ? new _Code(`.${key}`) : _`[${key}]`;
     }
-    exports2.getProperty = getProperty;
+    exports.getProperty = getProperty;
     function regexpCode(rx) {
       return new _Code(rx.toString());
     }
-    exports2.regexpCode = regexpCode;
+    exports.regexpCode = regexpCode;
   }
 });
 
 // node_modules/light-my-request/node_modules/ajv/dist/compile/codegen/scope.js
 var require_scope = __commonJS({
-  "node_modules/light-my-request/node_modules/ajv/dist/compile/codegen/scope.js"(exports2) {
+  "node_modules/light-my-request/node_modules/ajv/dist/compile/codegen/scope.js"(exports) {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.ValueScope = exports2.ValueScopeName = exports2.Scope = exports2.varKinds = exports2.UsedValueState = void 0;
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.ValueScope = exports.ValueScopeName = exports.Scope = exports.varKinds = exports.UsedValueState = void 0;
     var code_1 = require_code();
     var ValueError = class extends Error {
       constructor(name) {
@@ -30021,8 +30026,8 @@ var require_scope = __commonJS({
     (function(UsedValueState2) {
       UsedValueState2[UsedValueState2["Started"] = 0] = "Started";
       UsedValueState2[UsedValueState2["Completed"] = 1] = "Completed";
-    })(UsedValueState = exports2.UsedValueState || (exports2.UsedValueState = {}));
-    exports2.varKinds = {
+    })(UsedValueState = exports.UsedValueState || (exports.UsedValueState = {}));
+    exports.varKinds = {
       const: new code_1.Name("const"),
       let: new code_1.Name("let"),
       var: new code_1.Name("var")
@@ -30051,7 +30056,7 @@ var require_scope = __commonJS({
         return this._names[prefix] = { prefix, index: 0 };
       }
     };
-    exports2.Scope = Scope;
+    exports.Scope = Scope;
     var ValueScopeName = class extends code_1.Name {
       constructor(prefix, nameStr) {
         super(nameStr);
@@ -30062,7 +30067,7 @@ var require_scope = __commonJS({
         this.scopePath = (0, code_1._)`.${new code_1.Name(property)}[${itemIndex}]`;
       }
     };
-    exports2.ValueScopeName = ValueScopeName;
+    exports.ValueScopeName = ValueScopeName;
     var line = (0, code_1._)`\n`;
     var ValueScope = class extends Scope {
       constructor(opts) {
@@ -30132,7 +30137,7 @@ var require_scope = __commonJS({
             nameSet.set(name, UsedValueState.Started);
             let c = valueCode(name);
             if (c) {
-              const def = this.opts.es5 ? exports2.varKinds.var : exports2.varKinds.const;
+              const def = this.opts.es5 ? exports.varKinds.var : exports.varKinds.const;
               code = (0, code_1._)`${code}${def} ${name} = ${c};${this.opts._n}`;
             } else if (c = getCode === null || getCode === void 0 ? void 0 : getCode(name)) {
               code = (0, code_1._)`${code}${c}${this.opts._n}`;
@@ -30145,57 +30150,57 @@ var require_scope = __commonJS({
         return code;
       }
     };
-    exports2.ValueScope = ValueScope;
+    exports.ValueScope = ValueScope;
   }
 });
 
 // node_modules/light-my-request/node_modules/ajv/dist/compile/codegen/index.js
 var require_codegen = __commonJS({
-  "node_modules/light-my-request/node_modules/ajv/dist/compile/codegen/index.js"(exports2) {
+  "node_modules/light-my-request/node_modules/ajv/dist/compile/codegen/index.js"(exports) {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.or = exports2.and = exports2.not = exports2.CodeGen = exports2.operators = exports2.varKinds = exports2.ValueScopeName = exports2.ValueScope = exports2.Scope = exports2.Name = exports2.regexpCode = exports2.stringify = exports2.getProperty = exports2.nil = exports2.strConcat = exports2.str = exports2._ = void 0;
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.or = exports.and = exports.not = exports.CodeGen = exports.operators = exports.varKinds = exports.ValueScopeName = exports.ValueScope = exports.Scope = exports.Name = exports.regexpCode = exports.stringify = exports.getProperty = exports.nil = exports.strConcat = exports.str = exports._ = void 0;
     var code_1 = require_code();
     var scope_1 = require_scope();
     var code_2 = require_code();
-    Object.defineProperty(exports2, "_", { enumerable: true, get: function() {
+    Object.defineProperty(exports, "_", { enumerable: true, get: function() {
       return code_2._;
     } });
-    Object.defineProperty(exports2, "str", { enumerable: true, get: function() {
+    Object.defineProperty(exports, "str", { enumerable: true, get: function() {
       return code_2.str;
     } });
-    Object.defineProperty(exports2, "strConcat", { enumerable: true, get: function() {
+    Object.defineProperty(exports, "strConcat", { enumerable: true, get: function() {
       return code_2.strConcat;
     } });
-    Object.defineProperty(exports2, "nil", { enumerable: true, get: function() {
+    Object.defineProperty(exports, "nil", { enumerable: true, get: function() {
       return code_2.nil;
     } });
-    Object.defineProperty(exports2, "getProperty", { enumerable: true, get: function() {
+    Object.defineProperty(exports, "getProperty", { enumerable: true, get: function() {
       return code_2.getProperty;
     } });
-    Object.defineProperty(exports2, "stringify", { enumerable: true, get: function() {
+    Object.defineProperty(exports, "stringify", { enumerable: true, get: function() {
       return code_2.stringify;
     } });
-    Object.defineProperty(exports2, "regexpCode", { enumerable: true, get: function() {
+    Object.defineProperty(exports, "regexpCode", { enumerable: true, get: function() {
       return code_2.regexpCode;
     } });
-    Object.defineProperty(exports2, "Name", { enumerable: true, get: function() {
+    Object.defineProperty(exports, "Name", { enumerable: true, get: function() {
       return code_2.Name;
     } });
     var scope_2 = require_scope();
-    Object.defineProperty(exports2, "Scope", { enumerable: true, get: function() {
+    Object.defineProperty(exports, "Scope", { enumerable: true, get: function() {
       return scope_2.Scope;
     } });
-    Object.defineProperty(exports2, "ValueScope", { enumerable: true, get: function() {
+    Object.defineProperty(exports, "ValueScope", { enumerable: true, get: function() {
       return scope_2.ValueScope;
     } });
-    Object.defineProperty(exports2, "ValueScopeName", { enumerable: true, get: function() {
+    Object.defineProperty(exports, "ValueScopeName", { enumerable: true, get: function() {
       return scope_2.ValueScopeName;
     } });
-    Object.defineProperty(exports2, "varKinds", { enumerable: true, get: function() {
+    Object.defineProperty(exports, "varKinds", { enumerable: true, get: function() {
       return scope_2.varKinds;
     } });
-    exports2.operators = {
+    exports.operators = {
       GT: new code_1._Code(">"),
       GTE: new code_1._Code(">="),
       LT: new code_1._Code("<"),
@@ -30598,7 +30603,7 @@ var require_codegen = __commonJS({
         return this._leafNode(new Assign(lhs, rhs, sideEffects));
       }
       add(lhs, rhs) {
-        return this._leafNode(new AssignOp(lhs, exports2.operators.ADD, rhs));
+        return this._leafNode(new AssignOp(lhs, exports.operators.ADD, rhs));
       }
       code(c) {
         if (typeof c == "function")
@@ -30777,7 +30782,7 @@ var require_codegen = __commonJS({
         ns[ns.length - 1] = node;
       }
     };
-    exports2.CodeGen = CodeGen;
+    exports.CodeGen = CodeGen;
     function addNames(names, from) {
       for (const n in from)
         names[n] = (names[n] || 0) + (from[n] || 0);
@@ -30818,17 +30823,17 @@ var require_codegen = __commonJS({
     function not(x) {
       return typeof x == "boolean" || typeof x == "number" || x === null ? !x : (0, code_1._)`!${par(x)}`;
     }
-    exports2.not = not;
-    var andCode = mappend(exports2.operators.AND);
+    exports.not = not;
+    var andCode = mappend(exports.operators.AND);
     function and(...args) {
       return args.reduce(andCode);
     }
-    exports2.and = and;
-    var orCode = mappend(exports2.operators.OR);
+    exports.and = and;
+    var orCode = mappend(exports.operators.OR);
     function or(...args) {
       return args.reduce(orCode);
     }
-    exports2.or = or;
+    exports.or = or;
     function mappend(op) {
       return (x, y) => x === code_1.nil ? y : y === code_1.nil ? x : (0, code_1._)`${par(x)} ${op} ${par(y)}`;
     }
@@ -30840,10 +30845,10 @@ var require_codegen = __commonJS({
 
 // node_modules/light-my-request/node_modules/ajv/dist/compile/util.js
 var require_util3 = __commonJS({
-  "node_modules/light-my-request/node_modules/ajv/dist/compile/util.js"(exports2) {
+  "node_modules/light-my-request/node_modules/ajv/dist/compile/util.js"(exports) {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.checkStrictMode = exports2.getErrorPath = exports2.Type = exports2.useFunc = exports2.setEvaluated = exports2.evaluatedPropsToName = exports2.mergeEvaluated = exports2.eachItem = exports2.unescapeJsonPointer = exports2.escapeJsonPointer = exports2.escapeFragment = exports2.unescapeFragment = exports2.schemaRefOrVal = exports2.schemaHasRulesButRef = exports2.schemaHasRules = exports2.checkUnknownRules = exports2.alwaysValidSchema = exports2.toHash = void 0;
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.checkStrictMode = exports.getErrorPath = exports.Type = exports.useFunc = exports.setEvaluated = exports.evaluatedPropsToName = exports.mergeEvaluated = exports.eachItem = exports.unescapeJsonPointer = exports.escapeJsonPointer = exports.escapeFragment = exports.unescapeFragment = exports.schemaRefOrVal = exports.schemaHasRulesButRef = exports.schemaHasRules = exports.checkUnknownRules = exports.alwaysValidSchema = exports.toHash = void 0;
     var codegen_1 = require_codegen();
     var code_1 = require_code();
     function toHash(arr) {
@@ -30852,7 +30857,7 @@ var require_util3 = __commonJS({
         hash[item] = true;
       return hash;
     }
-    exports2.toHash = toHash;
+    exports.toHash = toHash;
     function alwaysValidSchema(it, schema) {
       if (typeof schema == "boolean")
         return schema;
@@ -30861,7 +30866,7 @@ var require_util3 = __commonJS({
       checkUnknownRules(it, schema);
       return !schemaHasRules(schema, it.self.RULES.all);
     }
-    exports2.alwaysValidSchema = alwaysValidSchema;
+    exports.alwaysValidSchema = alwaysValidSchema;
     function checkUnknownRules(it, schema = it.schema) {
       const { opts, self } = it;
       if (!opts.strictSchema)
@@ -30874,7 +30879,7 @@ var require_util3 = __commonJS({
           checkStrictMode(it, `unknown keyword: "${key}"`);
       }
     }
-    exports2.checkUnknownRules = checkUnknownRules;
+    exports.checkUnknownRules = checkUnknownRules;
     function schemaHasRules(schema, rules) {
       if (typeof schema == "boolean")
         return !schema;
@@ -30883,7 +30888,7 @@ var require_util3 = __commonJS({
           return true;
       return false;
     }
-    exports2.schemaHasRules = schemaHasRules;
+    exports.schemaHasRules = schemaHasRules;
     function schemaHasRulesButRef(schema, RULES) {
       if (typeof schema == "boolean")
         return !schema;
@@ -30892,7 +30897,7 @@ var require_util3 = __commonJS({
           return true;
       return false;
     }
-    exports2.schemaHasRulesButRef = schemaHasRulesButRef;
+    exports.schemaHasRulesButRef = schemaHasRulesButRef;
     function schemaRefOrVal({ topSchemaRef, schemaPath }, schema, keyword, $data) {
       if (!$data) {
         if (typeof schema == "number" || typeof schema == "boolean")
@@ -30902,25 +30907,25 @@ var require_util3 = __commonJS({
       }
       return (0, codegen_1._)`${topSchemaRef}${schemaPath}${(0, codegen_1.getProperty)(keyword)}`;
     }
-    exports2.schemaRefOrVal = schemaRefOrVal;
+    exports.schemaRefOrVal = schemaRefOrVal;
     function unescapeFragment(str) {
       return unescapeJsonPointer(decodeURIComponent(str));
     }
-    exports2.unescapeFragment = unescapeFragment;
+    exports.unescapeFragment = unescapeFragment;
     function escapeFragment(str) {
       return encodeURIComponent(escapeJsonPointer(str));
     }
-    exports2.escapeFragment = escapeFragment;
+    exports.escapeFragment = escapeFragment;
     function escapeJsonPointer(str) {
       if (typeof str == "number")
         return `${str}`;
       return str.replace(/~/g, "~0").replace(/\//g, "~1");
     }
-    exports2.escapeJsonPointer = escapeJsonPointer;
+    exports.escapeJsonPointer = escapeJsonPointer;
     function unescapeJsonPointer(str) {
       return str.replace(/~1/g, "/").replace(/~0/g, "~");
     }
-    exports2.unescapeJsonPointer = unescapeJsonPointer;
+    exports.unescapeJsonPointer = unescapeJsonPointer;
     function eachItem(xs, f) {
       if (Array.isArray(xs)) {
         for (const x of xs)
@@ -30929,14 +30934,14 @@ var require_util3 = __commonJS({
         f(xs);
       }
     }
-    exports2.eachItem = eachItem;
+    exports.eachItem = eachItem;
     function makeMergeEvaluated({ mergeNames, mergeToName, mergeValues, resultToName }) {
       return (gen, from, to, toName) => {
         const res = to === void 0 ? from : to instanceof codegen_1.Name ? (from instanceof codegen_1.Name ? mergeNames(gen, from, to) : mergeToName(gen, from, to), to) : from instanceof codegen_1.Name ? (mergeToName(gen, to, from), from) : mergeValues(from, to);
         return toName === codegen_1.Name && !(res instanceof codegen_1.Name) ? resultToName(gen, res) : res;
       };
     }
-    exports2.mergeEvaluated = {
+    exports.mergeEvaluated = {
       props: makeMergeEvaluated({
         mergeNames: (gen, from, to) => gen.if((0, codegen_1._)`${to} !== true && ${from} !== undefined`, () => {
           gen.if((0, codegen_1._)`${from} === true`, () => gen.assign(to, true), () => gen.assign(to, (0, codegen_1._)`${to} || {}`).code((0, codegen_1._)`Object.assign(${to}, ${from})`));
@@ -30967,11 +30972,11 @@ var require_util3 = __commonJS({
         setEvaluated(gen, props, ps);
       return props;
     }
-    exports2.evaluatedPropsToName = evaluatedPropsToName;
+    exports.evaluatedPropsToName = evaluatedPropsToName;
     function setEvaluated(gen, props, ps) {
       Object.keys(ps).forEach((p) => gen.assign((0, codegen_1._)`${props}${(0, codegen_1.getProperty)(p)}`, true));
     }
-    exports2.setEvaluated = setEvaluated;
+    exports.setEvaluated = setEvaluated;
     var snippets = {};
     function useFunc(gen, f) {
       return gen.scopeValue("func", {
@@ -30979,12 +30984,12 @@ var require_util3 = __commonJS({
         code: snippets[f.code] || (snippets[f.code] = new code_1._Code(f.code))
       });
     }
-    exports2.useFunc = useFunc;
+    exports.useFunc = useFunc;
     var Type;
     (function(Type2) {
       Type2[Type2["Num"] = 0] = "Num";
       Type2[Type2["Str"] = 1] = "Str";
-    })(Type = exports2.Type || (exports2.Type = {}));
+    })(Type = exports.Type || (exports.Type = {}));
     function getErrorPath(dataProp, dataPropType, jsPropertySyntax) {
       if (dataProp instanceof codegen_1.Name) {
         const isNumber = dataPropType === Type.Num;
@@ -30992,7 +30997,7 @@ var require_util3 = __commonJS({
       }
       return jsPropertySyntax ? (0, codegen_1.getProperty)(dataProp).toString() : "/" + escapeJsonPointer(dataProp);
     }
-    exports2.getErrorPath = getErrorPath;
+    exports.getErrorPath = getErrorPath;
     function checkStrictMode(it, msg, mode = it.opts.strictSchema) {
       if (!mode)
         return;
@@ -31001,15 +31006,15 @@ var require_util3 = __commonJS({
         throw new Error(msg);
       it.self.logger.warn(msg);
     }
-    exports2.checkStrictMode = checkStrictMode;
+    exports.checkStrictMode = checkStrictMode;
   }
 });
 
 // node_modules/light-my-request/node_modules/ajv/dist/compile/names.js
 var require_names = __commonJS({
-  "node_modules/light-my-request/node_modules/ajv/dist/compile/names.js"(exports2) {
+  "node_modules/light-my-request/node_modules/ajv/dist/compile/names.js"(exports) {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
+    Object.defineProperty(exports, "__esModule", { value: true });
     var codegen_1 = require_codegen();
     var names = {
       data: new codegen_1.Name("data"),
@@ -31029,26 +31034,26 @@ var require_names = __commonJS({
       jsonLen: new codegen_1.Name("jsonLen"),
       jsonPart: new codegen_1.Name("jsonPart")
     };
-    exports2.default = names;
+    exports.default = names;
   }
 });
 
 // node_modules/light-my-request/node_modules/ajv/dist/compile/errors.js
 var require_errors3 = __commonJS({
-  "node_modules/light-my-request/node_modules/ajv/dist/compile/errors.js"(exports2) {
+  "node_modules/light-my-request/node_modules/ajv/dist/compile/errors.js"(exports) {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.extendErrors = exports2.resetErrorsCount = exports2.reportExtraError = exports2.reportError = exports2.keyword$DataError = exports2.keywordError = void 0;
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.extendErrors = exports.resetErrorsCount = exports.reportExtraError = exports.reportError = exports.keyword$DataError = exports.keywordError = void 0;
     var codegen_1 = require_codegen();
     var util_1 = require_util3();
     var names_1 = require_names();
-    exports2.keywordError = {
+    exports.keywordError = {
       message: ({ keyword }) => (0, codegen_1.str)`must pass "${keyword}" keyword validation`
     };
-    exports2.keyword$DataError = {
+    exports.keyword$DataError = {
       message: ({ keyword, schemaType }) => schemaType ? (0, codegen_1.str)`"${keyword}" keyword must be ${schemaType} ($data)` : (0, codegen_1.str)`"${keyword}" keyword is invalid ($data)`
     };
-    function reportError(cxt, error = exports2.keywordError, errorPaths, overrideAllErrors) {
+    function reportError(cxt, error = exports.keywordError, errorPaths, overrideAllErrors) {
       const { it } = cxt;
       const { gen, compositeRule, allErrors } = it;
       const errObj = errorObjectCode(cxt, error, errorPaths);
@@ -31058,8 +31063,8 @@ var require_errors3 = __commonJS({
         returnErrors(it, (0, codegen_1._)`[${errObj}]`);
       }
     }
-    exports2.reportError = reportError;
-    function reportExtraError(cxt, error = exports2.keywordError, errorPaths) {
+    exports.reportError = reportError;
+    function reportExtraError(cxt, error = exports.keywordError, errorPaths) {
       const { it } = cxt;
       const { gen, compositeRule, allErrors } = it;
       const errObj = errorObjectCode(cxt, error, errorPaths);
@@ -31068,12 +31073,12 @@ var require_errors3 = __commonJS({
         returnErrors(it, names_1.default.vErrors);
       }
     }
-    exports2.reportExtraError = reportExtraError;
+    exports.reportExtraError = reportExtraError;
     function resetErrorsCount(gen, errsCount) {
       gen.assign(names_1.default.errors, errsCount);
       gen.if((0, codegen_1._)`${names_1.default.vErrors} !== null`, () => gen.if(errsCount, () => gen.assign((0, codegen_1._)`${names_1.default.vErrors}.length`, errsCount), () => gen.assign(names_1.default.vErrors, null)));
     }
-    exports2.resetErrorsCount = resetErrorsCount;
+    exports.resetErrorsCount = resetErrorsCount;
     function extendErrors({ gen, keyword, schemaValue, data, errsCount, it }) {
       if (errsCount === void 0)
         throw new Error("ajv implementation error");
@@ -31088,7 +31093,7 @@ var require_errors3 = __commonJS({
         }
       });
     }
-    exports2.extendErrors = extendErrors;
+    exports.extendErrors = extendErrors;
     function addError(gen, errObj) {
       const err = gen.const("err", errObj);
       gen.if((0, codegen_1._)`${names_1.default.vErrors} === null`, () => gen.assign(names_1.default.vErrors, (0, codegen_1._)`[${err}]`), (0, codegen_1._)`${names_1.default.vErrors}.push(${err})`);
@@ -31156,10 +31161,10 @@ var require_errors3 = __commonJS({
 
 // node_modules/light-my-request/node_modules/ajv/dist/compile/validate/boolSchema.js
 var require_boolSchema = __commonJS({
-  "node_modules/light-my-request/node_modules/ajv/dist/compile/validate/boolSchema.js"(exports2) {
+  "node_modules/light-my-request/node_modules/ajv/dist/compile/validate/boolSchema.js"(exports) {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.boolOrEmptySchema = exports2.topBoolOrEmptySchema = void 0;
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.boolOrEmptySchema = exports.topBoolOrEmptySchema = void 0;
     var errors_1 = require_errors3();
     var codegen_1 = require_codegen();
     var names_1 = require_names();
@@ -31177,7 +31182,7 @@ var require_boolSchema = __commonJS({
         gen.return(true);
       }
     }
-    exports2.topBoolOrEmptySchema = topBoolOrEmptySchema;
+    exports.topBoolOrEmptySchema = topBoolOrEmptySchema;
     function boolOrEmptySchema(it, valid) {
       const { gen, schema } = it;
       if (schema === false) {
@@ -31187,7 +31192,7 @@ var require_boolSchema = __commonJS({
         gen.var(valid, true);
       }
     }
-    exports2.boolOrEmptySchema = boolOrEmptySchema;
+    exports.boolOrEmptySchema = boolOrEmptySchema;
     function falseSchemaError(it, overrideAllErrors) {
       const { gen, data } = it;
       const cxt = {
@@ -31207,16 +31212,16 @@ var require_boolSchema = __commonJS({
 
 // node_modules/light-my-request/node_modules/ajv/dist/compile/rules.js
 var require_rules2 = __commonJS({
-  "node_modules/light-my-request/node_modules/ajv/dist/compile/rules.js"(exports2) {
+  "node_modules/light-my-request/node_modules/ajv/dist/compile/rules.js"(exports) {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.getRules = exports2.isJSONType = void 0;
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.getRules = exports.isJSONType = void 0;
     var _jsonTypes = ["string", "number", "integer", "boolean", "null", "object", "array"];
     var jsonTypes = new Set(_jsonTypes);
     function isJSONType(x) {
       return typeof x == "string" && jsonTypes.has(x);
     }
-    exports2.isJSONType = isJSONType;
+    exports.isJSONType = isJSONType;
     function getRules() {
       const groups = {
         number: { type: "number", rules: [] },
@@ -31232,39 +31237,39 @@ var require_rules2 = __commonJS({
         keywords: {}
       };
     }
-    exports2.getRules = getRules;
+    exports.getRules = getRules;
   }
 });
 
 // node_modules/light-my-request/node_modules/ajv/dist/compile/validate/applicability.js
 var require_applicability = __commonJS({
-  "node_modules/light-my-request/node_modules/ajv/dist/compile/validate/applicability.js"(exports2) {
+  "node_modules/light-my-request/node_modules/ajv/dist/compile/validate/applicability.js"(exports) {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.shouldUseRule = exports2.shouldUseGroup = exports2.schemaHasRulesForType = void 0;
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.shouldUseRule = exports.shouldUseGroup = exports.schemaHasRulesForType = void 0;
     function schemaHasRulesForType({ schema, self }, type) {
       const group = self.RULES.types[type];
       return group && group !== true && shouldUseGroup(schema, group);
     }
-    exports2.schemaHasRulesForType = schemaHasRulesForType;
+    exports.schemaHasRulesForType = schemaHasRulesForType;
     function shouldUseGroup(schema, group) {
       return group.rules.some((rule) => shouldUseRule(schema, rule));
     }
-    exports2.shouldUseGroup = shouldUseGroup;
+    exports.shouldUseGroup = shouldUseGroup;
     function shouldUseRule(schema, rule) {
       var _a;
       return schema[rule.keyword] !== void 0 || ((_a = rule.definition.implements) === null || _a === void 0 ? void 0 : _a.some((kwd) => schema[kwd] !== void 0));
     }
-    exports2.shouldUseRule = shouldUseRule;
+    exports.shouldUseRule = shouldUseRule;
   }
 });
 
 // node_modules/light-my-request/node_modules/ajv/dist/compile/validate/dataType.js
 var require_dataType = __commonJS({
-  "node_modules/light-my-request/node_modules/ajv/dist/compile/validate/dataType.js"(exports2) {
+  "node_modules/light-my-request/node_modules/ajv/dist/compile/validate/dataType.js"(exports) {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.reportTypeError = exports2.checkDataTypes = exports2.checkDataType = exports2.coerceAndCheckDataType = exports2.getJSONTypes = exports2.getSchemaTypes = exports2.DataType = void 0;
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.reportTypeError = exports.checkDataTypes = exports.checkDataType = exports.coerceAndCheckDataType = exports.getJSONTypes = exports.getSchemaTypes = exports.DataType = void 0;
     var rules_1 = require_rules2();
     var applicability_1 = require_applicability();
     var errors_1 = require_errors3();
@@ -31274,7 +31279,7 @@ var require_dataType = __commonJS({
     (function(DataType2) {
       DataType2[DataType2["Correct"] = 0] = "Correct";
       DataType2[DataType2["Wrong"] = 1] = "Wrong";
-    })(DataType = exports2.DataType || (exports2.DataType = {}));
+    })(DataType = exports.DataType || (exports.DataType = {}));
     function getSchemaTypes(schema) {
       const types = getJSONTypes(schema.type);
       const hasNull = types.includes("null");
@@ -31290,14 +31295,14 @@ var require_dataType = __commonJS({
       }
       return types;
     }
-    exports2.getSchemaTypes = getSchemaTypes;
+    exports.getSchemaTypes = getSchemaTypes;
     function getJSONTypes(ts) {
       const types = Array.isArray(ts) ? ts : ts ? [ts] : [];
       if (types.every(rules_1.isJSONType))
         return types;
       throw new Error("type must be JSONType or JSONType[]: " + types.join(","));
     }
-    exports2.getJSONTypes = getJSONTypes;
+    exports.getJSONTypes = getJSONTypes;
     function coerceAndCheckDataType(it, types) {
       const { gen, data, opts } = it;
       const coerceTo = coerceToTypes(types, opts.coerceTypes);
@@ -31313,7 +31318,7 @@ var require_dataType = __commonJS({
       }
       return checkTypes;
     }
-    exports2.coerceAndCheckDataType = coerceAndCheckDataType;
+    exports.coerceAndCheckDataType = coerceAndCheckDataType;
     var COERCIBLE = new Set(["string", "number", "integer", "boolean", "null"]);
     function coerceToTypes(types, coerceTypes) {
       return coerceTypes ? types.filter((t) => COERCIBLE.has(t) || coerceTypes === "array" && t === "array") : [];
@@ -31393,7 +31398,7 @@ var require_dataType = __commonJS({
         return (0, codegen_1.and)((0, codegen_1._)`typeof ${data} == "number"`, _cond, strictNums ? (0, codegen_1._)`isFinite(${data})` : codegen_1.nil);
       }
     }
-    exports2.checkDataType = checkDataType;
+    exports.checkDataType = checkDataType;
     function checkDataTypes(dataTypes, data, strictNums, correct) {
       if (dataTypes.length === 1) {
         return checkDataType(dataTypes[0], data, strictNums, correct);
@@ -31415,7 +31420,7 @@ var require_dataType = __commonJS({
         cond = (0, codegen_1.and)(cond, checkDataType(t, data, strictNums, correct));
       return cond;
     }
-    exports2.checkDataTypes = checkDataTypes;
+    exports.checkDataTypes = checkDataTypes;
     var typeError = {
       message: ({ schema }) => `must be ${schema}`,
       params: ({ schema, schemaValue }) => typeof schema == "string" ? (0, codegen_1._)`{type: ${schema}}` : (0, codegen_1._)`{type: ${schemaValue}}`
@@ -31424,7 +31429,7 @@ var require_dataType = __commonJS({
       const cxt = getTypeErrorContext(it);
       (0, errors_1.reportError)(cxt, typeError);
     }
-    exports2.reportTypeError = reportTypeError;
+    exports.reportTypeError = reportTypeError;
     function getTypeErrorContext(it) {
       const { gen, data, schema } = it;
       const schemaCode = (0, util_1.schemaRefOrVal)(it, schema, "type");
@@ -31445,10 +31450,10 @@ var require_dataType = __commonJS({
 
 // node_modules/light-my-request/node_modules/ajv/dist/compile/validate/defaults.js
 var require_defaults = __commonJS({
-  "node_modules/light-my-request/node_modules/ajv/dist/compile/validate/defaults.js"(exports2) {
+  "node_modules/light-my-request/node_modules/ajv/dist/compile/validate/defaults.js"(exports) {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.assignDefaults = void 0;
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.assignDefaults = void 0;
     var codegen_1 = require_codegen();
     var util_1 = require_util3();
     function assignDefaults(it, ty) {
@@ -31461,7 +31466,7 @@ var require_defaults = __commonJS({
         items.forEach((sch, i) => assignDefault(it, i, sch.default));
       }
     }
-    exports2.assignDefaults = assignDefaults;
+    exports.assignDefaults = assignDefaults;
     function assignDefault(it, prop, defaultValue) {
       const { gen, compositeRule, data, opts } = it;
       if (defaultValue === void 0)
@@ -31482,10 +31487,10 @@ var require_defaults = __commonJS({
 
 // node_modules/light-my-request/node_modules/ajv/dist/vocabularies/code.js
 var require_code2 = __commonJS({
-  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/code.js"(exports2) {
+  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/code.js"(exports) {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.validateUnion = exports2.validateArray = exports2.usePattern = exports2.callValidateCode = exports2.schemaProperties = exports2.allSchemaProperties = exports2.noPropertyInData = exports2.propertyInData = exports2.isOwnProperty = exports2.hasPropFunc = exports2.reportMissingProp = exports2.checkMissingProp = exports2.checkReportMissingProp = void 0;
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.validateUnion = exports.validateArray = exports.usePattern = exports.callValidateCode = exports.schemaProperties = exports.allSchemaProperties = exports.noPropertyInData = exports.propertyInData = exports.isOwnProperty = exports.hasPropFunc = exports.reportMissingProp = exports.checkMissingProp = exports.checkReportMissingProp = void 0;
     var codegen_1 = require_codegen();
     var util_1 = require_util3();
     var names_1 = require_names();
@@ -31497,45 +31502,45 @@ var require_code2 = __commonJS({
         cxt.error();
       });
     }
-    exports2.checkReportMissingProp = checkReportMissingProp;
+    exports.checkReportMissingProp = checkReportMissingProp;
     function checkMissingProp({ gen, data, it: { opts } }, properties, missing) {
       return (0, codegen_1.or)(...properties.map((prop) => (0, codegen_1.and)(noPropertyInData(gen, data, prop, opts.ownProperties), (0, codegen_1._)`${missing} = ${prop}`)));
     }
-    exports2.checkMissingProp = checkMissingProp;
+    exports.checkMissingProp = checkMissingProp;
     function reportMissingProp(cxt, missing) {
       cxt.setParams({ missingProperty: missing }, true);
       cxt.error();
     }
-    exports2.reportMissingProp = reportMissingProp;
+    exports.reportMissingProp = reportMissingProp;
     function hasPropFunc(gen) {
       return gen.scopeValue("func", {
         ref: Object.prototype.hasOwnProperty,
         code: (0, codegen_1._)`Object.prototype.hasOwnProperty`
       });
     }
-    exports2.hasPropFunc = hasPropFunc;
+    exports.hasPropFunc = hasPropFunc;
     function isOwnProperty(gen, data, property) {
       return (0, codegen_1._)`${hasPropFunc(gen)}.call(${data}, ${property})`;
     }
-    exports2.isOwnProperty = isOwnProperty;
+    exports.isOwnProperty = isOwnProperty;
     function propertyInData(gen, data, property, ownProperties) {
       const cond = (0, codegen_1._)`${data}${(0, codegen_1.getProperty)(property)} !== undefined`;
       return ownProperties ? (0, codegen_1._)`${cond} && ${isOwnProperty(gen, data, property)}` : cond;
     }
-    exports2.propertyInData = propertyInData;
+    exports.propertyInData = propertyInData;
     function noPropertyInData(gen, data, property, ownProperties) {
       const cond = (0, codegen_1._)`${data}${(0, codegen_1.getProperty)(property)} === undefined`;
       return ownProperties ? (0, codegen_1.or)(cond, (0, codegen_1.not)(isOwnProperty(gen, data, property))) : cond;
     }
-    exports2.noPropertyInData = noPropertyInData;
+    exports.noPropertyInData = noPropertyInData;
     function allSchemaProperties(schemaMap) {
       return schemaMap ? Object.keys(schemaMap).filter((p) => p !== "__proto__") : [];
     }
-    exports2.allSchemaProperties = allSchemaProperties;
+    exports.allSchemaProperties = allSchemaProperties;
     function schemaProperties(it, schemaMap) {
       return allSchemaProperties(schemaMap).filter((p) => !(0, util_1.alwaysValidSchema)(it, schemaMap[p]));
     }
-    exports2.schemaProperties = schemaProperties;
+    exports.schemaProperties = schemaProperties;
     function callValidateCode({ schemaCode, data, it: { gen, topSchemaRef, schemaPath, errorPath }, it }, func, context, passSchema) {
       const dataAndSchema = passSchema ? (0, codegen_1._)`${schemaCode}, ${data}, ${topSchemaRef}${schemaPath}` : data;
       const valCxt = [
@@ -31549,7 +31554,7 @@ var require_code2 = __commonJS({
       const args = (0, codegen_1._)`${dataAndSchema}, ${gen.object(...valCxt)}`;
       return context !== codegen_1.nil ? (0, codegen_1._)`${func}.call(${context}, ${args})` : (0, codegen_1._)`${func}(${args})`;
     }
-    exports2.callValidateCode = callValidateCode;
+    exports.callValidateCode = callValidateCode;
     var newRegExp = (0, codegen_1._)`new RegExp`;
     function usePattern({ gen, it: { opts } }, pattern) {
       const u = opts.unicodeRegExp ? "u" : "";
@@ -31560,7 +31565,7 @@ var require_code2 = __commonJS({
         code: (0, codegen_1._)`${regExp.code === "new RegExp" ? newRegExp : (0, util_2.useFunc)(gen, regExp)}(${pattern}, ${u})`
       });
     }
-    exports2.usePattern = usePattern;
+    exports.usePattern = usePattern;
     function validateArray(cxt) {
       const { gen, data, keyword, it } = cxt;
       const valid = gen.name("valid");
@@ -31584,7 +31589,7 @@ var require_code2 = __commonJS({
         });
       }
     }
-    exports2.validateArray = validateArray;
+    exports.validateArray = validateArray;
     function validateUnion(cxt) {
       const { gen, schema, keyword, it } = cxt;
       if (!Array.isArray(schema))
@@ -31607,16 +31612,16 @@ var require_code2 = __commonJS({
       }));
       cxt.result(valid, () => cxt.reset(), () => cxt.error(true));
     }
-    exports2.validateUnion = validateUnion;
+    exports.validateUnion = validateUnion;
   }
 });
 
 // node_modules/light-my-request/node_modules/ajv/dist/compile/validate/keyword.js
 var require_keyword2 = __commonJS({
-  "node_modules/light-my-request/node_modules/ajv/dist/compile/validate/keyword.js"(exports2) {
+  "node_modules/light-my-request/node_modules/ajv/dist/compile/validate/keyword.js"(exports) {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.validateKeywordUsage = exports2.validSchemaType = exports2.funcKeywordCode = exports2.macroKeywordCode = void 0;
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.validateKeywordUsage = exports.validSchemaType = exports.funcKeywordCode = exports.macroKeywordCode = void 0;
     var codegen_1 = require_codegen();
     var names_1 = require_names();
     var code_1 = require_code2();
@@ -31637,7 +31642,7 @@ var require_keyword2 = __commonJS({
       }, valid);
       cxt.pass(valid, () => cxt.error(true));
     }
-    exports2.macroKeywordCode = macroKeywordCode;
+    exports.macroKeywordCode = macroKeywordCode;
     function funcKeywordCode(cxt, def) {
       var _a;
       const { gen, keyword, schema, parentSchema, $data, it } = cxt;
@@ -31681,7 +31686,7 @@ var require_keyword2 = __commonJS({
         gen.if((0, codegen_1.not)((_a2 = def.valid) !== null && _a2 !== void 0 ? _a2 : valid), errors);
       }
     }
-    exports2.funcKeywordCode = funcKeywordCode;
+    exports.funcKeywordCode = funcKeywordCode;
     function modifyData(cxt) {
       const { gen, data, it } = cxt;
       gen.if(it.parentData, () => gen.assign(data, (0, codegen_1._)`${it.parentData}[${it.parentDataProperty}]`));
@@ -31705,7 +31710,7 @@ var require_keyword2 = __commonJS({
     function validSchemaType(schema, schemaType, allowUndefined = false) {
       return !schemaType.length || schemaType.some((st) => st === "array" ? Array.isArray(schema) : st === "object" ? schema && typeof schema == "object" && !Array.isArray(schema) : typeof schema == st || allowUndefined && typeof schema == "undefined");
     }
-    exports2.validSchemaType = validSchemaType;
+    exports.validSchemaType = validSchemaType;
     function validateKeywordUsage({ schema, opts, self, errSchemaPath }, def, keyword) {
       if (Array.isArray(def.keyword) ? !def.keyword.includes(keyword) : def.keyword !== keyword) {
         throw new Error("ajv implementation error");
@@ -31725,16 +31730,16 @@ var require_keyword2 = __commonJS({
         }
       }
     }
-    exports2.validateKeywordUsage = validateKeywordUsage;
+    exports.validateKeywordUsage = validateKeywordUsage;
   }
 });
 
 // node_modules/light-my-request/node_modules/ajv/dist/compile/validate/subschema.js
 var require_subschema = __commonJS({
-  "node_modules/light-my-request/node_modules/ajv/dist/compile/validate/subschema.js"(exports2) {
+  "node_modules/light-my-request/node_modules/ajv/dist/compile/validate/subschema.js"(exports) {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.extendSubschemaMode = exports2.extendSubschemaData = exports2.getSubschema = void 0;
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.extendSubschemaMode = exports.extendSubschemaData = exports.getSubschema = void 0;
     var codegen_1 = require_codegen();
     var util_1 = require_util3();
     function getSubschema(it, { keyword, schemaProp, schema, schemaPath, errSchemaPath, topSchemaRef }) {
@@ -31766,7 +31771,7 @@ var require_subschema = __commonJS({
       }
       throw new Error('either "keyword" or "schema" must be passed');
     }
-    exports2.getSubschema = getSubschema;
+    exports.getSubschema = getSubschema;
     function extendSubschemaData(subschema, it, { dataProp, dataPropType: dpType, data, dataTypes, propertyName }) {
       if (data !== void 0 && dataProp !== void 0) {
         throw new Error('both "data" and "dataProp" passed, only one allowed');
@@ -31797,7 +31802,7 @@ var require_subschema = __commonJS({
         subschema.dataNames = [...it.dataNames, _nextData];
       }
     }
-    exports2.extendSubschemaData = extendSubschemaData;
+    exports.extendSubschemaData = extendSubschemaData;
     function extendSubschemaMode(subschema, { jtdDiscriminator, jtdMetadata, compositeRule, createErrors, allErrors }) {
       if (compositeRule !== void 0)
         subschema.compositeRule = compositeRule;
@@ -31808,13 +31813,13 @@ var require_subschema = __commonJS({
       subschema.jtdDiscriminator = jtdDiscriminator;
       subschema.jtdMetadata = jtdMetadata;
     }
-    exports2.extendSubschemaMode = extendSubschemaMode;
+    exports.extendSubschemaMode = extendSubschemaMode;
   }
 });
 
 // node_modules/light-my-request/node_modules/json-schema-traverse/index.js
 var require_json_schema_traverse2 = __commonJS({
-  "node_modules/light-my-request/node_modules/json-schema-traverse/index.js"(exports2, module2) {
+  "node_modules/light-my-request/node_modules/json-schema-traverse/index.js"(exports, module2) {
     "use strict";
     var traverse = module2.exports = function(schema, opts, cb) {
       if (typeof opts == "function") {
@@ -31902,10 +31907,10 @@ var require_json_schema_traverse2 = __commonJS({
 
 // node_modules/light-my-request/node_modules/ajv/dist/compile/resolve.js
 var require_resolve2 = __commonJS({
-  "node_modules/light-my-request/node_modules/ajv/dist/compile/resolve.js"(exports2) {
+  "node_modules/light-my-request/node_modules/ajv/dist/compile/resolve.js"(exports) {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.getSchemaRefs = exports2.resolveUrl = exports2.normalizeId = exports2._getFullPath = exports2.getFullPath = exports2.inlineRef = void 0;
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.getSchemaRefs = exports.resolveUrl = exports.normalizeId = exports._getFullPath = exports.getFullPath = exports.inlineRef = void 0;
     var util_1 = require_util3();
     var equal = require_fast_deep_equal();
     var traverse = require_json_schema_traverse2();
@@ -31937,7 +31942,7 @@ var require_resolve2 = __commonJS({
         return false;
       return countKeys(schema) <= limit;
     }
-    exports2.inlineRef = inlineRef;
+    exports.inlineRef = inlineRef;
     var REF_KEYWORDS = new Set([
       "$ref",
       "$recursiveRef",
@@ -31979,21 +31984,21 @@ var require_resolve2 = __commonJS({
       const p = URI.parse(id);
       return _getFullPath(p);
     }
-    exports2.getFullPath = getFullPath;
+    exports.getFullPath = getFullPath;
     function _getFullPath(p) {
       return URI.serialize(p).split("#")[0] + "#";
     }
-    exports2._getFullPath = _getFullPath;
+    exports._getFullPath = _getFullPath;
     var TRAILING_SLASH_HASH = /#\/?$/;
     function normalizeId(id) {
       return id ? id.replace(TRAILING_SLASH_HASH, "") : "";
     }
-    exports2.normalizeId = normalizeId;
+    exports.normalizeId = normalizeId;
     function resolveUrl(baseId, id) {
       id = normalizeId(id);
       return URI.resolve(baseId, id);
     }
-    exports2.resolveUrl = resolveUrl;
+    exports.resolveUrl = resolveUrl;
     var ANCHOR = /^[a-z_][-a-z0-9._]*$/i;
     function getSchemaRefs(schema, baseId) {
       if (typeof schema == "boolean")
@@ -32051,16 +32056,16 @@ var require_resolve2 = __commonJS({
         return new Error(`reference "${ref}" resolves to more than one schema`);
       }
     }
-    exports2.getSchemaRefs = getSchemaRefs;
+    exports.getSchemaRefs = getSchemaRefs;
   }
 });
 
 // node_modules/light-my-request/node_modules/ajv/dist/compile/validate/index.js
 var require_validate2 = __commonJS({
-  "node_modules/light-my-request/node_modules/ajv/dist/compile/validate/index.js"(exports2) {
+  "node_modules/light-my-request/node_modules/ajv/dist/compile/validate/index.js"(exports) {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.getData = exports2.KeywordCxt = exports2.validateFunctionCode = void 0;
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.getData = exports.KeywordCxt = exports.validateFunctionCode = void 0;
     var boolSchema_1 = require_boolSchema();
     var dataType_1 = require_dataType();
     var applicability_1 = require_applicability();
@@ -32083,7 +32088,7 @@ var require_validate2 = __commonJS({
       }
       validateFunction(it, () => (0, boolSchema_1.topBoolOrEmptySchema)(it));
     }
-    exports2.validateFunctionCode = validateFunctionCode;
+    exports.validateFunctionCode = validateFunctionCode;
     function validateFunction({ gen, validateName, schema, schemaEnv, opts }, body) {
       if (opts.code.es5) {
         gen.func(validateName, (0, codegen_1._)`${names_1.default.data}, ${names_1.default.valCxt}`, schemaEnv.$async, () => {
@@ -32494,7 +32499,7 @@ var require_validate2 = __commonJS({
         }
       }
     };
-    exports2.KeywordCxt = KeywordCxt;
+    exports.KeywordCxt = KeywordCxt;
     function keywordCode(it, keyword, def, ruleType) {
       const cxt = new KeywordCxt(it, def, keyword);
       if ("code" in def) {
@@ -32549,15 +32554,15 @@ var require_validate2 = __commonJS({
         return `Cannot access ${pointerType} ${up} levels up, current level is ${dataLevel}`;
       }
     }
-    exports2.getData = getData;
+    exports.getData = getData;
   }
 });
 
 // node_modules/light-my-request/node_modules/ajv/dist/runtime/validation_error.js
 var require_validation_error = __commonJS({
-  "node_modules/light-my-request/node_modules/ajv/dist/runtime/validation_error.js"(exports2) {
+  "node_modules/light-my-request/node_modules/ajv/dist/runtime/validation_error.js"(exports) {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
+    Object.defineProperty(exports, "__esModule", { value: true });
     var ValidationError = class extends Error {
       constructor(errors) {
         super("validation failed");
@@ -32565,15 +32570,15 @@ var require_validation_error = __commonJS({
         this.ajv = this.validation = true;
       }
     };
-    exports2.default = ValidationError;
+    exports.default = ValidationError;
   }
 });
 
 // node_modules/light-my-request/node_modules/ajv/dist/compile/ref_error.js
 var require_ref_error = __commonJS({
-  "node_modules/light-my-request/node_modules/ajv/dist/compile/ref_error.js"(exports2) {
+  "node_modules/light-my-request/node_modules/ajv/dist/compile/ref_error.js"(exports) {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
+    Object.defineProperty(exports, "__esModule", { value: true });
     var resolve_1 = require_resolve2();
     var MissingRefError = class extends Error {
       constructor(baseId, ref, msg) {
@@ -32582,16 +32587,16 @@ var require_ref_error = __commonJS({
         this.missingSchema = (0, resolve_1.normalizeId)((0, resolve_1.getFullPath)(this.missingRef));
       }
     };
-    exports2.default = MissingRefError;
+    exports.default = MissingRefError;
   }
 });
 
 // node_modules/light-my-request/node_modules/ajv/dist/compile/index.js
 var require_compile2 = __commonJS({
-  "node_modules/light-my-request/node_modules/ajv/dist/compile/index.js"(exports2) {
+  "node_modules/light-my-request/node_modules/ajv/dist/compile/index.js"(exports) {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.resolveSchema = exports2.getCompilingSchema = exports2.resolveRef = exports2.compileSchema = exports2.SchemaEnv = void 0;
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.resolveSchema = exports.getCompilingSchema = exports.resolveRef = exports.compileSchema = exports.SchemaEnv = void 0;
     var codegen_1 = require_codegen();
     var validation_error_1 = require_validation_error();
     var names_1 = require_names();
@@ -32618,7 +32623,7 @@ var require_compile2 = __commonJS({
         this.refs = {};
       }
     };
-    exports2.SchemaEnv = SchemaEnv;
+    exports.SchemaEnv = SchemaEnv;
     function compileSchema(sch) {
       const _sch = getCompilingSchema.call(this, sch);
       if (_sch)
@@ -32703,7 +32708,7 @@ var require_compile2 = __commonJS({
         this._compilations.delete(sch);
       }
     }
-    exports2.compileSchema = compileSchema;
+    exports.compileSchema = compileSchema;
     function resolveRef(root, baseId, ref) {
       var _a;
       ref = (0, resolve_1.resolveUrl)(baseId, ref);
@@ -32721,7 +32726,7 @@ var require_compile2 = __commonJS({
         return;
       return root.refs[ref] = inlineOrCompile.call(this, _sch);
     }
-    exports2.resolveRef = resolveRef;
+    exports.resolveRef = resolveRef;
     function inlineOrCompile(sch) {
       if ((0, resolve_1.inlineRef)(sch.schema, this.opts.inlineRefs))
         return sch.schema;
@@ -32733,7 +32738,7 @@ var require_compile2 = __commonJS({
           return sch;
       }
     }
-    exports2.getCompilingSchema = getCompilingSchema;
+    exports.getCompilingSchema = getCompilingSchema;
     function sameSchemaEnv(s1, s2) {
       return s1.schema === s2.schema && s1.root === s2.root && s1.baseId === s2.baseId;
     }
@@ -32772,7 +32777,7 @@ var require_compile2 = __commonJS({
       }
       return getJsonPointer.call(this, p, schOrRef);
     }
-    exports2.resolveSchema = resolveSchema;
+    exports.resolveSchema = resolveSchema;
     var PREVENT_SCOPE_CHANGE = new Set([
       "properties",
       "patternProperties",
@@ -32812,7 +32817,7 @@ var require_compile2 = __commonJS({
 
 // node_modules/light-my-request/node_modules/ajv/dist/refs/data.json
 var require_data3 = __commonJS({
-  "node_modules/light-my-request/node_modules/ajv/dist/refs/data.json"(exports2, module2) {
+  "node_modules/light-my-request/node_modules/ajv/dist/refs/data.json"(exports, module2) {
     module2.exports = {
       $id: "https://raw.githubusercontent.com/ajv-validator/ajv/master/lib/refs/data.json#",
       description: "Meta-schema for $data reference (JSON AnySchema extension proposal)",
@@ -32831,31 +32836,31 @@ var require_data3 = __commonJS({
 
 // node_modules/light-my-request/node_modules/ajv/dist/core.js
 var require_core = __commonJS({
-  "node_modules/light-my-request/node_modules/ajv/dist/core.js"(exports2) {
+  "node_modules/light-my-request/node_modules/ajv/dist/core.js"(exports) {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.CodeGen = exports2.Name = exports2.nil = exports2.stringify = exports2.str = exports2._ = exports2.KeywordCxt = void 0;
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.CodeGen = exports.Name = exports.nil = exports.stringify = exports.str = exports._ = exports.KeywordCxt = void 0;
     var validate_1 = require_validate2();
-    Object.defineProperty(exports2, "KeywordCxt", { enumerable: true, get: function() {
+    Object.defineProperty(exports, "KeywordCxt", { enumerable: true, get: function() {
       return validate_1.KeywordCxt;
     } });
     var codegen_1 = require_codegen();
-    Object.defineProperty(exports2, "_", { enumerable: true, get: function() {
+    Object.defineProperty(exports, "_", { enumerable: true, get: function() {
       return codegen_1._;
     } });
-    Object.defineProperty(exports2, "str", { enumerable: true, get: function() {
+    Object.defineProperty(exports, "str", { enumerable: true, get: function() {
       return codegen_1.str;
     } });
-    Object.defineProperty(exports2, "stringify", { enumerable: true, get: function() {
+    Object.defineProperty(exports, "stringify", { enumerable: true, get: function() {
       return codegen_1.stringify;
     } });
-    Object.defineProperty(exports2, "nil", { enumerable: true, get: function() {
+    Object.defineProperty(exports, "nil", { enumerable: true, get: function() {
       return codegen_1.nil;
     } });
-    Object.defineProperty(exports2, "Name", { enumerable: true, get: function() {
+    Object.defineProperty(exports, "Name", { enumerable: true, get: function() {
       return codegen_1.Name;
     } });
-    Object.defineProperty(exports2, "CodeGen", { enumerable: true, get: function() {
+    Object.defineProperty(exports, "CodeGen", { enumerable: true, get: function() {
       return codegen_1.CodeGen;
     } });
     var validation_error_1 = require_validation_error();
@@ -33290,7 +33295,7 @@ var require_core = __commonJS({
         }
       }
     };
-    exports2.default = Ajv;
+    exports.default = Ajv;
     Ajv.ValidationError = validation_error_1.default;
     Ajv.MissingRefError = ref_error_1.default;
     function checkOptions(checkOpts, options, msg, log = "error") {
@@ -33424,25 +33429,25 @@ var require_core = __commonJS({
 
 // node_modules/light-my-request/node_modules/ajv/dist/vocabularies/core/id.js
 var require_id = __commonJS({
-  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/core/id.js"(exports2) {
+  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/core/id.js"(exports) {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
+    Object.defineProperty(exports, "__esModule", { value: true });
     var def = {
       keyword: "id",
       code() {
         throw new Error('NOT SUPPORTED: keyword "id", use "$id" for schema ID');
       }
     };
-    exports2.default = def;
+    exports.default = def;
   }
 });
 
 // node_modules/light-my-request/node_modules/ajv/dist/vocabularies/core/ref.js
 var require_ref2 = __commonJS({
-  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/core/ref.js"(exports2) {
+  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/core/ref.js"(exports) {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.callRef = exports2.getValidate = void 0;
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.callRef = exports.getValidate = void 0;
     var ref_error_1 = require_ref_error();
     var code_1 = require_code2();
     var codegen_1 = require_codegen();
@@ -33493,7 +33498,7 @@ var require_ref2 = __commonJS({
       const { gen } = cxt;
       return sch.validate ? gen.scopeValue("validate", { ref: sch.validate }) : (0, codegen_1._)`${gen.scopeValue("wrapper", { ref: sch })}.validate`;
     }
-    exports2.getValidate = getValidate;
+    exports.getValidate = getValidate;
     function callRef(cxt, v, sch, $async) {
       const { gen, it } = cxt;
       const { allErrors, schemaEnv: env, opts } = it;
@@ -33554,16 +33559,16 @@ var require_ref2 = __commonJS({
         }
       }
     }
-    exports2.callRef = callRef;
-    exports2.default = def;
+    exports.callRef = callRef;
+    exports.default = def;
   }
 });
 
 // node_modules/light-my-request/node_modules/ajv/dist/vocabularies/core/index.js
 var require_core2 = __commonJS({
-  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/core/index.js"(exports2) {
+  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/core/index.js"(exports) {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
+    Object.defineProperty(exports, "__esModule", { value: true });
     var id_1 = require_id();
     var ref_1 = require_ref2();
     var core = [
@@ -33576,15 +33581,15 @@ var require_core2 = __commonJS({
       id_1.default,
       ref_1.default
     ];
-    exports2.default = core;
+    exports.default = core;
   }
 });
 
 // node_modules/light-my-request/node_modules/ajv/dist/vocabularies/validation/limitNumber.js
 var require_limitNumber = __commonJS({
-  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/validation/limitNumber.js"(exports2) {
+  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/validation/limitNumber.js"(exports) {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
+    Object.defineProperty(exports, "__esModule", { value: true });
     var codegen_1 = require_codegen();
     var ops = codegen_1.operators;
     var KWDs = {
@@ -33608,15 +33613,15 @@ var require_limitNumber = __commonJS({
         cxt.fail$data((0, codegen_1._)`${data} ${KWDs[keyword].fail} ${schemaCode} || isNaN(${data})`);
       }
     };
-    exports2.default = def;
+    exports.default = def;
   }
 });
 
 // node_modules/light-my-request/node_modules/ajv/dist/vocabularies/validation/multipleOf.js
 var require_multipleOf2 = __commonJS({
-  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/validation/multipleOf.js"(exports2) {
+  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/validation/multipleOf.js"(exports) {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
+    Object.defineProperty(exports, "__esModule", { value: true });
     var codegen_1 = require_codegen();
     var error = {
       message: ({ schemaCode }) => (0, codegen_1.str)`must be multiple of ${schemaCode}`,
@@ -33636,15 +33641,15 @@ var require_multipleOf2 = __commonJS({
         cxt.fail$data((0, codegen_1._)`(${schemaCode} === 0 || (${res} = ${data}/${schemaCode}, ${invalid}))`);
       }
     };
-    exports2.default = def;
+    exports.default = def;
   }
 });
 
 // node_modules/light-my-request/node_modules/ajv/dist/runtime/ucs2length.js
 var require_ucs2length2 = __commonJS({
-  "node_modules/light-my-request/node_modules/ajv/dist/runtime/ucs2length.js"(exports2) {
+  "node_modules/light-my-request/node_modules/ajv/dist/runtime/ucs2length.js"(exports) {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
+    Object.defineProperty(exports, "__esModule", { value: true });
     function ucs2length(str) {
       const len = str.length;
       let length = 0;
@@ -33661,16 +33666,16 @@ var require_ucs2length2 = __commonJS({
       }
       return length;
     }
-    exports2.default = ucs2length;
+    exports.default = ucs2length;
     ucs2length.code = 'require("ajv/dist/runtime/ucs2length").default';
   }
 });
 
 // node_modules/light-my-request/node_modules/ajv/dist/vocabularies/validation/limitLength.js
 var require_limitLength2 = __commonJS({
-  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/validation/limitLength.js"(exports2) {
+  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/validation/limitLength.js"(exports) {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
+    Object.defineProperty(exports, "__esModule", { value: true });
     var codegen_1 = require_codegen();
     var util_1 = require_util3();
     var ucs2length_1 = require_ucs2length2();
@@ -33694,15 +33699,15 @@ var require_limitLength2 = __commonJS({
         cxt.fail$data((0, codegen_1._)`${len} ${op} ${schemaCode}`);
       }
     };
-    exports2.default = def;
+    exports.default = def;
   }
 });
 
 // node_modules/light-my-request/node_modules/ajv/dist/vocabularies/validation/pattern.js
 var require_pattern2 = __commonJS({
-  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/validation/pattern.js"(exports2) {
+  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/validation/pattern.js"(exports) {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
+    Object.defineProperty(exports, "__esModule", { value: true });
     var code_1 = require_code2();
     var codegen_1 = require_codegen();
     var error = {
@@ -33722,15 +33727,15 @@ var require_pattern2 = __commonJS({
         cxt.fail$data((0, codegen_1._)`!${regExp}.test(${data})`);
       }
     };
-    exports2.default = def;
+    exports.default = def;
   }
 });
 
 // node_modules/light-my-request/node_modules/ajv/dist/vocabularies/validation/limitProperties.js
 var require_limitProperties2 = __commonJS({
-  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/validation/limitProperties.js"(exports2) {
+  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/validation/limitProperties.js"(exports) {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
+    Object.defineProperty(exports, "__esModule", { value: true });
     var codegen_1 = require_codegen();
     var error = {
       message({ keyword, schemaCode }) {
@@ -33751,15 +33756,15 @@ var require_limitProperties2 = __commonJS({
         cxt.fail$data((0, codegen_1._)`Object.keys(${data}).length ${op} ${schemaCode}`);
       }
     };
-    exports2.default = def;
+    exports.default = def;
   }
 });
 
 // node_modules/light-my-request/node_modules/ajv/dist/vocabularies/validation/required.js
 var require_required2 = __commonJS({
-  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/validation/required.js"(exports2) {
+  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/validation/required.js"(exports) {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
+    Object.defineProperty(exports, "__esModule", { value: true });
     var code_1 = require_code2();
     var codegen_1 = require_codegen();
     var util_1 = require_util3();
@@ -33833,15 +33838,15 @@ var require_required2 = __commonJS({
         }
       }
     };
-    exports2.default = def;
+    exports.default = def;
   }
 });
 
 // node_modules/light-my-request/node_modules/ajv/dist/vocabularies/validation/limitItems.js
 var require_limitItems2 = __commonJS({
-  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/validation/limitItems.js"(exports2) {
+  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/validation/limitItems.js"(exports) {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
+    Object.defineProperty(exports, "__esModule", { value: true });
     var codegen_1 = require_codegen();
     var error = {
       message({ keyword, schemaCode }) {
@@ -33862,26 +33867,26 @@ var require_limitItems2 = __commonJS({
         cxt.fail$data((0, codegen_1._)`${data}.length ${op} ${schemaCode}`);
       }
     };
-    exports2.default = def;
+    exports.default = def;
   }
 });
 
 // node_modules/light-my-request/node_modules/ajv/dist/runtime/equal.js
 var require_equal2 = __commonJS({
-  "node_modules/light-my-request/node_modules/ajv/dist/runtime/equal.js"(exports2) {
+  "node_modules/light-my-request/node_modules/ajv/dist/runtime/equal.js"(exports) {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
+    Object.defineProperty(exports, "__esModule", { value: true });
     var equal = require_fast_deep_equal();
     equal.code = 'require("ajv/dist/runtime/equal").default';
-    exports2.default = equal;
+    exports.default = equal;
   }
 });
 
 // node_modules/light-my-request/node_modules/ajv/dist/vocabularies/validation/uniqueItems.js
 var require_uniqueItems2 = __commonJS({
-  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/validation/uniqueItems.js"(exports2) {
+  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/validation/uniqueItems.js"(exports) {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
+    Object.defineProperty(exports, "__esModule", { value: true });
     var dataType_1 = require_dataType();
     var codegen_1 = require_codegen();
     var util_1 = require_util3();
@@ -33940,15 +33945,15 @@ var require_uniqueItems2 = __commonJS({
         }
       }
     };
-    exports2.default = def;
+    exports.default = def;
   }
 });
 
 // node_modules/light-my-request/node_modules/ajv/dist/vocabularies/validation/const.js
 var require_const2 = __commonJS({
-  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/validation/const.js"(exports2) {
+  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/validation/const.js"(exports) {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
+    Object.defineProperty(exports, "__esModule", { value: true });
     var codegen_1 = require_codegen();
     var util_1 = require_util3();
     var equal_1 = require_equal2();
@@ -33969,15 +33974,15 @@ var require_const2 = __commonJS({
         }
       }
     };
-    exports2.default = def;
+    exports.default = def;
   }
 });
 
 // node_modules/light-my-request/node_modules/ajv/dist/vocabularies/validation/enum.js
 var require_enum2 = __commonJS({
-  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/validation/enum.js"(exports2) {
+  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/validation/enum.js"(exports) {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
+    Object.defineProperty(exports, "__esModule", { value: true });
     var codegen_1 = require_codegen();
     var util_1 = require_util3();
     var equal_1 = require_equal2();
@@ -34017,15 +34022,15 @@ var require_enum2 = __commonJS({
         }
       }
     };
-    exports2.default = def;
+    exports.default = def;
   }
 });
 
 // node_modules/light-my-request/node_modules/ajv/dist/vocabularies/validation/index.js
 var require_validation2 = __commonJS({
-  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/validation/index.js"(exports2) {
+  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/validation/index.js"(exports) {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
+    Object.defineProperty(exports, "__esModule", { value: true });
     var limitNumber_1 = require_limitNumber();
     var multipleOf_1 = require_multipleOf2();
     var limitLength_1 = require_limitLength2();
@@ -34050,16 +34055,16 @@ var require_validation2 = __commonJS({
       const_1.default,
       enum_1.default
     ];
-    exports2.default = validation;
+    exports.default = validation;
   }
 });
 
 // node_modules/light-my-request/node_modules/ajv/dist/vocabularies/applicator/additionalItems.js
 var require_additionalItems = __commonJS({
-  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/applicator/additionalItems.js"(exports2) {
+  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/applicator/additionalItems.js"(exports) {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.validateAdditionalItems = void 0;
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.validateAdditionalItems = void 0;
     var codegen_1 = require_codegen();
     var util_1 = require_util3();
     var error = {
@@ -34102,17 +34107,17 @@ var require_additionalItems = __commonJS({
         });
       }
     }
-    exports2.validateAdditionalItems = validateAdditionalItems;
-    exports2.default = def;
+    exports.validateAdditionalItems = validateAdditionalItems;
+    exports.default = def;
   }
 });
 
 // node_modules/light-my-request/node_modules/ajv/dist/vocabularies/applicator/items.js
 var require_items2 = __commonJS({
-  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/applicator/items.js"(exports2) {
+  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/applicator/items.js"(exports) {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.validateTuple = void 0;
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.validateTuple = void 0;
     var codegen_1 = require_codegen();
     var util_1 = require_util3();
     var code_1 = require_code2();
@@ -34159,16 +34164,16 @@ var require_items2 = __commonJS({
         }
       }
     }
-    exports2.validateTuple = validateTuple;
-    exports2.default = def;
+    exports.validateTuple = validateTuple;
+    exports.default = def;
   }
 });
 
 // node_modules/light-my-request/node_modules/ajv/dist/vocabularies/applicator/prefixItems.js
 var require_prefixItems = __commonJS({
-  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/applicator/prefixItems.js"(exports2) {
+  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/applicator/prefixItems.js"(exports) {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
+    Object.defineProperty(exports, "__esModule", { value: true });
     var items_1 = require_items2();
     var def = {
       keyword: "prefixItems",
@@ -34177,15 +34182,15 @@ var require_prefixItems = __commonJS({
       before: "uniqueItems",
       code: (cxt) => (0, items_1.validateTuple)(cxt, "items")
     };
-    exports2.default = def;
+    exports.default = def;
   }
 });
 
 // node_modules/light-my-request/node_modules/ajv/dist/vocabularies/applicator/items2020.js
 var require_items2020 = __commonJS({
-  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/applicator/items2020.js"(exports2) {
+  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/applicator/items2020.js"(exports) {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
+    Object.defineProperty(exports, "__esModule", { value: true });
     var codegen_1 = require_codegen();
     var util_1 = require_util3();
     var code_1 = require_code2();
@@ -34212,15 +34217,15 @@ var require_items2020 = __commonJS({
           cxt.ok((0, code_1.validateArray)(cxt));
       }
     };
-    exports2.default = def;
+    exports.default = def;
   }
 });
 
 // node_modules/light-my-request/node_modules/ajv/dist/vocabularies/applicator/contains.js
 var require_contains2 = __commonJS({
-  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/applicator/contains.js"(exports2) {
+  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/applicator/contains.js"(exports) {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
+    Object.defineProperty(exports, "__esModule", { value: true });
     var codegen_1 = require_codegen();
     var util_1 = require_util3();
     var error = {
@@ -34306,20 +34311,20 @@ var require_contains2 = __commonJS({
         }
       }
     };
-    exports2.default = def;
+    exports.default = def;
   }
 });
 
 // node_modules/light-my-request/node_modules/ajv/dist/vocabularies/applicator/dependencies.js
 var require_dependencies2 = __commonJS({
-  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/applicator/dependencies.js"(exports2) {
+  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/applicator/dependencies.js"(exports) {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.validateSchemaDeps = exports2.validatePropertyDeps = exports2.error = void 0;
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.validateSchemaDeps = exports.validatePropertyDeps = exports.error = void 0;
     var codegen_1 = require_codegen();
     var util_1 = require_util3();
     var code_1 = require_code2();
-    exports2.error = {
+    exports.error = {
       message: ({ params: { property, depsCount, deps } }) => {
         const property_ies = depsCount === 1 ? "property" : "properties";
         return (0, codegen_1.str)`must have ${property_ies} ${deps} when property ${property} is present`;
@@ -34333,7 +34338,7 @@ var require_dependencies2 = __commonJS({
       keyword: "dependencies",
       type: "object",
       schemaType: "object",
-      error: exports2.error,
+      error: exports.error,
       code(cxt) {
         const [propDeps, schDeps] = splitDependencies(cxt);
         validatePropertyDeps(cxt, propDeps);
@@ -34379,7 +34384,7 @@ var require_dependencies2 = __commonJS({
         }
       }
     }
-    exports2.validatePropertyDeps = validatePropertyDeps;
+    exports.validatePropertyDeps = validatePropertyDeps;
     function validateSchemaDeps(cxt, schemaDeps = cxt.schema) {
       const { gen, data, keyword, it } = cxt;
       const valid = gen.name("valid");
@@ -34393,16 +34398,16 @@ var require_dependencies2 = __commonJS({
         cxt.ok(valid);
       }
     }
-    exports2.validateSchemaDeps = validateSchemaDeps;
-    exports2.default = def;
+    exports.validateSchemaDeps = validateSchemaDeps;
+    exports.default = def;
   }
 });
 
 // node_modules/light-my-request/node_modules/ajv/dist/vocabularies/applicator/propertyNames.js
 var require_propertyNames2 = __commonJS({
-  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/applicator/propertyNames.js"(exports2) {
+  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/applicator/propertyNames.js"(exports) {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
+    Object.defineProperty(exports, "__esModule", { value: true });
     var codegen_1 = require_codegen();
     var util_1 = require_util3();
     var error = {
@@ -34437,15 +34442,15 @@ var require_propertyNames2 = __commonJS({
         cxt.ok(valid);
       }
     };
-    exports2.default = def;
+    exports.default = def;
   }
 });
 
 // node_modules/light-my-request/node_modules/ajv/dist/vocabularies/applicator/additionalProperties.js
 var require_additionalProperties = __commonJS({
-  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/applicator/additionalProperties.js"(exports2) {
+  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/applicator/additionalProperties.js"(exports) {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
+    Object.defineProperty(exports, "__esModule", { value: true });
     var code_1 = require_code2();
     var codegen_1 = require_codegen();
     var names_1 = require_names();
@@ -34543,15 +34548,15 @@ var require_additionalProperties = __commonJS({
         }
       }
     };
-    exports2.default = def;
+    exports.default = def;
   }
 });
 
 // node_modules/light-my-request/node_modules/ajv/dist/vocabularies/applicator/properties.js
 var require_properties2 = __commonJS({
-  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/applicator/properties.js"(exports2) {
+  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/applicator/properties.js"(exports) {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
+    Object.defineProperty(exports, "__esModule", { value: true });
     var validate_1 = require_validate2();
     var code_1 = require_code2();
     var util_1 = require_util3();
@@ -34601,15 +34606,15 @@ var require_properties2 = __commonJS({
         }
       }
     };
-    exports2.default = def;
+    exports.default = def;
   }
 });
 
 // node_modules/light-my-request/node_modules/ajv/dist/vocabularies/applicator/patternProperties.js
 var require_patternProperties = __commonJS({
-  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/applicator/patternProperties.js"(exports2) {
+  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/applicator/patternProperties.js"(exports) {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
+    Object.defineProperty(exports, "__esModule", { value: true });
     var code_1 = require_code2();
     var codegen_1 = require_codegen();
     var util_1 = require_util3();
@@ -34675,15 +34680,15 @@ var require_patternProperties = __commonJS({
         }
       }
     };
-    exports2.default = def;
+    exports.default = def;
   }
 });
 
 // node_modules/light-my-request/node_modules/ajv/dist/vocabularies/applicator/not.js
 var require_not2 = __commonJS({
-  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/applicator/not.js"(exports2) {
+  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/applicator/not.js"(exports) {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
+    Object.defineProperty(exports, "__esModule", { value: true });
     var util_1 = require_util3();
     var def = {
       keyword: "not",
@@ -34706,15 +34711,15 @@ var require_not2 = __commonJS({
       },
       error: { message: "must NOT be valid" }
     };
-    exports2.default = def;
+    exports.default = def;
   }
 });
 
 // node_modules/light-my-request/node_modules/ajv/dist/vocabularies/applicator/anyOf.js
 var require_anyOf2 = __commonJS({
-  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/applicator/anyOf.js"(exports2) {
+  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/applicator/anyOf.js"(exports) {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
+    Object.defineProperty(exports, "__esModule", { value: true });
     var code_1 = require_code2();
     var def = {
       keyword: "anyOf",
@@ -34723,15 +34728,15 @@ var require_anyOf2 = __commonJS({
       code: code_1.validateUnion,
       error: { message: "must match a schema in anyOf" }
     };
-    exports2.default = def;
+    exports.default = def;
   }
 });
 
 // node_modules/light-my-request/node_modules/ajv/dist/vocabularies/applicator/oneOf.js
 var require_oneOf2 = __commonJS({
-  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/applicator/oneOf.js"(exports2) {
+  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/applicator/oneOf.js"(exports) {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
+    Object.defineProperty(exports, "__esModule", { value: true });
     var codegen_1 = require_codegen();
     var util_1 = require_util3();
     var error = {
@@ -34781,15 +34786,15 @@ var require_oneOf2 = __commonJS({
         }
       }
     };
-    exports2.default = def;
+    exports.default = def;
   }
 });
 
 // node_modules/light-my-request/node_modules/ajv/dist/vocabularies/applicator/allOf.js
 var require_allOf2 = __commonJS({
-  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/applicator/allOf.js"(exports2) {
+  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/applicator/allOf.js"(exports) {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
+    Object.defineProperty(exports, "__esModule", { value: true });
     var util_1 = require_util3();
     var def = {
       keyword: "allOf",
@@ -34808,15 +34813,15 @@ var require_allOf2 = __commonJS({
         });
       }
     };
-    exports2.default = def;
+    exports.default = def;
   }
 });
 
 // node_modules/light-my-request/node_modules/ajv/dist/vocabularies/applicator/if.js
 var require_if2 = __commonJS({
-  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/applicator/if.js"(exports2) {
+  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/applicator/if.js"(exports) {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
+    Object.defineProperty(exports, "__esModule", { value: true });
     var codegen_1 = require_codegen();
     var util_1 = require_util3();
     var error = {
@@ -34877,15 +34882,15 @@ var require_if2 = __commonJS({
       const schema = it.schema[keyword];
       return schema !== void 0 && !(0, util_1.alwaysValidSchema)(it, schema);
     }
-    exports2.default = def;
+    exports.default = def;
   }
 });
 
 // node_modules/light-my-request/node_modules/ajv/dist/vocabularies/applicator/thenElse.js
 var require_thenElse = __commonJS({
-  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/applicator/thenElse.js"(exports2) {
+  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/applicator/thenElse.js"(exports) {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
+    Object.defineProperty(exports, "__esModule", { value: true });
     var util_1 = require_util3();
     var def = {
       keyword: ["then", "else"],
@@ -34895,15 +34900,15 @@ var require_thenElse = __commonJS({
           (0, util_1.checkStrictMode)(it, `"${keyword}" without "if" is ignored`);
       }
     };
-    exports2.default = def;
+    exports.default = def;
   }
 });
 
 // node_modules/light-my-request/node_modules/ajv/dist/vocabularies/applicator/index.js
 var require_applicator = __commonJS({
-  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/applicator/index.js"(exports2) {
+  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/applicator/index.js"(exports) {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
+    Object.defineProperty(exports, "__esModule", { value: true });
     var additionalItems_1 = require_additionalItems();
     var prefixItems_1 = require_prefixItems();
     var items_1 = require_items2();
@@ -34941,15 +34946,15 @@ var require_applicator = __commonJS({
       applicator.push(contains_1.default);
       return applicator;
     }
-    exports2.default = getApplicator;
+    exports.default = getApplicator;
   }
 });
 
 // node_modules/light-my-request/node_modules/ajv/dist/vocabularies/format/format.js
 var require_format2 = __commonJS({
-  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/format/format.js"(exports2) {
+  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/format/format.js"(exports) {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
+    Object.defineProperty(exports, "__esModule", { value: true });
     var codegen_1 = require_codegen();
     var error = {
       message: ({ schemaCode }) => (0, codegen_1.str)`must match format "${schemaCode}"`,
@@ -35031,28 +35036,28 @@ var require_format2 = __commonJS({
         }
       }
     };
-    exports2.default = def;
+    exports.default = def;
   }
 });
 
 // node_modules/light-my-request/node_modules/ajv/dist/vocabularies/format/index.js
 var require_format3 = __commonJS({
-  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/format/index.js"(exports2) {
+  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/format/index.js"(exports) {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
+    Object.defineProperty(exports, "__esModule", { value: true });
     var format_1 = require_format2();
     var format = [format_1.default];
-    exports2.default = format;
+    exports.default = format;
   }
 });
 
 // node_modules/light-my-request/node_modules/ajv/dist/vocabularies/metadata.js
 var require_metadata = __commonJS({
-  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/metadata.js"(exports2) {
+  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/metadata.js"(exports) {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.contentVocabulary = exports2.metadataVocabulary = void 0;
-    exports2.metadataVocabulary = [
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.contentVocabulary = exports.metadataVocabulary = void 0;
+    exports.metadataVocabulary = [
       "title",
       "description",
       "default",
@@ -35061,7 +35066,7 @@ var require_metadata = __commonJS({
       "writeOnly",
       "examples"
     ];
-    exports2.contentVocabulary = [
+    exports.contentVocabulary = [
       "contentMediaType",
       "contentEncoding",
       "contentSchema"
@@ -35071,9 +35076,9 @@ var require_metadata = __commonJS({
 
 // node_modules/light-my-request/node_modules/ajv/dist/vocabularies/draft7.js
 var require_draft7 = __commonJS({
-  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/draft7.js"(exports2) {
+  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/draft7.js"(exports) {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
+    Object.defineProperty(exports, "__esModule", { value: true });
     var core_1 = require_core2();
     var validation_1 = require_validation2();
     var applicator_1 = require_applicator();
@@ -35087,29 +35092,29 @@ var require_draft7 = __commonJS({
       metadata_1.metadataVocabulary,
       metadata_1.contentVocabulary
     ];
-    exports2.default = draft7Vocabularies;
+    exports.default = draft7Vocabularies;
   }
 });
 
 // node_modules/light-my-request/node_modules/ajv/dist/vocabularies/discriminator/types.js
 var require_types2 = __commonJS({
-  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/discriminator/types.js"(exports2) {
+  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/discriminator/types.js"(exports) {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.DiscrError = void 0;
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.DiscrError = void 0;
     var DiscrError;
     (function(DiscrError2) {
       DiscrError2["Tag"] = "tag";
       DiscrError2["Mapping"] = "mapping";
-    })(DiscrError = exports2.DiscrError || (exports2.DiscrError = {}));
+    })(DiscrError = exports.DiscrError || (exports.DiscrError = {}));
   }
 });
 
 // node_modules/light-my-request/node_modules/ajv/dist/vocabularies/discriminator/index.js
 var require_discriminator = __commonJS({
-  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/discriminator/index.js"(exports2) {
+  "node_modules/light-my-request/node_modules/ajv/dist/vocabularies/discriminator/index.js"(exports) {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
+    Object.defineProperty(exports, "__esModule", { value: true });
     var codegen_1 = require_codegen();
     var types_1 = require_types2();
     var error = {
@@ -35195,13 +35200,13 @@ var require_discriminator = __commonJS({
         }
       }
     };
-    exports2.default = def;
+    exports.default = def;
   }
 });
 
 // node_modules/light-my-request/node_modules/ajv/dist/refs/json-schema-draft-07.json
 var require_json_schema_draft_072 = __commonJS({
-  "node_modules/light-my-request/node_modules/ajv/dist/refs/json-schema-draft-07.json"(exports2, module2) {
+  "node_modules/light-my-request/node_modules/ajv/dist/refs/json-schema-draft-07.json"(exports, module2) {
     module2.exports = {
       $schema: "http://json-schema.org/draft-07/schema#",
       $id: "http://json-schema.org/draft-07/schema#",
@@ -35358,10 +35363,10 @@ var require_json_schema_draft_072 = __commonJS({
 
 // node_modules/light-my-request/node_modules/ajv/dist/ajv.js
 var require_ajv2 = __commonJS({
-  "node_modules/light-my-request/node_modules/ajv/dist/ajv.js"(exports2, module2) {
+  "node_modules/light-my-request/node_modules/ajv/dist/ajv.js"(exports, module2) {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.CodeGen = exports2.Name = exports2.nil = exports2.stringify = exports2.str = exports2._ = exports2.KeywordCxt = void 0;
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.CodeGen = exports.Name = exports.nil = exports.stringify = exports.str = exports._ = exports.KeywordCxt = void 0;
     var core_1 = require_core();
     var draft7_1 = require_draft7();
     var discriminator_1 = require_discriminator();
@@ -35387,30 +35392,30 @@ var require_ajv2 = __commonJS({
         return this.opts.defaultMeta = super.defaultMeta() || (this.getSchema(META_SCHEMA_ID) ? META_SCHEMA_ID : void 0);
       }
     };
-    module2.exports = exports2 = Ajv;
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.default = Ajv;
+    module2.exports = exports = Ajv;
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.default = Ajv;
     var validate_1 = require_validate2();
-    Object.defineProperty(exports2, "KeywordCxt", { enumerable: true, get: function() {
+    Object.defineProperty(exports, "KeywordCxt", { enumerable: true, get: function() {
       return validate_1.KeywordCxt;
     } });
     var codegen_1 = require_codegen();
-    Object.defineProperty(exports2, "_", { enumerable: true, get: function() {
+    Object.defineProperty(exports, "_", { enumerable: true, get: function() {
       return codegen_1._;
     } });
-    Object.defineProperty(exports2, "str", { enumerable: true, get: function() {
+    Object.defineProperty(exports, "str", { enumerable: true, get: function() {
       return codegen_1.str;
     } });
-    Object.defineProperty(exports2, "stringify", { enumerable: true, get: function() {
+    Object.defineProperty(exports, "stringify", { enumerable: true, get: function() {
       return codegen_1.stringify;
     } });
-    Object.defineProperty(exports2, "nil", { enumerable: true, get: function() {
+    Object.defineProperty(exports, "nil", { enumerable: true, get: function() {
       return codegen_1.nil;
     } });
-    Object.defineProperty(exports2, "Name", { enumerable: true, get: function() {
+    Object.defineProperty(exports, "Name", { enumerable: true, get: function() {
       return codegen_1.Name;
     } });
-    Object.defineProperty(exports2, "CodeGen", { enumerable: true, get: function() {
+    Object.defineProperty(exports, "CodeGen", { enumerable: true, get: function() {
       return codegen_1.CodeGen;
     } });
   }
@@ -35418,10 +35423,10 @@ var require_ajv2 = __commonJS({
 
 // node_modules/light-my-request/node_modules/cookie/index.js
 var require_cookie = __commonJS({
-  "node_modules/light-my-request/node_modules/cookie/index.js"(exports2) {
+  "node_modules/light-my-request/node_modules/cookie/index.js"(exports) {
     "use strict";
-    exports2.parse = parse;
-    exports2.serialize = serialize;
+    exports.parse = parse;
+    exports.serialize = serialize;
     var decode = decodeURIComponent;
     var encode = encodeURIComponent;
     var pairSplitRegExp = /; */;
@@ -35529,7 +35534,7 @@ var require_cookie = __commonJS({
 
 // node_modules/light-my-request/lib/parseURL.js
 var require_parseURL = __commonJS({
-  "node_modules/light-my-request/lib/parseURL.js"(exports2, module2) {
+  "node_modules/light-my-request/lib/parseURL.js"(exports, module2) {
     "use strict";
     var { URL } = require("url");
     var BASE_URL = "http://localhost";
@@ -35557,7 +35562,7 @@ var require_parseURL = __commonJS({
 
 // node_modules/light-my-request/lib/request.js
 var require_request2 = __commonJS({
-  "node_modules/light-my-request/lib/request.js"(exports2, module2) {
+  "node_modules/light-my-request/lib/request.js"(exports, module2) {
     "use strict";
     var { Readable } = require("stream");
     var util = require("util");
@@ -35689,7 +35694,7 @@ var require_request2 = __commonJS({
 
 // node_modules/set-cookie-parser/lib/set-cookie.js
 var require_set_cookie = __commonJS({
-  "node_modules/set-cookie-parser/lib/set-cookie.js"(exports2, module2) {
+  "node_modules/set-cookie-parser/lib/set-cookie.js"(exports, module2) {
     "use strict";
     var defaultParseOptions = {
       decodeValues: true,
@@ -35835,7 +35840,7 @@ var require_set_cookie = __commonJS({
 
 // node_modules/light-my-request/lib/response.js
 var require_response = __commonJS({
-  "node_modules/light-my-request/lib/response.js"(exports2, module2) {
+  "node_modules/light-my-request/lib/response.js"(exports, module2) {
     "use strict";
     var http = require("http");
     var { Writable } = require("stream");
@@ -35972,7 +35977,7 @@ var require_response = __commonJS({
 
 // node_modules/light-my-request/index.js
 var require_light_my_request = __commonJS({
-  "node_modules/light-my-request/index.js"(exports2, module2) {
+  "node_modules/light-my-request/index.js"(exports, module2) {
     "use strict";
     var assert = require("assert");
     var http = require("http");
@@ -36167,7 +36172,7 @@ var require_light_my_request = __commonJS({
 
 // node_modules/fastify/fastify.js
 var require_fastify = __commonJS({
-  "node_modules/fastify/fastify.js"(exports2, module2) {
+  "node_modules/fastify/fastify.js"(exports, module2) {
     "use strict";
     var VERSION = "3.24.0";
     var Avvio = require_boot();
@@ -36342,29 +36347,29 @@ var require_fastify = __commonJS({
         routing: httpHandler,
         getDefaultRoute: router.getDefaultRoute.bind(router),
         setDefaultRoute: router.setDefaultRoute.bind(router),
-        delete: function _delete(url, opts, handler) {
-          return router.prepareRoute.call(this, "DELETE", url, opts, handler);
+        delete: function _delete(url, opts, handler2) {
+          return router.prepareRoute.call(this, "DELETE", url, opts, handler2);
         },
-        get: function _get(url, opts, handler) {
-          return router.prepareRoute.call(this, "GET", url, opts, handler);
+        get: function _get(url, opts, handler2) {
+          return router.prepareRoute.call(this, "GET", url, opts, handler2);
         },
-        head: function _head(url, opts, handler) {
-          return router.prepareRoute.call(this, "HEAD", url, opts, handler);
+        head: function _head(url, opts, handler2) {
+          return router.prepareRoute.call(this, "HEAD", url, opts, handler2);
         },
-        patch: function _patch(url, opts, handler) {
-          return router.prepareRoute.call(this, "PATCH", url, opts, handler);
+        patch: function _patch(url, opts, handler2) {
+          return router.prepareRoute.call(this, "PATCH", url, opts, handler2);
         },
-        post: function _post(url, opts, handler) {
-          return router.prepareRoute.call(this, "POST", url, opts, handler);
+        post: function _post(url, opts, handler2) {
+          return router.prepareRoute.call(this, "POST", url, opts, handler2);
         },
-        put: function _put(url, opts, handler) {
-          return router.prepareRoute.call(this, "PUT", url, opts, handler);
+        put: function _put(url, opts, handler2) {
+          return router.prepareRoute.call(this, "PUT", url, opts, handler2);
         },
-        options: function _options(url, opts, handler) {
-          return router.prepareRoute.call(this, "OPTIONS", url, opts, handler);
+        options: function _options(url, opts, handler2) {
+          return router.prepareRoute.call(this, "OPTIONS", url, opts, handler2);
         },
-        all: function _all(url, opts, handler) {
-          return router.prepareRoute.call(this, supportedMethods, url, opts, handler);
+        all: function _all(url, opts, handler2) {
+          return router.prepareRoute.call(this, supportedMethods, url, opts, handler2);
         },
         route: function _route(opts) {
           return router.route.call(this, opts);
@@ -36647,9 +36652,9 @@ ${body}`);
         });
         res.end(body);
       }
-      function setNotFoundHandler(opts, handler) {
+      function setNotFoundHandler(opts, handler2) {
         throwIfAlreadyStarted('Cannot call "setNotFoundHandler" when fastify instance is already started!');
-        fourOhFour.setNotFoundHandler.call(this, opts, handler, avvio, router.routeHandler);
+        fourOhFour.setNotFoundHandler.call(this, opts, handler2, avvio, router.routeHandler);
         return this;
       }
       function setValidatorCompiler(validatorCompiler) {
@@ -36725,20 +36730,3123 @@ ${body}`);
 });
 
 // apps/juicebox-store-api/src/index.ts
+__export(exports, {
+  handler: () => handler
+});
 var import_aws_lambda_fastify = __toModule(require_aws_lambda_fastify());
 
 // apps/juicebox-store-api/src/app.ts
 var import_fastify = __toModule(require_fastify());
+
+// node_modules/dynamodb-onetable/dist/mjs/Error.js
+function init(self, message, context) {
+  self.name = self.constructor.name;
+  self.message = message;
+  if (context) {
+    self.context = context;
+    if (context.code) {
+      self.code = `${context.code}Error`;
+      delete context.code;
+    }
+  }
+  self.date = new Date();
+  if (typeof Error.captureStackTrace === "function") {
+    Error.captureStackTrace(self, self.constructor);
+  } else {
+    self.stack = new Error(message).stack;
+  }
+}
+var OneError = class extends Error {
+  constructor(message, context) {
+    super(message);
+    init(this, message, context);
+  }
+  toString() {
+    let buf = [`message: ${this.message}`];
+    if (this.context.code) {
+      buf.push(`code: ${this.code}`);
+    }
+    if (this.context) {
+      buf.push(`context: ${JSON.stringify(this.context, null, 4)}`);
+    }
+    if (this.stack) {
+      buf.push(`stack: ${this.stack}`);
+    }
+    return buf.join("\n");
+  }
+};
+var OneArgError = class extends Error {
+  constructor(message, context) {
+    super(message, context);
+    init(this, message, context);
+    this.code = context ? context.code : "Arg";
+  }
+};
+
+// node_modules/dynamodb-onetable/dist/mjs/Expression.js
+var KeyOperators = ["<", "<=", "=", ">=", ">", "begins", "begins_with", "between"];
+var Expression = class {
+  constructor(model, op, properties, params = {}) {
+    this.init(model, op, properties, params);
+    this.prepare();
+  }
+  init(model, op, properties, params) {
+    this.model = model;
+    this.op = op;
+    this.properties = properties;
+    this.params = params;
+    this.table = model.table;
+    this.already = {};
+    this.conditions = [];
+    this.filters = [];
+    this.key = {};
+    this.keys = [];
+    this.mapped = {};
+    this.names = {};
+    this.namesMap = {};
+    this.project = [];
+    this.values = {};
+    this.valuesMap = {};
+    this.nindex = 0;
+    this.vindex = 0;
+    this.updates = {
+      add: [],
+      delete: [],
+      remove: [],
+      set: []
+    };
+    this.execute = params.execute === false ? false : true;
+    this.tableName = model.tableName;
+    this.index = this.selectIndex(model.indexes);
+    this.hash = this.index.hash;
+    this.sort = this.index.sort;
+    if (!this.table.client) {
+      throw new OneArgError('Table has not yet defined a "client" instance');
+    }
+  }
+  prepare() {
+    let { op, params, properties } = this;
+    let fields = this.model.block.fields;
+    if (op == "find") {
+      this.addFilters();
+    } else if (op == "delete" || op == "put" || op == "update") {
+      this.addConditions(op);
+    } else if (op == "scan") {
+      this.addFilters();
+      for (let [name, value] of Object.entries(this.properties)) {
+        if (fields[name] == null && value != null) {
+          this.addFilter(name, value);
+          this.already[name] = true;
+        }
+      }
+    }
+    for (let [name, value] of Object.entries(properties)) {
+      if (this.already[name]) {
+        continue;
+      }
+      if (fields[name]) {
+        this.add(fields[name], value);
+      } else if (this.model.generic) {
+        this.add({ attribute: [name], name }, value);
+      }
+    }
+    if (this.mapped) {
+      for (let [att, props] of Object.entries(this.mapped)) {
+        if (Object.keys(props).length != this.model.mappings[att].length) {
+          throw new OneArgError(`Missing properties for mapped data field "${att}" in model "${this.model.name}"`);
+        }
+      }
+      for (let [k, v] of Object.entries(this.mapped)) {
+        this.add({ attribute: [k], name: k, filter: false }, v, properties);
+      }
+    }
+    if (params.fields) {
+      for (let name of params.fields) {
+        let att = op == "batchGet" ? name : fields[name].attribute[0];
+        this.project.push(`#_${this.addName(att)}`);
+      }
+    }
+  }
+  add(field, value) {
+    let properties = this.properties;
+    let op = this.op;
+    let attribute = field.attribute;
+    if (attribute.length > 1) {
+      let mapped = this.mapped;
+      let [k, v] = attribute;
+      mapped[k] = mapped[k] || {};
+      mapped[k][v] = value;
+      properties[k] = value;
+      return;
+    }
+    let pathname = attribute[0];
+    let att = pathname.split(".").shift();
+    if (att == this.hash || att == this.sort) {
+      if (op == "find") {
+        this.addKey(op, field, value);
+      } else if (op == "scan") {
+        if (properties[field.name] !== void 0 && field.filter !== false) {
+          this.addFilter(att, value);
+        }
+      } else if ((op == "delete" || op == "get" || op == "update") && field.isIndexed) {
+        this.addKey(op, field, value);
+      } else if (op == "put" || this.params.batch && op == "update") {
+        this.values[att] = value;
+      }
+    } else {
+      if (op == "find" || op == "scan") {
+        if (properties[field.name] !== void 0 && field.filter !== false) {
+          if (!this.params.batch) {
+            this.addFilter(att, value);
+          }
+        }
+      } else if (op == "put" || this.params.batch && op == "update") {
+        this.values[att] = value;
+      } else if (op == "update") {
+        this.addUpdate(field, value);
+      }
+    }
+  }
+  addConditions(op) {
+    let { conditions, params } = this;
+    let { hash, sort } = this.index;
+    if (params.exists === true) {
+      conditions.push(`attribute_exists(${hash})`);
+      if (sort) {
+        conditions.push(`attribute_exists(${sort})`);
+      }
+    } else if (params.exists === false) {
+      conditions.push(`attribute_not_exists(${hash})`);
+      if (sort) {
+        conditions.push(`attribute_not_exists(${sort})`);
+      }
+    }
+    if (params.type && sort) {
+      conditions.push(`attribute_type(${sort}, ${params.type})`);
+    }
+    if (op == "update") {
+      this.addUpdates();
+    }
+    if (params.where && (op == "delete" || op == "update")) {
+      conditions.push(this.expand(params.where));
+    }
+  }
+  expand(where) {
+    const expr = where;
+    let fields = this.model.block.fields;
+    where = where.toString().replace(/\${(.*?)}/g, (match, varName) => {
+      return this.makeTarget(fields, varName);
+    });
+    where = where.replace(/@{(.*?)}/g, (match, value) => {
+      let index;
+      const { substitutions } = this.params;
+      let name = value.replace(/^\.\.\./, "");
+      if (!substitutions || !substitutions[name]) {
+        throw new OneError(`Missing substitutions for attribute value "${name}"`, {
+          expr,
+          substitutions,
+          properties: this.properties
+        });
+      }
+      if (value != name && Array.isArray(substitutions[name])) {
+        let indicies = [];
+        for (let item of substitutions[name]) {
+          indicies.push(this.addValue(item));
+        }
+        return indicies.map((i) => `:_${i}`).join(", ");
+      }
+      index = this.addValue(substitutions[name]);
+      return `:_${index}`;
+    });
+    where = where.replace(/{(.*?)}/g, (match, value) => {
+      let index;
+      if (value.match(/^[-+]?([0-9]+(\.[0-9]*)?|\.[0-9]+)$/)) {
+        index = this.addValue(+value);
+      } else {
+        let matched = value.match(/^"(.*)"$/);
+        if (matched) {
+          index = this.addValue(matched[1]);
+        } else if (value instanceof Date) {
+          value = this.table.transformWriteDate(value);
+          index = this.addValue(value);
+        } else if (value == "true" || value == "false") {
+          index = this.addValue(value == "true" ? true : false);
+        } else {
+          index = this.addValue(value);
+        }
+      }
+      return `:_${index}`;
+    });
+    return where;
+  }
+  addFilters() {
+    if (this.params.where) {
+      this.filters.push(this.expand(this.params.where));
+    }
+  }
+  addFilter(att, value) {
+    this.filters.push(`#_${this.addName(att)} = :_${this.addValue(value)}`);
+  }
+  addKey(op, field, value) {
+    let att = field.attribute[0];
+    if (op == "find") {
+      let keys = this.keys;
+      if (att == this.sort && typeof value == "object" && Object.keys(value).length > 0) {
+        let [action, vars] = Object.entries(value)[0];
+        if (KeyOperators.indexOf(action) < 0) {
+          throw new OneArgError(`Invalid KeyCondition operator "${action}"`);
+        }
+        if (action == "begins_with" || action == "begins") {
+          keys.push(`begins_with(#_${this.addName(att)}, :_${this.addValue(vars)})`);
+        } else if (action == "between") {
+          keys.push(`#_${this.addName(att)} BETWEEN :_${this.addValue(vars[0])} AND :_${this.addValue(vars[1])}`);
+        } else {
+          keys.push(`#_${this.addName(att)} ${action} :_${this.addValue(value[action])}`);
+        }
+      } else {
+        keys.push(`#_${this.addName(att)} = :_${this.addValue(value)}`);
+      }
+    } else {
+      this.key[att] = value;
+    }
+  }
+  addUpdate(field, value) {
+    let { params, updates } = this;
+    let att = field.attribute[0];
+    if (att == this.hash || att == this.sort) {
+      return;
+    }
+    if (field.name == this.model.typeField) {
+      if (!(params.exists === null || params.exists == false)) {
+        return;
+      }
+    }
+    if (params.remove && params.remove.indexOf(field.name) >= 0) {
+      return;
+    }
+    if (field.isIndexed && params.updateIndexes !== true && params.exists !== null) {
+      return;
+    }
+    updates.set.push(`#_${this.addName(att)} = :_${this.addValue(value)}`);
+  }
+  addUpdates() {
+    let { params, updates } = this;
+    let fields = this.model.block.fields;
+    if (params.add) {
+      for (let [key, value] of Object.entries(params.add)) {
+        if (key == this.hash || key == this.sort) {
+          throw new OneArgError("Cannot add to hash or sort");
+        }
+        this.already[key] = true;
+        let target = this.makeTarget(fields, key);
+        updates.add.push(`${target} :_${this.addValue(value)}`);
+      }
+    }
+    if (params.delete) {
+      for (let [key, value] of Object.entries(params.delete)) {
+        if (key == this.hash || key == this.sort) {
+          throw new OneArgError("Cannot delete hash or sort");
+        }
+        this.already[key] = true;
+        let target = this.makeTarget(fields, key);
+        updates.delete.push(`${target} :_${this.addValue(value)}`);
+      }
+    }
+    if (params.remove) {
+      if (!Array.isArray(params.remove)) {
+        params.remove = [params.remove];
+      }
+      let fields2 = this.model.block.fields;
+      for (let key of params.remove) {
+        if (key == this.hash || key == this.sort) {
+          throw new OneArgError("Cannot remove hash or sort");
+        }
+        if (fields2.required) {
+          throw new OneArgError("Cannot remove required field");
+        }
+        this.already[key] = true;
+        let target = this.makeTarget(fields2, key);
+        updates.remove.push(`${target}`);
+      }
+    }
+    if (params.set) {
+      for (let [key, value] of Object.entries(params.set)) {
+        if (key == this.hash || key == this.sort) {
+          throw new OneArgError("Cannot set hash or sort");
+        }
+        this.already[key] = true;
+        let target = this.makeTarget(fields, key);
+        if (value.toString().match(/\${.*?}|@{.*?}|{.*?}/)) {
+          updates.set.push(`${target} = ${this.expand(value)}`);
+        } else {
+          updates.set.push(`${target} = :_${this.addValue(value)}`);
+        }
+      }
+    }
+  }
+  makeTarget(fields, name) {
+    let target = [];
+    for (let prop of name.split(".")) {
+      let subscript = prop.match(/\[[^\]]+\]+/);
+      if (subscript) {
+        prop = prop.replace(/\[[^\]]+\]+/, "");
+        subscript = subscript[0];
+      } else {
+        subscript = "";
+      }
+      let field = fields ? fields[prop] : null;
+      if (field) {
+        target.push(`#_${this.addName(field.attribute[0])}${subscript}`);
+        fields = field.schema ? field.block.fields : null;
+      } else {
+        target.push(`#_${this.addName(prop)}${subscript}`);
+        fields = null;
+      }
+    }
+    return target.join(".");
+  }
+  selectIndex(indexes) {
+    let index = indexes.primary;
+    if (this.params.index) {
+      if (this.params.index != "primary") {
+        index = indexes[this.params.index];
+      }
+    }
+    return index;
+  }
+  command() {
+    let { conditions, filters, key, keys, hash, model, names, op, params, project, values } = this;
+    if (key == null && values[hash] == null && op != "scan") {
+      throw new OneError(`Cannot find hash key for "${op}"`, { values });
+    }
+    if (op == "get" || op == "delete" || op == "update") {
+      if (key == null) {
+        return null;
+      }
+    }
+    let namesLen = Object.keys(names).length;
+    let valuesLen = Object.keys(values).length;
+    values = this.table.marshall(values);
+    key = this.table.marshall(key);
+    let args;
+    if (params.batch) {
+      if (op == "get") {
+        args = { Keys: key };
+      } else if (op == "delete") {
+        args = { Key: key };
+      } else if (op == "put") {
+        args = { Item: values };
+      } else {
+        throw new OneArgError(`Unsupported batch operation "${op}"`);
+      }
+      if (filters.length) {
+        throw new OneArgError("Invalid filters with batch operation");
+      }
+    } else {
+      args = {
+        ConditionExpression: conditions.length ? this.and(conditions) : void 0,
+        ExpressionAttributeNames: namesLen > 0 ? names : void 0,
+        ExpressionAttributeValues: namesLen > 0 && valuesLen > 0 ? values : void 0,
+        FilterExpression: filters.length ? this.and(filters) : void 0,
+        KeyConditionExpression: keys.length ? keys.join(" and ") : void 0,
+        ProjectionExpression: project.length ? project.join(", ") : void 0,
+        TableName: this.tableName
+      };
+      if (params.select) {
+        if (project.length && params.select != "SPECIFIC_ATTRIBUTES") {
+          throw new OneArgError("Select must be SPECIFIC_ATTRIBUTES with projection expressions");
+        }
+        args.Select = params.select;
+      } else if (params.count) {
+        if (project.length) {
+          throw new OneArgError("Cannot use select and count together");
+        }
+        args.Select = "COUNT";
+      }
+      if (params.stats || this.table.metrics) {
+        args.ReturnConsumedCapacity = params.capacity || "TOTAL";
+        args.ReturnItemCollectionMetrics = "SIZE";
+      }
+      if (op == "put") {
+        args.Item = values;
+        args.ReturnValues = params.return || "NONE";
+      } else if (op == "update") {
+        args.ReturnValues = params.return || "ALL_NEW";
+        let updates = [];
+        for (let op2 of ["add", "delete", "remove", "set"]) {
+          if (this.updates[op2].length) {
+            updates.push(`${op2} ${this.updates[op2].join(", ")}`);
+          }
+        }
+        args.UpdateExpression = updates.join(" ");
+      }
+      if (op == "delete" || op == "get" || op == "update") {
+        args.Key = key;
+      }
+      if (op == "find" || op == "get" || op == "scan") {
+        args.ConsistentRead = params.consistent ? true : false, args.IndexName = params.index ? params.index : null;
+      }
+      if (op == "find" || op == "scan") {
+        args.Limit = params.limit ? params.limit : void 0;
+        args.ScanIndexForward = params.reverse == true ^ params.prev != null ? false : true;
+        if (params.next || params.prev) {
+          args.ExclusiveStartKey = this.table.marshall(params.next || params.start || params.prev);
+        }
+      }
+      if (op == "scan") {
+        if (params.segments != null) {
+          args.TotalSegments = params.segments;
+        }
+        if (params.segment != null) {
+          args.Segment = params.segment;
+        }
+      }
+    }
+    if (args) {
+      args = Object.fromEntries(Object.entries(args).filter(([, v]) => v != null));
+    }
+    if (typeof params.postFormat == "function") {
+      args = params.postFormat(model, args);
+    }
+    return args;
+  }
+  and(terms) {
+    if (terms.length == 1) {
+      return terms.join("");
+    }
+    return terms.map((t) => `(${t})`).join(" and ");
+  }
+  addName(name) {
+    let index = this.namesMap[name];
+    if (index == null) {
+      index = this.nindex++;
+      this.names[`#_${index}`] = name;
+      this.namesMap[name] = index;
+    }
+    return index;
+  }
+  addValue(value) {
+    let index;
+    if (value && typeof value != "object" && typeof value != "number") {
+      index = this.valuesMap[value];
+    }
+    if (index == null) {
+      index = this.vindex++;
+      this.values[`:_${index}`] = value;
+      if (value && typeof value != "object") {
+        this.valuesMap[value] = index;
+      }
+    }
+    return index;
+  }
+};
+
+// node_modules/dynamodb-onetable/dist/mjs/Model.js
+var ReadWrite = {
+  delete: "write",
+  get: "read",
+  find: "read",
+  put: "write",
+  scan: "read",
+  update: "write"
+};
+var KeysOnly = { delete: true, get: true };
+var TransactOps = { delete: "Delete", get: "Get", put: "Put", update: "Update" };
+var BatchOps = { delete: "DeleteRequest", put: "PutRequest", update: "PutRequest" };
+var ValidTypes = ["array", "binary", "boolean", "buffer", "date", "number", "object", "set", "string"];
+var SanityPages = 1e3;
+var FollowThreads = 10;
+var Model = class {
+  constructor(table2, name, options = {}) {
+    if (!table2) {
+      throw new OneArgError("Missing table argument");
+    }
+    if (!table2.typeField || !table2.uuid) {
+      throw new OneArgError("Invalid table instance");
+    }
+    if (!name) {
+      throw new OneArgError("Missing name of model");
+    }
+    this.table = table2;
+    this.name = name;
+    this.options = options;
+    this.hash = null;
+    this.sort = null;
+    this.createdField = table2.createdField;
+    this.generic = options.generic;
+    this.nested = false;
+    this.nulls = table2.nulls;
+    this.tableName = table2.name;
+    this.typeField = options.typeField || table2.typeField;
+    this.timestamps = options.timestamps;
+    this.generic = options.generic != null ? options.generic : table2.generic;
+    if (this.timestamps == null) {
+      this.timestamps = table2.timestamps;
+    }
+    this.updatedField = table2.updatedField;
+    this.block = { fields: {}, deps: [] };
+    this.mappings = {};
+    this.schema = table2.schema;
+    this.indexes = this.schema.indexes;
+    if (!this.indexes) {
+      throw new OneArgError("Indexes must be defined on the Table before creating models");
+    }
+    this.indexProperties = this.getIndexProperties(this.indexes);
+    let fields = options.fields || this.schema.definition.models[this.name];
+    if (fields) {
+      this.prepModel(fields, this.block);
+    }
+  }
+  prepModel(schemaFields, block, prefix = "") {
+    let { fields } = block;
+    schemaFields = this.table.assign({}, schemaFields);
+    if (!prefix) {
+      if (!schemaFields[this.typeField]) {
+        schemaFields[this.typeField] = { type: String, hidden: true };
+        if (!this.generic) {
+          schemaFields[this.typeField].required = true;
+        }
+      }
+      if (this.timestamps) {
+        schemaFields[this.createdField] = schemaFields[this.createdField] || { type: Date };
+        schemaFields[this.updatedField] = schemaFields[this.updatedField] || { type: Date };
+      }
+    }
+    let { indexes, table: table2 } = this;
+    let primary = indexes.primary;
+    let mapTargets = {};
+    let map = {};
+    for (let [name, field] of Object.entries(schemaFields)) {
+      let pathname = prefix ? `${prefix}.${name}` : name;
+      if (!field.type) {
+        throw new OneArgError(`Missing field type for ${pathname}`);
+      }
+      field.pathname = pathname;
+      field.name = name;
+      fields[name] = field;
+      field.type = this.checkType(field);
+      let to = field.map;
+      if (to) {
+        let [att, sub] = to.split(".");
+        mapTargets[att] = mapTargets[att] || [];
+        if (sub) {
+          if (map[name] && !Array.isArray(map[name])) {
+            throw new OneArgError(`Map already defined as literal for ${this.name}.${name}`);
+          }
+          field.attribute = map[name] = [att, sub];
+          if (mapTargets[att].indexOf(sub) >= 0) {
+            throw new OneArgError(`Multiple attributes in ${this.pathname} mapped to the target ${to}`);
+          }
+          mapTargets[att].push(sub);
+        } else {
+          if (mapTargets[att].length > 1) {
+            throw new OneArgError(`Multiple attributes in ${this.name} mapped to the target ${to}`);
+          }
+          field.attribute = map[name] = [att];
+          mapTargets[att].push(true);
+        }
+      } else {
+        field.attribute = map[name] = [name];
+      }
+      if (field.nulls !== true && field.nulls !== false) {
+        field.nulls = this.nulls;
+      }
+      let index = this.indexProperties[field.attribute[0]];
+      if (index && !prefix) {
+        field.isIndexed = true;
+        if (field.attribute.length > 1) {
+          throw new OneArgError(`Cannot map property "${pathname}" to a compound attribute "${this.name}.${pathname}"`);
+        }
+        if (index == "primary") {
+          field.required = true;
+          let attribute = field.attribute[0];
+          if (attribute == primary.hash) {
+            this.hash = attribute;
+          } else if (attribute == primary.sort) {
+            this.sort = attribute;
+          }
+        }
+      }
+      if (field.value) {
+        if (field.hidden == null) {
+          field.hidden = table2.hidden != null ? table2.hidden : true;
+        }
+      }
+      if (field.schema) {
+        if (field.type == "array") {
+          throw new OneArgError(`Array types do not (yet) support nested schemas for field "${field.name}" in model "${this.name}"`);
+        }
+        if (field.type == "object") {
+          field.block = { deps: [], fields: {} };
+          this.prepModel(field.schema, field.block, name);
+          this.nested = true;
+        } else {
+          throw new OneArgError(`Nested scheme not supported "${field.type}" types for field "${field.name}" in model "${this.name}"`);
+        }
+      }
+    }
+    if (Object.values(fields).find((f) => f.unique && f.attribute != this.hash && f.attribute != this.sort)) {
+      this.hasUniqueFields = true;
+    }
+    this.mappings = mapTargets;
+    for (let field of Object.values(fields)) {
+      this.orderFields(block, field);
+    }
+  }
+  checkType(field) {
+    let type = field.type;
+    if (typeof type == "function") {
+      type = type.name;
+    }
+    type = type.toLowerCase();
+    if (ValidTypes.indexOf(type) < 0) {
+      throw new OneArgError(`Unknown type "${type}" for field "${field.name}" in model "${this.name}"`);
+    }
+    return type;
+  }
+  orderFields(block, field) {
+    let { deps, fields } = block;
+    if (deps.find((i) => i.name == field.pathname)) {
+      return;
+    }
+    if (field.value) {
+      let vars = this.table.getVars(field.value);
+      for (let pathname of vars) {
+        let name = pathname.split(".").shift();
+        let ref = fields[name];
+        if (ref && ref != field) {
+          if (ref.schema) {
+            this.orderFields(ref.block, ref);
+          } else if (ref.value) {
+            this.orderFields(block, ref);
+          }
+        }
+      }
+    }
+    deps.push(field);
+  }
+  getPropValue(properties, path) {
+    let v = properties;
+    for (let part of path.split(".")) {
+      v = v[part];
+    }
+    return v;
+  }
+  async run(op, expression) {
+    let { index, properties, params } = expression;
+    if (params.preFormat) {
+      params.preFormat(this, expression);
+    }
+    let cmd = expression.command();
+    if (!expression.execute) {
+      return cmd;
+    }
+    let t = params.transaction;
+    if (t) {
+      if (params.batch) {
+        throw new OneArgError("Cannot have batched transactions");
+      }
+      let top = TransactOps[op];
+      if (top) {
+        params.expression = expression;
+        let items2 = t.TransactItems = t.TransactItems || [];
+        items2.push({ [top]: cmd });
+        return this.transformReadItem(op, properties, properties, params);
+      } else {
+        throw new OneArgError(`Unknown transaction operation ${op}`);
+      }
+    }
+    let b = params.batch;
+    if (b) {
+      params.expression = expression;
+      let ritems = b.RequestItems = b.RequestItems || {};
+      if (op == "get") {
+        let list = ritems[this.tableName] = ritems[this.tableName] || { Keys: [] };
+        list.Keys.push(cmd.Keys);
+        return this.transformReadItem(op, properties, properties, params);
+      } else {
+        let list = ritems[this.tableName] = ritems[this.tableName] || [];
+        let bop = BatchOps[op];
+        list.push({ [bop]: cmd });
+        return this.transformReadItem(op, properties, properties, params);
+      }
+    }
+    let stats = params.stats;
+    if (stats && typeof params == "object") {
+      stats.count = stats.count || 0;
+      stats.scanned = stats.capacity || 0;
+      stats.capacity = stats.capacity || 0;
+    }
+    let pages = 0, items = [];
+    let maxPages = params.maxPages ? params.maxPages : SanityPages;
+    let result;
+    do {
+      result = await this.table.execute(this.name, op, cmd, properties, params);
+      if (result.LastEvaluatedKey) {
+        cmd.ExclusiveStartKey = result.LastEvaluatedKey;
+      }
+      if (result.Items) {
+        items = items.concat(result.Items);
+        if (stats) {
+          stats.count += result.Count;
+          stats.scanned += result.ScannedCount;
+          if (result.ConsumedCapacity) {
+            stats.capacity += result.ConsumedCapacity.CapacityUnits;
+          }
+        }
+      } else if (result.Item) {
+        items = [result.Item];
+        break;
+      } else if (result.Attributes) {
+        items = [result.Attributes];
+        break;
+      }
+      if (params.progress) {
+        params.progress({ items, pages, stats, params, cmd });
+      }
+      if (items.length) {
+        if (cmd.Limit) {
+          cmd.Limit -= result.Count;
+          if (cmd.Limit <= 0) {
+            break;
+          }
+        }
+      }
+    } while (result.LastEvaluatedKey && (maxPages == null || ++pages < maxPages));
+    let prev;
+    if ((op == "find" || op == "scan") && items.length) {
+      let { hash, sort } = index;
+      prev = { [hash]: items[0][hash], [sort]: items[0][sort] };
+      if (prev[hash] == null || prev[sort] == null) {
+        prev = null;
+      }
+    }
+    if (params.parse) {
+      items = this.parseResponse(op, expression, items);
+    }
+    if (op == "find" || op == "scan") {
+      if (result.LastEvaluatedKey) {
+        items.next = this.table.unmarshall(result.LastEvaluatedKey);
+        Object.defineProperty(items, "next", { enumerable: false });
+      }
+      if (params.count || params.select == "COUNT") {
+        items.count = result.Count;
+        Object.defineProperty(items, "count", { enumerable: false });
+      }
+      if (prev) {
+        items.prev = this.table.unmarshall(prev);
+        Object.defineProperty(items, "prev", { enumerable: false });
+      }
+      if (params.prev && op != "scan") {
+        items = items.reverse();
+        let tmp = items.prev;
+        items.prev = items.next;
+        items.next = tmp;
+      }
+    }
+    if (params.log !== false) {
+      this.table.log[params.log ? "info" : "data"](`OneTable result for "${op}" "${this.name}"`, {
+        cmd,
+        items,
+        op,
+        properties,
+        params
+      });
+    }
+    if (params.follow || index.follow && params.follow !== false) {
+      if (op == "get") {
+        return await this.get(items[0]);
+      }
+      if (op == "update") {
+        properties = Object.assign({}, properties, items[0]);
+        return await this.update(properties);
+      }
+      if (op == "find") {
+        let results = [], promises = [];
+        params = Object.assign({}, params);
+        delete params.follow;
+        delete params.index;
+        delete params.fallback;
+        for (let item of items) {
+          promises.push(this.get(item, params));
+          if (promises.length > FollowThreads) {
+            results = results.concat(await Promise.all(promises));
+            promises = [];
+          }
+        }
+        if (promises.length) {
+          results = results.concat(await Promise.all(promises));
+        }
+        results.next = items.next;
+        results.prev = items.prev;
+        Object.defineProperty(results, "next", { enumerable: false });
+        Object.defineProperty(results, "prev", { enumerable: false });
+        return results;
+      }
+    }
+    return op == "find" || op == "scan" ? items : items[0];
+  }
+  parseResponse(op, expression, items) {
+    let { properties, params } = expression;
+    let { schema, table: table2 } = this;
+    if (op == "put") {
+      items = [properties];
+    } else {
+      items = table2.unmarshall(items);
+    }
+    for (let [index, item] of Object.entries(items)) {
+      if (params.high && params.index == this.indexes.primary && item[this.typeField] != this.name) {
+        continue;
+      }
+      let type = item[this.typeField] ? item[this.typeField] : this.name;
+      let model = schema.models[type] ? schema.models[type] : this;
+      if (model) {
+        if (model == schema.uniqueModel) {
+          continue;
+        }
+        items[index] = model.transformReadItem(op, item, properties, params);
+      }
+    }
+    return items;
+  }
+  async create(properties, params = {}) {
+    ({ properties, params } = this.checkArgs(properties, params, { parse: true, high: true, exists: false }));
+    let result;
+    if (this.hasUniqueFields) {
+      result = await this.createUnique(properties, params);
+    } else {
+      result = await this.putItem(properties, params);
+    }
+    return result;
+  }
+  async createUnique(properties, params) {
+    if (params.batch) {
+      throw new OneArgError("Cannot use batch with unique properties which require transactions");
+    }
+    let transactHere = params.transaction ? false : true;
+    let transaction = params.transaction = params.transaction || {};
+    let { hash, sort } = this.indexes.primary;
+    let fields = this.block.fields;
+    fields = Object.values(fields).filter((f) => f.unique && f.attribute != hash && f.attribute != sort);
+    if (this.timestamps) {
+      properties[this.updatedField] = properties[this.createdField] = new Date();
+    }
+    params.prepared = properties = this.prepareProperties("put", properties, params);
+    for (let field of fields) {
+      if (properties[field.name]) {
+        let pk = `_unique#${this.name}#${field.attribute}#${properties[field.name]}`;
+        let sk = "_unique#";
+        await this.schema.uniqueModel.create({ [this.hash]: pk, [this.sort]: sk }, { transaction, exists: false, return: "NONE" });
+      }
+    }
+    let item = await this.putItem(properties, params);
+    if (!transactHere) {
+      return item;
+    }
+    let expression = params.expression;
+    try {
+      await this.table.transact("write", params.transaction, params);
+    } catch (err) {
+      if (err.message.indexOf("ConditionalCheckFailed") >= 0) {
+        let names = fields.map((f) => f.name).join(", ");
+        throw new OneError(`Cannot create unqiue attributes "${names}" for "${this.name}", an item of the same name already exists.`, { properties, transaction, code: "Unique" });
+      }
+      throw err;
+    }
+    let items = this.parseResponse("put", expression);
+    return items[0];
+  }
+  async find(properties = {}, params = {}) {
+    ({ properties, params } = this.checkArgs(properties, params, { parse: true, high: true }));
+    return await this.queryItems(properties, params);
+  }
+  async get(properties = {}, params = {}) {
+    ({ properties, params } = this.checkArgs(properties, params, { parse: true, high: true }));
+    properties = this.prepareProperties("get", properties, params);
+    if (params.fallback) {
+      params.limit = 2;
+      let items = await this.find(properties, params);
+      if (items.length > 1) {
+        throw new OneError("Get without sort key returns more than one result", { properties, code: "NonUnique" });
+      }
+      return items[0];
+    }
+    let expression = new Expression(this, "get", properties, params);
+    return await this.run("get", expression);
+  }
+  init(properties = {}, params = {}) {
+    ({ properties, params } = this.checkArgs(properties, params, { parse: true, high: true }));
+    return this.initItem(properties, params);
+  }
+  async remove(properties, params = {}) {
+    ({ properties, params } = this.checkArgs(properties, params, { exists: null, high: true }));
+    properties = this.prepareProperties("delete", properties, params);
+    if (params.fallback) {
+      return await this.removeByFind(properties, params);
+    }
+    let expression = new Expression(this, "delete", properties, params);
+    if (this.hasUniqueFields) {
+      await this.removeUnique(properties, params);
+    } else {
+      await this.run("delete", expression);
+    }
+  }
+  async removeByFind(properties, params) {
+    if (params.retry) {
+      throw new OneArgError("Remove cannot retry", { properties });
+    }
+    params.parse = true;
+    let items = await this.find(properties, params);
+    if (items.length > 1 && !params.many) {
+      throw new OneError(`Removing multiple items from "${this.name}". Use many:true to enable.`, {
+        properties,
+        code: "NonUnique"
+      });
+    }
+    for (let item of items) {
+      if (this.hasUniqueFields) {
+        await this.removeUnique(item, { retry: true });
+      } else {
+        await this.remove(item, { retry: true });
+      }
+    }
+  }
+  async removeUnique(properties, params) {
+    let transaction = params.transaction = params.transaction || {};
+    let { hash, sort } = this.indexes.primary;
+    let fields = Object.values(this.block.fields).filter((f) => f.unique && f.attribute != hash && f.attribute != sort);
+    params.prepared = properties = this.prepareProperties("delete", properties, params);
+    for (let field of fields) {
+      if (!properties[field.name]) {
+        throw new OneArgError(`Cannot remove unique field "${field.name}" for model "${this.name}", must provide "${field.name}" value`, { properties });
+      }
+      let pk = `_unique#${this.name}#${field.attribute}#${properties[field.name]}`;
+      let sk = `_unique#`;
+      await this.schema.uniqueModel.remove({ [this.hash]: pk, [this.sort]: sk }, { transaction });
+    }
+    await this.deleteItem(properties, params);
+    await this.table.transact("write", params.transaction, params);
+  }
+  async scan(properties = {}, params = {}) {
+    ({ properties, params } = this.checkArgs(properties, params, { parse: true, high: true }));
+    return await this.scanItems(properties, params);
+  }
+  async update(properties, params = {}) {
+    ({ properties, params } = this.checkArgs(properties, params, { exists: true, parse: true, high: true }));
+    if (this.hasUniqueFields) {
+      let hasUniqueProperties = Object.entries(properties).find((pair, index) => {
+        return this.block.fields[pair[0]].unique;
+      });
+      if (hasUniqueProperties) {
+        return await this.updateUnique(properties, params);
+      }
+    }
+    return await this.updateItem(properties, params);
+  }
+  async updateUnique(properties, params) {
+    if (params.batch) {
+      throw new OneArgError("Cannot use batch with unique properties which require transactions");
+    }
+    let transactHere = params.transaction ? false : true;
+    let transaction = params.transaction = params.transaction || {};
+    let { hash, sort } = this.indexes.primary;
+    params.prepared = properties = this.prepareProperties("update", properties, params);
+    let prior = await this.get(properties, { hidden: true });
+    if (prior) {
+      prior = this.prepareProperties("update", prior);
+    } else if (params.exists === void 0 || params.exists == true) {
+      throw new OneError("Cannot find existing item to update", { properties, code: "NotFound" });
+    }
+    let fields = Object.values(this.block.fields).filter((f) => f.unique && f.attribute != hash && f.attribute != sort);
+    for (let field of fields) {
+      if (properties[field.name] === void 0 || prior && properties[field.name] === prior[field.name]) {
+        continue;
+      }
+      let pk = `_unique#${this.name}#${field.attribute}#${properties[field.name]}`;
+      let sk = `_unique#`;
+      if (prior && prior[field.name]) {
+        let priorPk = `_unique#${this.name}#${field.attribute}#${prior[field.name]}`;
+        if (pk == priorPk) {
+          continue;
+        }
+        await this.schema.uniqueModel.remove({ [this.hash]: priorPk, [this.sort]: sk }, { transaction, exists: null });
+      }
+      await this.schema.uniqueModel.create({ [this.hash]: pk, [this.sort]: sk }, { transaction, exists: false, return: "NONE" });
+    }
+    let item = await this.updateItem(properties, params);
+    if (!transactHere) {
+      return item;
+    }
+    let expression = params.expression;
+    try {
+      await this.table.transact("write", params.transaction, params);
+    } catch (err) {
+      if (err.message.indexOf("ConditionalCheckFailed") >= 0) {
+        let names = fields.map((f) => f.name).join(", ");
+        throw new OneError(`Cannot update unqiue attributes "${names}" for "${this.name}", an item of the same name already exists.`, { properties, transaction, code: "Unique" });
+      }
+      throw err;
+    }
+    let items = this.parseResponse("put", expression);
+    return items[0];
+  }
+  async deleteItem(properties, params = {}) {
+    ({ properties, params } = this.checkArgs(properties, params));
+    if (!params.prepared) {
+      properties = this.prepareProperties("delete", properties, params);
+    }
+    let expression = new Expression(this, "delete", properties, params);
+    await this.run("delete", expression);
+  }
+  async getItem(properties, params = {}) {
+    ({ properties, params } = this.checkArgs(properties, params));
+    properties = this.prepareProperties("get", properties, params);
+    let expression = new Expression(this, "get", properties, params);
+    return await this.run("get", expression);
+  }
+  initItem(properties, params = {}) {
+    ({ properties, params } = this.checkArgs(properties, params));
+    let fields = this.block.fields;
+    for (let key of Object.keys(fields)) {
+      if (properties[key] === void 0) {
+        properties[key] = null;
+      }
+    }
+    this.setDefaults("init", fields, properties, params);
+    this.runTemplates("put", this.indexes.primary, fields, properties, params);
+    return properties;
+  }
+  async putItem(properties, params = {}) {
+    ({ properties, params } = this.checkArgs(properties, params));
+    if (!params.prepared) {
+      if (this.timestamps) {
+        properties[this.updatedField] = properties[this.createdField] = new Date();
+      }
+      properties = this.prepareProperties("put", properties, params);
+    }
+    let expression = new Expression(this, "put", properties, params);
+    return await this.run("put", expression);
+  }
+  async queryItems(properties = {}, params = {}) {
+    ({ properties, params } = this.checkArgs(properties, params));
+    properties = this.prepareProperties("find", properties, params);
+    let expression = new Expression(this, "find", properties, params);
+    return await this.run("find", expression);
+  }
+  async scanItems(properties = {}, params = {}) {
+    ({ properties, params } = this.checkArgs(properties, params));
+    properties = this.prepareProperties("scan", properties, params);
+    let expression = new Expression(this, "scan", properties, params);
+    return await this.run("scan", expression);
+  }
+  async updateItem(properties, params = {}) {
+    ({ properties, params } = this.checkArgs(properties, params));
+    if (this.timestamps) {
+      let now = new Date();
+      properties[this.updatedField] = now;
+      if (params.exists == null) {
+        let when = this.table.isoDates ? now.toISOString() : now.getTime();
+        params.set = { [this.createdField]: `if_not_exists(\${${this.createdField}}, {${when}})` };
+      }
+    }
+    properties = this.prepareProperties("update", properties, params);
+    let expression = new Expression(this, "update", properties, params);
+    return await this.run("update", expression);
+  }
+  async fetch(models, properties = {}, params = {}) {
+    ({ properties, params } = this.checkArgs(properties, params));
+    if (models.length == 0) {
+      return {};
+    }
+    let where = [];
+    for (let model of models) {
+      where.push(`\${${this.typeField}} = {${model}}`);
+    }
+    if (params.where) {
+      params.where = `(${params.where}) and (${where.join(" or ")})`;
+    } else {
+      params.where = where.join(" or ");
+    }
+    params.parse = true;
+    params.hidden = true;
+    let items = await this.queryItems(properties, params);
+    return this.table.groupByType(items);
+  }
+  transformReadItem(op, raw, properties, params) {
+    if (!raw) {
+      return raw;
+    }
+    let rec = {};
+    let fields = this.block.fields;
+    for (let [name, field] of Object.entries(fields)) {
+      if (field.hidden && params.hidden !== true && params.follow !== true) {
+        continue;
+      }
+      let att, sub;
+      if (op == "put") {
+        att = field.name;
+      } else {
+        [att, sub] = field.attribute;
+      }
+      let value = raw[att];
+      if (value == void 0) {
+        continue;
+      }
+      if (sub) {
+        value = value[sub];
+      }
+      if (field.crypt && params.decrypt !== false) {
+        value = this.decrypt(value);
+      }
+      if (field.default !== void 0 && value === void 0) {
+        if (typeof field.default == "function") {
+          console.log("WARNING: default functions are DEPRECATED and will be removed soon.");
+          value = field.default(this, field.name, properties);
+        } else {
+          value = field.default;
+        }
+      } else if (value === void 0) {
+        if (field.required) {
+          this.table.log.error(`Required field "${name}" in model "${this.name}" not defined in table item`, {
+            model: this.name,
+            raw,
+            params,
+            field
+          });
+        }
+        continue;
+      } else {
+        rec[name] = this.transformReadAttribute(field, name, value, params);
+      }
+    }
+    if (this.generic) {
+      for (let [name, value] of Object.entries(raw)) {
+        if (rec[name] === void 0) {
+          rec[name] = value;
+        }
+      }
+    }
+    if (params.hidden == true && rec[this.typeField] === void 0 && !this.generic) {
+      rec[this.typeField] = this.name;
+    }
+    if (this.table.params.transform && ReadWrite[op] == "read") {
+      rec = this.table.params.transform(this, ReadWrite[op], rec, properties, params, raw);
+    }
+    return rec;
+  }
+  transformReadAttribute(field, name, value, params) {
+    if (typeof params.transform == "function") {
+      console.log("WARNING: params.transform functions are DEPRECATED and will be removed soon.");
+      return params.transform(this, "read", name, value);
+    }
+    if (field.type == "date") {
+      return value ? new Date(value) : null;
+    }
+    if (field.type == "buffer" || field.type == "binary") {
+      return Buffer.from(value, "base64");
+    }
+    return value;
+  }
+  prepareProperties(op, properties, params = {}) {
+    delete params.fallback;
+    let index = this.selectIndex(op, params);
+    if (this.needsFallback(op, index, params)) {
+      params.fallback = true;
+      return properties;
+    }
+    let rec = this.collectProperties(op, this.block, index, properties, params);
+    if (params.fallback) {
+      return properties;
+    }
+    if (op != "scan" && this.getHash(rec, this.block.fields, index, params) == null) {
+      this.table.log.error(`Empty hash key`, { properties, params, op });
+      throw new OneError(`Empty hash key. Check hash key and any value template variable references.`, {
+        properties,
+        rec,
+        code: "Missing"
+      });
+    }
+    if (this.table.params.transform && ReadWrite[op] == "write") {
+      rec = this.table.params.transform(this, ReadWrite[op], rec, properties, params);
+    }
+    return rec;
+  }
+  needsFallback(op, index, params) {
+    if (index != this.indexes.primary && op != "find" && op != "scan") {
+      if (params.low) {
+        throw new OneArgError('Cannot use non-primary index for "${op}" operation');
+      }
+      return true;
+    }
+    return false;
+  }
+  getHash(rec, fields, index, params) {
+    let generic = params.generic != null ? params.generic : this.generic;
+    if (generic) {
+      return rec[index.hash];
+    }
+    let field = Object.values(fields).find((f) => f.attribute[0] == index.hash);
+    if (!field) {
+      return null;
+    }
+    return rec[field.name];
+  }
+  selectIndex(op, params) {
+    let index;
+    if (params.index && params.index != "primary") {
+      index = this.indexes[params.index];
+      if (!index) {
+        throw new OneError(`Cannot find index ${params.index}`, { code: "Missing" });
+      }
+    } else {
+      index = this.indexes.primary;
+    }
+    return index;
+  }
+  collectProperties(op, block, index, properties, params, context, rec = {}) {
+    let fields = block.fields;
+    if (!context) {
+      context = params.context || this.table.context;
+    }
+    if (this.nested && !KeysOnly[op]) {
+      for (let [name, value] of Object.entries(properties)) {
+        let field = fields[name];
+        if (field && field.schema && typeof value == "object") {
+          rec[name] = rec[name] || {};
+          this.collectProperties(op, field.block, index, value, params, context[name] || {}, rec[name]);
+        }
+      }
+    }
+    this.tunnelProperties(properties, params);
+    this.addContext(op, fields, index, properties, params, context);
+    this.setDefaults(op, fields, properties, params);
+    this.runTemplates(op, index, fields, properties, params);
+    this.convertNulls(op, fields, properties, params);
+    this.validateProperties(op, fields, properties, params);
+    this.selectProperties(op, block, index, properties, params, rec);
+    this.transformProperties(op, fields, properties, params, rec);
+    return rec;
+  }
+  tunnelProperties(properties, params) {
+    if (params.tunnel) {
+      for (let [kind, settings] of Object.entries(params.tunnel)) {
+        for (let [key, value] of Object.entries(settings)) {
+          properties[key] = { [kind]: value };
+        }
+      }
+    }
+  }
+  selectProperties(op, block, index, properties, params, rec) {
+    let project = this.getProjection(index);
+    for (let [name, field] of Object.entries(block.fields)) {
+      if (field.schema)
+        continue;
+      let omit = false;
+      if (block == this.block) {
+        let attribute = field.attribute[0];
+        if (properties[name] == null && attribute == index.sort && params.high && KeysOnly[op]) {
+          if (op == "delete" && !params.many) {
+            throw new OneError("Missing sort key", { code: "Missing" });
+          }
+          params.fallback = true;
+          return;
+        }
+        if (KeysOnly[op] && attribute != index.hash && attribute != index.sort && !this.hasUniqueFields) {
+          omit = true;
+        } else if (project && project.indexOf(attribute) < 0) {
+          omit = true;
+        } else if (name == this.typeField && op == "find") {
+          omit = true;
+        }
+      }
+      if (!omit && properties[name] !== void 0) {
+        rec[name] = properties[name];
+      }
+    }
+    this.addProjectedProperties(op, properties, params, project, rec);
+  }
+  getProjection(index) {
+    let project = index.project;
+    if (project) {
+      if (project == "all") {
+        project = null;
+      } else if (project == "keys") {
+        let primary = this.indexes.primary;
+        project = [primary.hash, primary.sort, index.hash, index.sort];
+      }
+    }
+    return project;
+  }
+  addProjectedProperties(op, properties, params, project, rec) {
+    let generic = params.generic != null ? params.generic : this.generic;
+    if (generic && !KeysOnly[op]) {
+      for (let [name, value] of Object.entries(properties)) {
+        if (project && project.indexOf(name) < 0) {
+          continue;
+        }
+        if (rec[name] === void 0) {
+          if (value instanceof Date) {
+            if (this.table.isoDates) {
+              rec[name] = value.toISOString();
+            } else {
+              rec[name] = value.getTime();
+            }
+          } else {
+            rec[name] = value;
+          }
+        }
+      }
+    }
+    return rec;
+  }
+  addContext(op, fields, index, properties, params, context) {
+    for (let field of Object.values(fields)) {
+      if (op == "put" || field.attribute[0] != index.hash && field.attribute[0] != index.sort) {
+        if (context[field.name] !== void 0) {
+          properties[field.name] = context[field.name];
+        }
+      }
+    }
+    if (!this.generic) {
+      properties[this.typeField] = this.name;
+    }
+  }
+  setDefaults(op, fields, properties, params) {
+    if (op != "put" && op != "init" && !(op == "update" && params.exists == null)) {
+      return;
+    }
+    for (let field of Object.values(fields)) {
+      if (field.type == "object" && field.schema) {
+        properties[field.name] = properties[field.name] || {};
+        this.setDefaults(op, field.block.fields, properties[field.name], params);
+      } else {
+        let value = properties[field.name];
+        if (value === void 0 && !field.value) {
+          if (field.default != null) {
+            value = field.default;
+          } else if (op == "init") {
+            if (!field.uuid) {
+              value = null;
+            }
+          } else if (field.uuid) {
+            if (field.uuid === true) {
+              value = this.table.makeID();
+            } else if (field.uuid == "uuid") {
+              value = this.table.uuid();
+            } else if (field.uuid == "ulid") {
+              value = this.table.ulid();
+            }
+          }
+          if (value !== void 0) {
+            properties[field.name] = value;
+          }
+        }
+      }
+    }
+    return properties;
+  }
+  convertNulls(op, fields, properties, params) {
+    for (let [name, value] of Object.entries(properties)) {
+      let field = fields[name];
+      if (!field)
+        continue;
+      if (value === null && field.nulls !== true) {
+        if (field.required && (op == "put" && properties[field.name] == null || op == "update" && properties[field.name] === null)) {
+          continue;
+        }
+        if (params.remove && !Array.isArray(params.remove)) {
+          params.remove = [params.remove];
+        } else {
+          params.remove = params.remove || [];
+        }
+        params.remove.push(field.pathname);
+        delete properties[name];
+      } else if (typeof value == "object" && (field.type == "object" || field.type == "array")) {
+        properties[name] = this.removeNulls(field, value);
+      }
+    }
+  }
+  runTemplates(op, index, fields, properties, params) {
+    for (let [name, field] of Object.entries(fields)) {
+      if (field.isIndexed && (op != "put" && op != "update") && field.attribute[0] != index.hash && field.attribute[0] != index.sort) {
+        continue;
+      }
+      if (field.value === true && typeof this.table.params.value == "function") {
+        properties[name] = this.table.params.value(this, field.pathname, properties, params);
+      } else if (typeof properties[name] == "function") {
+        properties[name] = properties[name](field.pathname, properties);
+      } else if (properties[name] === void 0) {
+        if (field.value) {
+          if (typeof field.value == "function") {
+            console.log("WARNING: value functions are DEPRECATED and will be removed soon.");
+            properties[name] = field.value(field.pathname, properties);
+          } else {
+            let value = this.runTemplate(op, index, field, properties, params, field.value);
+            if (value != null) {
+              properties[name] = value;
+            }
+          }
+        }
+      }
+    }
+  }
+  runTemplate(op, index, field, properties, params, value) {
+    value = value.replace(/\${(.*?)}/g, (match, varName) => {
+      let [name, len, pad] = varName.split(":");
+      let v = this.getPropValue(properties, name);
+      if (v != null) {
+        if (v instanceof Date) {
+          v = this.transformWriteDate(v);
+        }
+        if (len) {
+          pad = pad || "0";
+          let s = v + "";
+          while (s.length < len)
+            s = pad + s;
+          v = s;
+        }
+      } else {
+        v = match;
+      }
+      if (typeof v == "object" && v.toString() == "[object Object]") {
+        throw new OneError(`Value for "${field.pathname}" is not a primitive value`, { code: "Type" });
+      }
+      return v;
+    });
+    if (value.indexOf("${") >= 0 && index) {
+      if (field.attribute[0] == index.sort) {
+        if (op == "find" && !params.where) {
+          value = value.replace(/\${.*/g, "");
+          if (value) {
+            return { begins: value };
+          }
+        }
+      }
+      return void 0;
+    }
+    return value;
+  }
+  template(name, properties, params = {}) {
+    let fields = this.block.fields;
+    let field = fields[name];
+    if (!field) {
+      throw new OneError("Cannot find field", { name });
+    }
+    return this.runTemplate("find", null, properties, params);
+  }
+  validateProperties(op, fields, properties, params) {
+    if (op != "put" && op != "update") {
+      return;
+    }
+    let validation = {};
+    if (typeof this.table.params.validate == "function") {
+      validation = this.table.params.validate(this, properties, params) || {};
+    }
+    for (let [name, value] of Object.entries(properties)) {
+      let field = fields[name];
+      if (!field)
+        continue;
+      if (params.validate || field.validate || field.enum) {
+        value = this.validateProperty(field, value, validation, params);
+        properties[name] = value;
+      }
+    }
+    for (let field of Object.values(fields)) {
+      if (field.required && (op == "put" && properties[field.name] == null || op == "update" && properties[field.name] === null)) {
+        validation[field.name] = `Value not defined for required field "${field.name}"`;
+      }
+    }
+    if (Object.keys(validation).length > 0) {
+      let error = new OneError(`Validation Error in "${this.name}" for "${Object.keys(validation).join(", ")}"`, { validation, code: "Validation" });
+      throw error;
+    }
+  }
+  validateProperty(field, value, details, params) {
+    let fieldName = field.name;
+    if (typeof params.validate == "function") {
+      console.log("WARNING: params.validate functions are DEPRECATED and will be removed soon.");
+      let error;
+      ({ error, value } = params.validate(this, field, value));
+      if (error) {
+        details[fieldName] = error;
+      }
+    }
+    let validate = field.validate;
+    if (validate) {
+      if (value === null) {
+        if (field.required && field.value == null) {
+          details[fieldName] = `Value not defined for "${fieldName}"`;
+        }
+      } else if (validate instanceof RegExp) {
+        if (!validate.exec(value)) {
+          details[fieldName] = `Bad value "${value}" for "${fieldName}"`;
+        }
+      } else {
+        let pattern = validate.toString();
+        if (pattern[0] == "/" && pattern.lastIndexOf("/") > 0) {
+          let parts = pattern.split("/");
+          let qualifiers = parts.pop();
+          let pat = parts.slice(1).join("/");
+          validate = new RegExp(pat, qualifiers);
+          if (!validate.exec(value)) {
+            details[fieldName] = `Bad value "${value}" for "${fieldName}"`;
+          }
+        } else {
+          if (!value.match(pattern)) {
+            details[fieldName] = `Bad value "${value}" for "${fieldName}"`;
+          }
+        }
+      }
+    }
+    if (field.enum) {
+      if (field.enum.indexOf(value) < 0) {
+        details[fieldName] = `Bad value "${value}" for "${fieldName}"`;
+      }
+    }
+    return value;
+  }
+  transformProperties(op, fields, properties, params, rec) {
+    for (let [name, field] of Object.entries(fields)) {
+      let value = rec[name];
+      if (value !== void 0 && !field.schema) {
+        rec[name] = this.transformWriteAttribute(op, field, value, properties, params);
+      }
+    }
+    return rec;
+  }
+  transformWriteAttribute(op, field, value, properties, params) {
+    let type = field.type;
+    if (typeof params.transform == "function") {
+      value = params.transform(this, "write", field.name, value, properties, null);
+    } else if (value == null && field.nulls === true) {
+    } else if (op == "find" && value != null && typeof value == "object") {
+      value = this.transformNestedWriteFields(field, value);
+    } else if (type == "date") {
+      value = this.transformWriteDate(value);
+    } else if (type == "number") {
+      let num = Number(value);
+      if (isNaN(num)) {
+        throw new OneError(`Invalid value "${value}" provided for field "${field.name}"`, { code: "Validation" });
+      }
+      value = num;
+    } else if (type == "boolean") {
+      if (value == "false" || value == "null" || value == "undefined") {
+        value = false;
+      }
+      value = Boolean(value);
+    } else if (type == "string") {
+      if (value != null) {
+        value = value.toString();
+      }
+    } else if (type == "buffer" || type == "binary") {
+      if (value instanceof Buffer || value instanceof ArrayBuffer || value instanceof DataView) {
+        value = value.toString("base64");
+      }
+    } else if (type == "array") {
+      if (value != null && !Array.isArray(value)) {
+        if (value == "") {
+          value = [];
+        } else {
+          throw new OneArgError(`Invalid data type for Array field "${field.name}" in "${this.name}"`);
+        }
+      }
+    } else if (type == "set" && Array.isArray(value)) {
+      value = this.transformWriteSet(type, value);
+    } else if (type == "object" && (value != null && typeof value == "object")) {
+      value = this.transformNestedWriteFields(field, value);
+    }
+    if (field.crypt && value != null) {
+      value = this.encrypt(value);
+    }
+    return value;
+  }
+  transformNestedWriteFields(field, obj) {
+    for (let [key, value] of Object.entries(obj)) {
+      let type = field.type;
+      if (value instanceof Date) {
+        obj[key] = this.transformWriteDate(value);
+      } else if (value instanceof Buffer || value instanceof ArrayBuffer || value instanceof DataView) {
+        value = value.toString("base64");
+      } else if (Array.isArray(value) && (field.type == Set || type == Set)) {
+        value = this.transformWriteSet(type, value);
+      } else if (value == null && field.nulls !== true) {
+        continue;
+      } else if (value != null && typeof value == "object") {
+        obj[key] = this.transformNestedWriteFields(field, value);
+      }
+    }
+    return obj;
+  }
+  transformWriteSet(type, value) {
+    if (!Array.isArray(value)) {
+      throw new OneError("Set values must be arrays", { code: "Type" });
+    }
+    if (type == Set || type == "Set") {
+      let v = value.values().next().value;
+      if (typeof v == "string") {
+        value = value.map((v2) => v2.toString());
+      } else if (typeof v == "number") {
+        value = value.map((v2) => Number(v2));
+      } else if (v instanceof Buffer || v instanceof ArrayBuffer || v instanceof DataView) {
+        value = value.map((v2) => v2.toString("base64"));
+      }
+    } else {
+      throw new OneError("Unknown type", { code: "Type" });
+    }
+    return value;
+  }
+  transformWriteDate(value) {
+    if (this.table.isoDates) {
+      if (value instanceof Date) {
+        value = value.toISOString();
+      } else if (typeof value == "string") {
+        value = new Date(Date.parse(value)).toISOString();
+      } else if (typeof value == "number") {
+        value = new Date(value).toISOString();
+      }
+    } else {
+      if (value instanceof Date) {
+        value = value.getTime();
+      } else if (typeof value == "string") {
+        value = new Date(Date.parse(value)).getTime();
+      }
+    }
+    return value;
+  }
+  getIndexProperties(indexes) {
+    let properties = {};
+    for (let [indexName, index] of Object.entries(indexes)) {
+      for (let [type, pname] of Object.entries(index)) {
+        if (type == "hash" || type == "sort") {
+          if (properties[pname] != "primary") {
+            properties[pname] = indexName;
+          }
+        }
+      }
+    }
+    return properties;
+  }
+  encrypt(text, name = "primary", inCode = "utf8", outCode = "base64") {
+    return this.table.encrypt(text, name, inCode, outCode);
+  }
+  decrypt(text, inCode = "base64", outCode = "utf8") {
+    return this.table.decrypt(text, inCode, outCode);
+  }
+  checkArgs(properties, params, overrides = {}) {
+    if (params.checked) {
+      return { properties, params };
+    }
+    if (!properties) {
+      throw new OneArgError("Missing properties");
+    }
+    if (typeof params != "object") {
+      throw new OneError("Invalid type for params", { code: "Type" });
+    }
+    params = Object.assign(overrides, params);
+    params.checked = true;
+    properties = this.table.assign({}, properties);
+    return { properties, params };
+  }
+  removeNulls(field, obj) {
+    let result;
+    if (obj !== null && typeof obj == "object" && (obj.constructor.name == "Object" || obj.constructor.name == "Array")) {
+      result = Array.isArray(obj) ? [] : {};
+      for (let [key, value] of Object.entries(obj)) {
+        if (value === "") {
+          value = null;
+        }
+        if (value == null && field.nulls !== true) {
+          continue;
+        } else if (typeof value == "object") {
+          result[key] = this.removeNulls(field, value);
+        } else {
+          result[key] = value;
+        }
+      }
+    } else {
+      result = obj;
+    }
+    return result;
+  }
+};
+
+// node_modules/dynamodb-onetable/dist/mjs/Table.js
+var import_crypto2 = __toModule(require("crypto"));
+
+// node_modules/dynamodb-onetable/dist/mjs/UUID.js
+function UUID() {
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(c) {
+    let r = Math.random() * 16 | 0, v = c == "x" ? r : r & 3 | 8;
+    return v.toString(16);
+  });
+}
+
+// node_modules/dynamodb-onetable/dist/mjs/ULID.js
+var import_crypto = __toModule(require("crypto"));
+var Letters = "0123456789ABCDEFGHJKMNPQRSTVWXYZZ";
+var LettersLen = Letters.length - 1;
+var RandomLength = 16;
+var TimeLen = 10;
+var ULID = class {
+  constructor(when) {
+    if (when instanceof Date) {
+      this.when = new Date(when);
+    } else if (typeof when == "string" || typeof when == "number") {
+      this.when = new Date(when);
+    } else {
+      this.when = new Date();
+    }
+  }
+  toString() {
+    return this.getTime(this.when) + this.getRandom();
+  }
+  decode(ulid) {
+    ulid = ulid.toString();
+    if (ulid.length !== TimeLen + RandomLength) {
+      throw new Error("Invalid ULID");
+    }
+    let letters = ulid.substr(0, TimeLen).split("").reverse();
+    return letters.reduce((accum, c, index) => {
+      let i = Letters.indexOf(c);
+      if (i < 0) {
+        throw new Error(`Invalid ULID char ${c}`);
+      }
+      accum += index * Math.pow(LettersLen, i);
+      return accum;
+    }, 0);
+  }
+  getRandom() {
+    let bytes = [];
+    let buffer = import_crypto.default.randomBytes(RandomLength);
+    for (let i = 0; i < RandomLength; i++) {
+      bytes[i] = Letters[Math.floor(buffer.readUInt8(i) / 255 * LettersLen)];
+    }
+    return bytes.join("");
+  }
+  getTime(now) {
+    now = now.getTime();
+    let bytes = [];
+    for (let i = 0; i < TimeLen; i++) {
+      let mod = now % LettersLen;
+      bytes[i] = Letters.charAt(mod);
+      now = (now - mod) / LettersLen;
+    }
+    return bytes.reverse().join("");
+  }
+};
+
+// node_modules/dynamodb-onetable/dist/mjs/Schema.js
+var GenericModel = "_Generic";
+var MigrationModel = "_Migration";
+var SchemaModel = "_Schema";
+var UniqueModel = "_Unique";
+var MigrationKey = "_migration";
+var SchemaKey = "_schema";
+var SchemaFormat = "onetable:1.0.0";
+var Schema = class {
+  constructor(table2, schema) {
+    this.table = table2;
+    table2.schema = this;
+    Object.defineProperty(this, "table", { enumerable: false });
+    this.params = table2.getParams();
+    this.setSchemaInner(schema);
+  }
+  getCurrentSchema() {
+    if (this.definition) {
+      let schema = this.table.assign({}, this.definition, { params: this.params });
+      return this.transformSchemaForWrite(schema);
+    }
+    return null;
+  }
+  setSchemaInner(schema) {
+    this.models = {};
+    this.indexes = null;
+    if (schema) {
+      if (!schema.version) {
+        throw new Error("Schema is missing a version");
+      }
+      this.definition = schema;
+      let { models, indexes, params } = schema;
+      if (!models) {
+        models = {};
+      }
+      this.indexes = indexes;
+      if (params) {
+        this.table.setParams(params);
+      }
+      for (let [name, model] of Object.entries(models)) {
+        if (name == SchemaModel || name == MigrationModel)
+          continue;
+        this.models[name] = new Model(this.table, name, { fields: model });
+      }
+      this.createStandardModels();
+    }
+    return this.indexes;
+  }
+  async setSchema(schema) {
+    if (schema) {
+      this.setSchemaInner(schema);
+    } else {
+      await this.getKeys();
+    }
+    return this.indexes;
+  }
+  createStandardModels() {
+    this.createUniqueModel();
+    this.createGenericModel();
+    this.createSchemaModel();
+    this.createMigrationModel();
+  }
+  createUniqueModel() {
+    let { indexes, schema, table: table2 } = this;
+    let primary = indexes.primary;
+    let fields = {
+      [primary.hash]: { type: String }
+    };
+    if (primary.sort) {
+      fields[primary.sort] = { type: String };
+    }
+    this.uniqueModel = new Model(table2, UniqueModel, { fields, timestamps: false });
+  }
+  createGenericModel() {
+    let { indexes, schema, table: table2 } = this;
+    let primary = indexes.primary;
+    let fields = { [primary.hash]: { type: String } };
+    if (primary.sort) {
+      fields[primary.sort] = { type: String };
+    }
+    this.genericModel = new Model(table2, GenericModel, { fields, timestamps: false, generic: true });
+  }
+  createSchemaModel() {
+    let { indexes, schema, table: table2 } = this;
+    let primary = indexes.primary;
+    let fields = this.schemaModelFields = {
+      [primary.hash]: { type: "string", required: true, value: `${SchemaKey}` },
+      format: { type: "string", required: true },
+      indexes: { type: "object", required: true },
+      name: { type: "string", required: true },
+      models: { type: "object", required: true },
+      params: { type: "object", required: true },
+      queries: { type: "object", required: true },
+      version: { type: "string", required: true }
+    };
+    if (primary.sort) {
+      fields[primary.sort] = { type: "string", required: true, value: `${SchemaKey}:\${name}` };
+    }
+    this.models[SchemaModel] = new Model(table2, SchemaModel, { fields });
+  }
+  createMigrationModel() {
+    let { indexes, schema } = this;
+    let primary = indexes.primary;
+    let fields = this.migrationModelFields = {
+      [primary.hash]: { type: "string", value: `${MigrationKey}` },
+      date: { type: "date", required: true },
+      description: { type: "string", required: true },
+      path: { type: "string", required: true },
+      version: { type: "string", required: true }
+    };
+    if (primary.sort) {
+      fields[primary.sort] = { type: "string", value: `${MigrationKey}:\${version}` };
+    }
+    this.models[MigrationModel] = new Model(this.table, MigrationModel, { fields, indexes });
+  }
+  addModel(name, fields) {
+    this.models[name] = new Model(this.table, name, { indexes: this.indexes, fields });
+  }
+  listModels() {
+    return Object.keys(this.models);
+  }
+  getModel(name) {
+    if (!name) {
+      throw new Error("Undefined model name");
+    }
+    let model = this.models[name.toString()];
+    if (!model) {
+      if (name == UniqueModel) {
+        return this.uniqueModel;
+      }
+      throw new Error(`Cannot find model ${name}`);
+    }
+    return model;
+  }
+  removeModel(name) {
+    let model = this.models[name.toString()];
+    if (!model) {
+      throw new Error(`Cannot find model ${name}`);
+    }
+    delete this.models[name.toString()];
+  }
+  async getKeys(refresh = false) {
+    if (this.indexes && !refresh) {
+      return this.indexes;
+    }
+    let info = await this.table.describeTable();
+    let indexes = { primary: {} };
+    for (let key of info.Table.KeySchema) {
+      let type = key.KeyType.toLowerCase() == "hash" ? "hash" : "sort";
+      indexes.primary[type] = key.AttributeName;
+    }
+    if (info.Table.GlobalSecondaryIndexes) {
+      for (let index of info.Table.GlobalSecondaryIndexes) {
+        let keys = indexes[index.IndexName] = {};
+        for (let key of index.KeySchema) {
+          let type = key.KeyType.toLowerCase() == "hash" ? "hash" : "sort";
+          keys[type] = key.AttributeName;
+        }
+        indexes[index.IndexName] = keys;
+      }
+    }
+    this.indexes = indexes;
+    this.createStandardModels();
+    return indexes;
+  }
+  transformSchemaForWrite(schema) {
+    let params = schema.params || this.params;
+    for (let [name, model] of Object.entries(schema.models)) {
+      for (let [fname, field] of Object.entries(model)) {
+        if (field.validate && field.validate instanceof RegExp) {
+          schema.models[name][fname].validate = `/${field.validate.source}/${field.validate.flags}`;
+        }
+        let type = typeof field.type == "function" ? field.type.name : field.type;
+        field.type = type.toLowerCase();
+        delete field[params.typeField];
+      }
+    }
+    return schema;
+  }
+  transformSchemaAfterRead(schema) {
+    if (!schema) {
+      return null;
+    }
+    if (!schema.name) {
+      schema.name == "Current";
+    }
+    schema.models[SchemaModel] = this.schemaModelFields;
+    schema.models[MigrationModel] = this.migrationModelFields;
+    let params = schema.params || this.params;
+    for (let mdef of Object.values(schema.models)) {
+      if (params.timestamps) {
+        let createdField = params.createdField || "created";
+        let updatedField = params.updatedField || "updated";
+        mdef[createdField] = { name: createdField, type: "date" };
+        mdef[updatedField] = { name: updatedField, type: "date" };
+      }
+      mdef[params.typeField] = { name: params.typeField, type: "string", required: true };
+    }
+    if (params.typeField != this.table.typeField) {
+      delete schema[this.table.typeField];
+    }
+    return schema;
+  }
+  async readSchema() {
+    let indexes = this.indexes || await this.getKeys();
+    let primary = indexes.primary;
+    let params = {
+      [primary.hash]: SchemaKey
+    };
+    if (primary.sort) {
+      params[primary.sort] = `${SchemaKey}:Current`;
+    }
+    let schema = await this.table.getItem(params, { hidden: true, parse: true });
+    return this.transformSchemaAfterRead(schema);
+  }
+  async readSchemas() {
+    let indexes = this.indexes || await this.getKeys();
+    let primary = indexes.primary;
+    let params = {
+      [primary.hash]: `${SchemaKey}`
+    };
+    let schemas = await this.table.queryItems(params, { hidden: true, parse: true });
+    for (let [index, schema] of Object.entries(schemas)) {
+      schemas[index] = this.transformSchemaAfterRead(schema);
+    }
+    return schemas;
+  }
+  async removeSchema(schema) {
+    if (!this.indexes) {
+      await this.getKeys();
+    }
+    let model = this.getModel(SchemaModel);
+    await model.remove(schema);
+  }
+  async saveSchema(schema) {
+    if (!this.indexes) {
+      await this.getKeys();
+    }
+    if (schema) {
+      schema = this.table.assign({}, schema);
+      if (!schema.params) {
+        schema.params = this.params;
+      }
+      if (!schema.models) {
+        schema.models = {};
+      }
+      if (!schema.indexes) {
+        schema.indexes = this.indexes || await this.getKeys();
+      }
+      if (!schema.queries) {
+        schema.queries = {};
+      }
+      schema = this.transformSchemaForWrite(schema);
+    } else {
+      schema = this.getCurrentSchema();
+    }
+    if (!schema) {
+      throw new Error("No schema to save");
+    }
+    if (!schema.name) {
+      schema.name = "Current";
+    }
+    schema.version = schema.version || "0.0.1";
+    schema.format = SchemaFormat;
+    let model = this.getModel(SchemaModel);
+    return await model.update(schema, { exists: null });
+  }
+};
+
+// node_modules/dynamodb-onetable/dist/mjs/Metrics.js
+var DefaultMetrics = {
+  chan: "metrics",
+  dimensions: [
+    "Table",
+    "Tenant",
+    "Source",
+    "Index",
+    "Model",
+    "Operation"
+  ],
+  enable: true,
+  env: true,
+  hot: false,
+  max: 100,
+  namespace: "SingleTable/Metrics.1",
+  period: 60,
+  properties: {},
+  queries: true,
+  source: process.env.AWS_LAMBDA_FUNCTION_NAME || "Default",
+  tenant: null
+};
+var DynamoOps = {
+  delete: "deleteItem",
+  get: "getItem",
+  find: "query",
+  put: "putItem",
+  scan: "scan",
+  update: "updateItem",
+  batchGet: "batchGet",
+  batchWrite: "batchWrite",
+  transactGet: "transactGet",
+  transactWrite: "transactWrite"
+};
+var ReadWrite2 = {
+  delete: "write",
+  get: "read",
+  find: "read",
+  put: "write",
+  scan: "read",
+  update: "write",
+  batchGet: "read",
+  batchWrite: "write",
+  transactGet: "read",
+  transactWrite: "write"
+};
+var Metrics = class {
+  constructor(table2, params = {}, prior = {}) {
+    this.table = table2;
+    this.log = this.table.log;
+    let metrics;
+    if (params == true) {
+      metrics = Object.assign({}, DefaultMetrics);
+    } else {
+      metrics = Object.assign({}, DefaultMetrics, params);
+    }
+    metrics.map = { Profile: true };
+    for (let dim of metrics.dimensions) {
+      metrics.map[dim] = true;
+    }
+    metrics.period *= 1e3;
+    metrics.count = 0;
+    metrics.lastFlushed = Date.now();
+    metrics.counters = {};
+    if (metrics.env && process.env) {
+      let filter = process.env.LOG_FILTER;
+      if (!filter || filter.indexOf("dbmetrics") < 0) {
+        metrics.enable = false;
+      }
+    }
+    metrics.properties = metrics.properties || prior.properties;
+    this.metrics = metrics;
+  }
+  add(model, op, result, params, mark) {
+    let metrics = this.metrics;
+    if (!metrics.enable || !this.log.enabled(metrics.chan)) {
+      return;
+    }
+    let timestamp = Date.now();
+    let capacity = 0;
+    let consumed = result.ConsumedCapacity;
+    if (consumed) {
+      if (Array.isArray(consumed)) {
+        for (let item of consumed) {
+          if (item.TableName == this.table.name) {
+            capacity += item.CapacityUnits;
+          }
+        }
+      } else {
+        capacity = consumed.CapacityUnits;
+      }
+    }
+    let values = {
+      count: result.Count || 1,
+      latency: timestamp - mark,
+      scanned: result.ScannedCount || 1,
+      op,
+      capacity
+    };
+    let dimensionValues = {
+      Table: this.table.name,
+      Tenant: metrics.tenant,
+      Source: params.source || metrics.source,
+      Index: params.index || "primary",
+      Model: model,
+      Operation: DynamoOps[op]
+    };
+    let properties;
+    if (typeof metrics.properties == "function") {
+      properties = metrics.properties(op, params, result);
+    } else {
+      properties = metrics.properties || {};
+    }
+    this.addMetricGroup(values, dimensionValues, properties);
+    if (metrics.queries && params.profile) {
+      dimensionValues.Profile = params.profile;
+      this.addMetric("Profile", values, ["Profile"], dimensionValues, properties);
+    }
+    if (++metrics.count >= metrics.max || metrics.lastFlushed + metrics.period < timestamp) {
+      this.flushMetrics(timestamp);
+      metrics.count = 0;
+      metrics.lastFlushed = timestamp;
+    }
+  }
+  addMetricGroup(values, dimensionValues, properties) {
+    let dimensions = [], keys = [];
+    for (let name of this.metrics.dimensions) {
+      let dimension = dimensionValues[name];
+      if (dimension) {
+        keys.push(dimension);
+        dimensions.push(name);
+        this.addMetric(keys.join("."), values, dimensions, dimensionValues, properties);
+      }
+    }
+  }
+  addMetric(key, values, dimensions, dimensionValues, properties) {
+    let rec = this.metrics.counters[key] = this.metrics.counters[key] || {
+      totals: { count: 0, latency: 0, read: 0, requests: 0, scanned: 0, write: 0 },
+      dimensions: dimensions.slice(0),
+      dimensionValues,
+      properties
+    };
+    let totals = rec.totals;
+    totals[ReadWrite2[values.op]] += values.capacity;
+    totals.latency += values.latency;
+    totals.count += values.count;
+    totals.scanned += values.scanned;
+    totals.requests++;
+  }
+  flushMetrics(timestamp = Date.now()) {
+    if (!this.metrics.enable)
+      return;
+    for (let rec of Object.values(this.metrics.counters)) {
+      Object.keys(rec).forEach((field) => rec[field] === 0 && delete rec[field]);
+      this.emitMetrics(timestamp, rec);
+    }
+    this.metrics.counters = {};
+  }
+  emitMetrics(timestamp, rec) {
+    let { dimensionValues, dimensions, properties, totals } = rec;
+    let metrics = this.metrics;
+    let requests = totals.requests;
+    totals.latency = totals.latency / requests;
+    totals.count = totals.count / requests;
+    totals.scanned = totals.scanned / requests;
+    if (this.log.metrics) {
+      let chan = metrics.chan || "metrics";
+      this.log.metrics(chan, `OneTable Custom Metrics ${dimensions}`, metrics.namespace, totals, dimensions, { latency: "Milliseconds", default: "Count" }, Object.assign({}, dimensionValues, properties));
+    } else {
+      let metrics2 = dimensions.map((v) => {
+        return { Name: v, Unit: v == "latency" ? "Milliseconds" : "Count" };
+      });
+      let data = Object.assign({
+        _aws: {
+          Timestamp: timestamp,
+          CloudWatchMetrics: [{
+            Dimensions: [dimensions],
+            Namespace: metrics2.namespace,
+            Metrics: metrics2
+          }]
+        }
+      }, totals, dimensionValues, properties);
+      console.log(`OneTable Custom Metrics ${dimensions}` + JSON.stringify(data));
+    }
+  }
+};
+
+// node_modules/dynamodb-onetable/dist/mjs/Table.js
+var DocumentClientMethods = {
+  delete: "delete",
+  get: "get",
+  find: "query",
+  put: "put",
+  scan: "scan",
+  update: "update",
+  batchGet: "batchGet",
+  batchWrite: "batchWrite",
+  transactGet: "transactGet",
+  transactWrite: "transactWrite"
+};
+var ConfirmRemoveTable = "DeleteTableForever";
+var IV_LENGTH = 16;
+var DynamoOps2 = {
+  delete: "deleteItem",
+  get: "getItem",
+  find: "query",
+  put: "putItem",
+  scan: "scan",
+  update: "updateItem",
+  batchGet: "batchGet",
+  batchWrite: "batchWrite",
+  transactGet: "transactGet",
+  transactWrite: "transactWrite"
+};
+var GenericModel2 = "_Generic";
+var Table = class {
+  constructor(params = {}) {
+    if (!params.name) {
+      throw new OneArgError('Missing "name" property');
+    }
+    this.context = {};
+    this.log = params.senselogs ? params.senselogs : new Log(params.logger);
+    this.log.trace(`Loading OneTable`);
+    if (params.client) {
+      this.setClient(params.client);
+    }
+    if (params.crypto) {
+      this.initCrypto(params.crypto);
+      this.crypto = Object.assign(params.crypto);
+      for (let [name, crypto] of Object.entries(this.crypto)) {
+        crypto.secret = import_crypto2.default.createHash("sha256").update(crypto.password, "utf8").digest();
+        this.crypto[name] = crypto;
+        this.crypto[name].name = name;
+      }
+    }
+    this.setParams(params);
+    this.schema = new Schema(this, params.schema);
+  }
+  setClient(client2) {
+    this.client = client2;
+    this.V3 = client2.V3;
+    this.service = this.V3 ? this.client : this.client.service;
+  }
+  setParams(params) {
+    this.createdField = params.createdField || "created";
+    this.hidden = params.hidden != null ? params.hidden : true;
+    this.isoDates = params.isoDates || false;
+    this.nulls = params.nulls || false;
+    this.timestamps = params.timestamps != null ? params.timestamps : false;
+    this.typeField = params.typeField || "_type";
+    this.updatedField = params.updatedField || "updated";
+    this.name = params.name || this.name;
+    if (params.uuid == "uuid") {
+      this.makeID = this.uuid;
+    } else if (params.uuid == "ulid") {
+      this.makeID = this.ulid;
+    } else if (!this.makeID) {
+      this.makeID = params.uuid || this.makeID || this.uuid;
+    }
+    if (params.metrics) {
+      this.metrics = new Metrics(this, params.metrics, this.metrics);
+    }
+    if (params.monitor) {
+      this.monitor = params.monitor;
+    }
+    this.params = params;
+  }
+  getParams() {
+    return {
+      createdField: this.createdField,
+      hidden: this.hidden,
+      isoDates: this.isoDates,
+      nulls: this.nulls,
+      timestamps: this.timestamps,
+      typeField: this.typeField,
+      updatedField: this.updatedField,
+      uuid: this.uuid
+    };
+  }
+  async setSchema(schema) {
+    return await this.schema.setSchema(schema);
+  }
+  getCurrentSchema() {
+    return this.schema.getCurrentSchema();
+  }
+  async getKeys() {
+    return await this.schema.getKeys();
+  }
+  async getPrimaryKeys() {
+    let keys = await this.schema.getKeys();
+    return keys.primary;
+  }
+  async readSchema() {
+    return this.schema.readSchema();
+  }
+  async readSchemas() {
+    return this.schema.readSchemas();
+  }
+  async removeSchema(schema) {
+    return this.schema.removeSchema(schema);
+  }
+  async saveSchema(schema) {
+    return this.schema.saveSchema(schema);
+  }
+  async createTable(params = {}) {
+    let def = {
+      AttributeDefinitions: [],
+      KeySchema: [],
+      LocalSecondaryIndexes: [],
+      GlobalSecondaryIndexes: [],
+      TableName: this.name
+    };
+    let provisioned = params.provisioned || params.ProvisionedThroughput;
+    if (provisioned) {
+      if (!provisioned.ReadCapacityUnits && !provisioned.WriteCapacityUnits) {
+        def.BillingMode = "PAY_PER_REQUEST";
+      } else {
+        def.ProvisionedThroughput = provisioned;
+        def.BillingMode = "PROVISIONED";
+      }
+    } else {
+      def.BillingMode = "PAY_PER_REQUEST";
+    }
+    let attributes = {};
+    let { indexes, models } = this.schema;
+    if (!indexes) {
+      throw new OneArgError("Cannot create table without schema indexes");
+    }
+    for (let [name, index] of Object.entries(indexes)) {
+      let collection, keys;
+      if (name == "primary") {
+        keys = def.KeySchema;
+      } else {
+        if (index.hash == null || index.hash == indexes.primary.hash || index.type == "local") {
+          collection = "LocalSecondaryIndexes";
+          if (index.project) {
+            throw new OneArgError("Unwanted project for LSI");
+          }
+        } else {
+          collection = "GlobalSecondaryIndexes";
+        }
+        keys = [];
+        let project, projection;
+        if (Array.isArray(index.project)) {
+          projection = "INCLUDE";
+          project = index.project.filter((a) => a != indexes.primary.hash && a != indexes.primary.sort);
+        } else if (index.project == "keys") {
+          projection = "KEYS_ONLY";
+        } else {
+          projection = "ALL";
+        }
+        let projDef = {
+          IndexName: name,
+          KeySchema: keys,
+          Projection: {
+            ProjectionType: projection
+          }
+        };
+        if (project) {
+          projDef.Projection.NonKeyAttributes = project;
+        }
+        def[collection].push(projDef);
+      }
+      keys.push({ AttributeName: index.hash || indexes.primary.hash, KeyType: "HASH" });
+      if (index.hash && !attributes[index.hash]) {
+        let type = this.getAttributeType(index.hash) == "number" ? "N" : "S";
+        def.AttributeDefinitions.push({ AttributeName: index.hash, AttributeType: type });
+        attributes[index.hash] = true;
+      }
+      if (index.sort) {
+        if (!attributes[index.sort]) {
+          let type = this.getAttributeType(index.sort) == "number" ? "N" : "S";
+          def.AttributeDefinitions.push({ AttributeName: index.sort, AttributeType: type });
+          attributes[index.sort] = true;
+        }
+        keys.push({ AttributeName: index.sort, KeyType: "RANGE" });
+      }
+    }
+    if (def.GlobalSecondaryIndexes.length == 0) {
+      delete def.GlobalSecondaryIndexes;
+    } else if (provisioned) {
+      for (let index of def.GlobalSecondaryIndexes) {
+        index.ProvisionedThroughput = provisioned;
+      }
+    }
+    if (def.LocalSecondaryIndexes.length == 0) {
+      delete def.LocalSecondaryIndexes;
+    }
+    this.log.trace(`OneTable createTable for "${this.name}"`, { def });
+    if (this.V3) {
+      return await this.service.createTable(def);
+    } else {
+      return await this.service.createTable(def).promise();
+    }
+  }
+  getAttributeType(name) {
+    for (let model of Object.values(this.schema.models)) {
+      let fields = model.block.fields;
+      if (fields[name]) {
+        return fields[name].type;
+      }
+    }
+    return null;
+  }
+  async deleteTable(confirmation) {
+    if (confirmation == ConfirmRemoveTable) {
+      this.log.trace(`OneTable deleteTable for "${this.name}"`);
+      if (this.V3) {
+        await this.service.deleteTable({ TableName: this.name });
+      } else {
+        await this.service.deleteTable({ TableName: this.name }).promise();
+      }
+    } else {
+      throw new OneArgError(`Missing required confirmation "${ConfirmRemoveTable}"`);
+    }
+  }
+  async updateTable(params = {}) {
+    let def = {
+      AttributeDefinitions: [],
+      GlobalSecondaryIndexUpdates: [],
+      TableName: this.name
+    };
+    let provisioned = params.provisioned;
+    if (provisioned) {
+      if (!provisioned.ReadCapacityUnits && !provisioned.WriteCapacityUnits) {
+        def.BillingMode = "PAY_PER_REQUEST";
+      } else {
+        def.ProvisionedThroughput = provisioned;
+        def.BillingMode = "PROVISIONED";
+      }
+    }
+    let indexes = this.schema.indexes;
+    if (!indexes) {
+      throw new OneArgError("Cannot update table without schema indexes");
+    }
+    let create = params.create;
+    if (create) {
+      if (create.hash == null || create.hash == indexes.primary.hash || create.type == "local") {
+        throw new OneArgError("Cannot update table to create an LSI");
+      }
+      let keys = [];
+      let projection, project;
+      if (Array.isArray(create.project)) {
+        projection = "INCLUDE";
+        project = create.project.filter((a) => a != create.hash && a != create.sort);
+      } else if (create.project == "keys") {
+        projection = "KEYS_ONLY";
+      } else {
+        projection = "ALL";
+      }
+      let projDef = {
+        IndexName: create.name,
+        KeySchema: keys,
+        Projection: {
+          ProjectionType: projection
+        }
+      };
+      if (project) {
+        projDef.Projection.NonKeyAttributes = project;
+      }
+      keys.push({ AttributeName: create.hash, KeyType: "HASH" });
+      def.AttributeDefinitions.push({ AttributeName: create.hash, AttributeType: "S" });
+      if (create.sort) {
+        def.AttributeDefinitions.push({ AttributeName: create.sort, AttributeType: "S" });
+        keys.push({ AttributeName: create.sort, KeyType: "RANGE" });
+      }
+      def.GlobalSecondaryIndexUpdates.push({ Create: projDef });
+    } else if (params.remove) {
+      def.GlobalSecondaryIndexUpdates.push({ Delete: { IndexName: params.remove.name } });
+    } else if (params.update) {
+      let update = { Update: { IndexName: params.update.name } };
+      if (provisioned) {
+        update.Update.ProvisionedThroughput = provisioned;
+      }
+      def.GlobalSecondaryIndexUpdates.push(update);
+    }
+    if (def.GlobalSecondaryIndexUpdates.length == 0) {
+      delete def.GlobalSecondaryIndexUpdates;
+    } else if (provisioned) {
+      for (let index of def.GlobalSecondaryIndexes) {
+        index.ProvisionedThroughput = provisioned;
+      }
+    }
+    this.log.trace(`OneTable updateTable for "${this.name}"`, { def });
+    if (this.V3) {
+      return await this.service.updateTable(def);
+    } else {
+      return await this.service.updateTable(def).promise();
+    }
+  }
+  async describeTable() {
+    if (this.V3) {
+      return await this.service.describeTable({ TableName: this.name });
+    } else {
+      return await this.service.describeTable({ TableName: this.name }).promise();
+    }
+  }
+  async exists() {
+    let results = await this.listTables();
+    return results && results.find((t) => t == this.name) != null ? true : false;
+  }
+  async listTables() {
+    let results;
+    if (this.V3) {
+      results = await this.service.listTables({});
+    } else {
+      results = await this.service.listTables({}).promise();
+    }
+    return results.TableNames;
+  }
+  listModels() {
+    return this.schema.listModels();
+  }
+  addModel(name, fields) {
+    this.schema.addModel(name, fields);
+  }
+  getLog() {
+    return this.log;
+  }
+  setLog(log) {
+    this.log = log;
+  }
+  getModel(name) {
+    return this.schema.getModel(name);
+  }
+  removeModel(name) {
+    return this.schema.removeModel(name);
+  }
+  getContext() {
+    return this.context;
+  }
+  addContext(context = {}) {
+    this.context = Object.assign(this.context, context);
+    return this;
+  }
+  setContext(context = {}, merge = false) {
+    this.context = merge ? Object.assign(this.context, context) : context;
+    return this;
+  }
+  clearContext() {
+    this.context = {};
+    return this;
+  }
+  child(context) {
+    let table2 = JSON.parse(JSON.stringify(this));
+    table2.context = context;
+    return table2;
+  }
+  async create(modelName, properties, params) {
+    let model = this.getModel(modelName);
+    return await model.create(properties, params);
+  }
+  async find(modelName, properties, params) {
+    let model = this.getModel(modelName);
+    return await model.find(properties, params);
+  }
+  async get(modelName, properties, params) {
+    let model = this.getModel(modelName);
+    return await model.get(properties, params);
+  }
+  init(modelName, properties, params) {
+    let model = this.getModel(modelName);
+    return model.init(properties, params);
+  }
+  async remove(modelName, properties, params) {
+    let model = this.getModel(modelName);
+    return await model.remove(properties, params);
+  }
+  async scan(modelName, properties, params) {
+    let model = this.getModel(modelName);
+    return await model.scan(properties, params);
+  }
+  async update(modelName, properties, params) {
+    let model = this.getModel(modelName);
+    return await model.update(properties, params);
+  }
+  async execute(model, op, cmd, properties = {}, params = {}) {
+    let mark = new Date();
+    let trace = { model, cmd, op, properties };
+    let result;
+    try {
+      if (params.stats || this.metrics || this.monitor) {
+        cmd.ReturnConsumedCapacity = params.capacity || "INDEXES";
+        cmd.ReturnItemCollectionMetrics = "SIZE";
+      }
+      this.log[params.log ? "info" : "trace"](`OneTable "${op}" "${model}"`, { trace });
+      if (this.V3) {
+        result = await this.client[op](cmd);
+      } else {
+        result = await this.client[DocumentClientMethods[op]](cmd).promise();
+      }
+    } catch (err) {
+      if (params.throw === false) {
+        result = {};
+      } else if (err.code == "ConditionalCheckFailedException" && op == "put") {
+        this.log.info(`Conditional check failed "${op}" on "${model}"`, { err, trace });
+        throw new OneError(`Conditional create failed for "${model}"`, { code: "Condition", trace, err });
+      } else {
+        result = result || {};
+        result.Error = 1;
+        trace.err = err;
+        if (params.log != false) {
+          this.log.error(`OneTable exception in "${op}" on "${model}"`, { err, trace });
+        }
+        throw new OneError(`OneTable execute failed "${op}" for "${model}. ${err.message}`, { err });
+      }
+    } finally {
+      if (result) {
+        if (this.metrics) {
+          this.metrics.add(model, op, result, params, mark);
+        }
+        if (this.monitor) {
+          await this.monitor(model, op, result, params, mark);
+        }
+      }
+    }
+    if (typeof params.info == "object") {
+      params.info.operation = DynamoOps2[op];
+      params.info.args = cmd;
+      params.info.properties = properties;
+    }
+    return result;
+  }
+  async batchGet(batch, params = {}) {
+    if (Object.getOwnPropertyNames(batch).length == 0) {
+      return [];
+    }
+    let def = batch.RequestItems[this.name];
+    if (params.fields) {
+      if (params.fields.indexOf(this.typeField) < 0) {
+        params.fields.push(this.typeField);
+      }
+      let expression = new Expression(this.schema.genericModel, "batchGet", {}, params);
+      let cmd = expression.command();
+      def.ProjectionExpression = cmd.ProjectionExpression;
+      def.ExpressionAttributeNames = cmd.ExpressionAttributeNames;
+    }
+    def.ConsistentRead = params.consistent ? true : false;
+    let result = await this.execute(GenericModel2, "batchGet", batch, {}, params);
+    let response = result.Responses;
+    if (params.parse && response) {
+      result = [];
+      for (let items of Object.values(response)) {
+        for (let item of items) {
+          item = this.unmarshall(item);
+          let type = item[this.typeField] || "_unknown";
+          let model = this.schema.models[type];
+          if (model && model != this.schema.uniqueModel) {
+            result.push(model.transformReadItem("get", item, {}, params));
+          }
+        }
+      }
+    }
+    return result;
+  }
+  async batchWrite(batch, params = {}) {
+    if (Object.getOwnPropertyNames(batch).length == 0) {
+      return {};
+    }
+    let more;
+    do {
+      more = false;
+      let response = await this.execute(GenericModel2, "batchWrite", batch, params);
+      let data = response.data;
+      if (data && data.UnprocessedItems && Object.keys(data.UnprocessedItems).length) {
+        batch.RequestItems = data.UnprocessedItems;
+        more = true;
+      }
+    } while (more);
+  }
+  async deleteItem(properties, params) {
+    return await this.schema.genericModel.deleteItem(properties, params);
+  }
+  async getItem(properties, params) {
+    return await this.schema.genericModel.getItem(properties, params);
+  }
+  async putItem(properties, params) {
+    return await this.schema.genericModel.putItem(properties, params);
+  }
+  async queryItems(properties, params) {
+    return await this.schema.genericModel.queryItems(properties, params);
+  }
+  async scanItems(properties, params) {
+    return await this.schema.genericModel.scanItems(properties, params);
+  }
+  async updateItem(properties, params) {
+    return await this.schema.genericModel.updateItem(properties, params);
+  }
+  async fetch(models, properties, params) {
+    return await this.schema.genericModel.fetch(models, properties, params);
+  }
+  async transact(op, transaction, params = {}) {
+    let result = await this.execute(GenericModel2, op == "write" ? "transactWrite" : "transactGet", transaction, params);
+    if (op == "get") {
+      if (params.parse) {
+        let items = [];
+        for (let r of result.Responses) {
+          if (r.Item) {
+            let item = this.unmarshall(r.Item);
+            let type = item[this.typeField] || "_unknown";
+            let model = this.schema.models[type];
+            if (model && model != this.schema.uniqueModel) {
+              items.push(model.transformReadItem("get", item, {}, params));
+            }
+          }
+        }
+        result = items;
+      }
+    }
+    return result;
+  }
+  groupByType(items, params = {}) {
+    let result = {};
+    for (let item of items) {
+      let type = item[this.typeField] || "_unknown";
+      let list = result[type] = result[type] || [];
+      let model = this.schema.models[type];
+      let preparedItem;
+      if (typeof params.hidden === "boolean" && !params.hidden) {
+        let fields = model.block.fields;
+        preparedItem = {};
+        for (let [name, field] of Object.entries(fields)) {
+          if (!(field.hidden && params.hidden !== true)) {
+            preparedItem[name] = item[name];
+          }
+        }
+      } else {
+        preparedItem = item;
+      }
+      list.push(preparedItem);
+    }
+    return result;
+  }
+  uuid() {
+    return UUID();
+  }
+  ulid() {
+    return new ULID().toString();
+  }
+  setMakeID(fn) {
+    this.makeID = fn;
+  }
+  getVars(v) {
+    let list = [];
+    if (Array.isArray(v)) {
+      list = v;
+    } else if (typeof v == "string") {
+      v.replace(/\${(.*?)}/g, (match, varName) => {
+        list.push(varName);
+      });
+    }
+    return list;
+  }
+  initCrypto(crypto) {
+    this.crypto = Object.assign(crypto);
+    for (let [name, crypto2] of Object.entries(this.crypto)) {
+      crypto2.secret = import_crypto2.default.createHash("sha256").update(crypto2.password, "utf8").digest();
+      this.crypto[name] = crypto2;
+      this.crypto[name].name = name;
+    }
+  }
+  encrypt(text, name = "primary", inCode = "utf8", outCode = "base64") {
+    if (text) {
+      if (!this.crypto) {
+        throw new OneArgError("No database secret or cipher defined");
+      }
+      let crypto = this.crypto[name];
+      if (!crypto) {
+        throw new OneArgError(`Database crypto not defined for ${name}`);
+      }
+      let iv = import_crypto2.default.randomBytes(IV_LENGTH);
+      let crypt = import_crypto2.default.createCipheriv(crypto.cipher, crypto.secret, iv);
+      let crypted = crypt.update(text, inCode, outCode) + crypt.final(outCode);
+      let tag = crypto.cipher.indexOf("-gcm") > 0 ? crypt.getAuthTag().toString(outCode) : "";
+      text = `${crypto.name}:${tag}:${iv.toString("hex")}:${crypted}`;
+    }
+    return text;
+  }
+  decrypt(text, inCode = "base64", outCode = "utf8") {
+    if (text) {
+      let [name, tag, iv, data] = text.split(":");
+      if (!data || !iv || !tag || !name) {
+        return text;
+      }
+      if (!this.crypto) {
+        throw new OneArgError("No database secret or cipher defined");
+      }
+      let crypto = this.crypto[name];
+      if (!crypto) {
+        throw new OneArgError(`Database crypto not defined for ${name}`);
+      }
+      iv = Buffer.from(iv, "hex");
+      let crypt = import_crypto2.default.createDecipheriv(crypto.cipher, crypto.secret, iv);
+      crypt.setAuthTag(Buffer.from(tag, inCode));
+      text = crypt.update(data, inCode, outCode) + crypt.final(outCode);
+    }
+    return text;
+  }
+  marshall(item) {
+    let client2 = this.client;
+    if (client2.V3) {
+      let options = client2.params.marshall;
+      if (Array.isArray(item)) {
+        for (let i = 0; i < item.length; i++) {
+          item[i] = client2.marshall(item[i], options);
+        }
+      } else {
+        item = client2.marshall(item, options);
+      }
+    } else {
+      if (Array.isArray(item)) {
+        for (let i = 0; i < item.length; i++) {
+          item = this.marshallv2(item);
+        }
+      } else {
+        item = this.marshallv2(item);
+      }
+    }
+    return item;
+  }
+  unmarshall(item) {
+    if (this.V3) {
+      let client2 = this.client;
+      let options = client2.params.unmarshall;
+      if (Array.isArray(item)) {
+        for (let i = 0; i < item.length; i++) {
+          item[i] = client2.unmarshall(item[i], options);
+        }
+      } else {
+        item = client2.unmarshall(item, options);
+      }
+    } else {
+      if (Array.isArray(item)) {
+        for (let i = 0; i < item.length; i++) {
+          item[i] = this.unmarshallv2(item[i]);
+        }
+      } else {
+        item = this.unmarshallv2(item);
+      }
+    }
+    return item;
+  }
+  marshallv2(item) {
+    for (let [key, value] of Object.entries(item)) {
+      if (value instanceof Set) {
+        item[key] = this.client.createSet(Array.from(value));
+      }
+    }
+    return item;
+  }
+  unmarshallv2(item) {
+    for (let [key, value] of Object.entries(item)) {
+      if (value != null && typeof value == "object" && value.wrapperName == "Set" && Array.isArray(value.values)) {
+        let list = value.values;
+        if (value.type == "Binary") {
+          list = list.map((v) => new Uint8Array(v));
+        }
+        item[key] = new Set(list);
+      }
+    }
+    return item;
+  }
+  assign(dest, ...sources) {
+    for (let src of sources) {
+      if (src) {
+        dest = this.assignInner(dest, src);
+      }
+    }
+    return dest;
+  }
+  assignInner(dest, src, recurse = 0) {
+    if (recurse++ > 20) {
+      throw new OneError("Recursive merge", { code: "Runtime" });
+    }
+    if (!src || !dest || typeof src != "object") {
+      return;
+    }
+    for (let [key, v] of Object.entries(src)) {
+      if (v === void 0) {
+        continue;
+      } else if (v instanceof Date) {
+        dest[key] = new Date(v);
+      } else if (v instanceof RegExp) {
+        dest[key] = new RegExp(v.source, v.flags);
+      } else if (Array.isArray(v)) {
+        if (!Array.isArray(dest[key])) {
+          dest[key] = [];
+        }
+        if (v.length) {
+          dest[key] = this.assignInner([key], v, recurse);
+        }
+      } else if (typeof v == "object" && v != null && v.constructor.name == "Object") {
+        if (typeof dest[key] != "object") {
+          dest[key] = {};
+        }
+        dest[key] = this.assignInner(dest[key], v, recurse);
+      } else {
+        dest[key] = v;
+      }
+    }
+    return dest;
+  }
+};
+var Log = class {
+  constructor(logger) {
+    if (logger === true) {
+      this.logger = this.defaultLogger;
+    } else if (logger) {
+      this.logger = logger;
+    }
+  }
+  enabled() {
+    return true;
+  }
+  data(message, context) {
+    this.process("data", message, context);
+  }
+  emit(chan, message, context) {
+    this.process(chan, message, context);
+  }
+  error(message, context) {
+    this.process("error", message, context);
+  }
+  info(message, context) {
+    this.process("info", message, context);
+  }
+  trace(message, context) {
+    this.process("trace", message, context);
+  }
+  process(level, message, context) {
+    if (this.logger) {
+      this.logger(level, message, context);
+    }
+  }
+  defaultLogger(level, message, context) {
+    if (level == "trace" || level == "data") {
+      return;
+    }
+    if (context) {
+      console.log(level, message, JSON.stringify(context, null, 4));
+    } else {
+      console.log(level, message);
+    }
+  }
+};
+
+// apps/juicebox-store-api/src/app.ts
+var import_dynamodb = __toModule(require("aws-sdk/clients/dynamodb"));
+
+// apps/juicebox-store-api/src/models/schema.ts
+var Match = {
+  ulid: /^[0123456789ABCDEFGHJKMNPQRSTVWXYZ]{26}$/,
+  email: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+  name: /^[a-z0-9 ,.'-]+$/i,
+  address: /[a-z0-9 ,.-]+$/,
+  zip: /^\d{5}(?:[-\s]\d{4})?$/,
+  phone: /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s./0-9]*$/
+};
+var schema_default = {
+  version: "0.0.1",
+  indexes: {
+    primary: { hash: "pk", sort: "sk" },
+    gs1: { hash: "gs1pk", sort: "gs1sk", project: ["gs1pk", "gs1sk"] }
+  },
+  models: {
+    User: {
+      pk: { type: String, value: "user#${id}" },
+      sk: { type: String, value: "user#" },
+      id: { type: String, uuid: true, validate: Match.ulid },
+      cognitoId: { type: String, required: true, unique: true },
+      email: { type: String, required: true, unique: true },
+      firstName: { type: String, required: true },
+      lastName: { type: String, required: true },
+      username: { type: String, required: true },
+      gs1pk: { type: String, value: "user#" },
+      gs1sk: { type: String, value: "user#${email}#${id}" }
+    }
+  }
+};
+
+// apps/juicebox-store-api/src/app.ts
 var dbTableName = process.env.DB_NAME;
+if (!dbTableName) {
+  process.exit(1);
+}
+var client = new import_dynamodb.default.DocumentClient({
+  params: { table: dbTableName }
+});
+var table = new Table({
+  name: dbTableName,
+  client,
+  uuid: "ulid",
+  logger: true,
+  timestamps: true,
+  isoDates: true,
+  schema: schema_default
+});
+var User = table.getModel("User");
 var app = (0, import_fastify.default)();
 app.get("/", (request, reply) => {
   request.log.info(request.body);
   reply.send({ hello: "world" });
 });
+app.post("/create-account", async (request, reply) => {
+  try {
+    const testUser = {
+      user: {
+        cognitoId: "sdfsdf",
+        email: "test@test.com.au",
+        firstName: "Dave",
+        lastName: "Holst",
+        username: "daveholst",
+        role: "admin"
+      },
+      opensprinkler: {
+        uri: "ererre",
+        apikery: "easdsaddsarerre"
+      },
+      juicebox: {
+        deviceName: "sdfadsf"
+      }
+    };
+    const user = await User.create({
+      cognitoId: "sdfsdf",
+      email: "test@test.com.au",
+      firstName: "Dave",
+      lastName: "Holst",
+      username: "daveholst"
+    });
+    reply.send(user);
+  } catch (error) {
+    reply.code(500).send(error);
+    console.error(error);
+  }
+});
 
 // apps/juicebox-store-api/src/index.ts
 var proxy = (0, import_aws_lambda_fastify.default)(app);
-exports.handler = async (event, context) => proxy(event, context);
+var handler = async (event, context) => proxy(event, context);
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  handler
+});
 /*!
  * cookie
  * Copyright(c) 2012-2014 Roman Shtylman
