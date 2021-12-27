@@ -45,10 +45,16 @@ app.get('/', (request, reply) => {
     reply.send({ hello: 'world' })
 })
 
-app.post<{ Body: UserDataDTO }>('/create-account', async (request, reply) => {
+app.get('/init', async (request, reply) => {
     if (await !table.exists()) {
         await table.createTable()
+        reply.send('created table')
+    } else {
+        reply.send('table exists')
     }
+})
+
+app.post<{ Body: UserDataDTO }>('/create-account', async (request, reply) => {
     // app.post('/create-account', async (request, reply) => {
     try {
         console.log(request.body)
@@ -57,7 +63,7 @@ app.post<{ Body: UserDataDTO }>('/create-account', async (request, reply) => {
             opensprinkler: rawOpensprinkler,
             juicebox: rawJuicebox,
         } = request.body
-        // check email isnt in use
+        // check email isnt in use -- unique now working so not required!
         const checkUser = await User.get(
             { email: rawUser.email },
             { index: 'gs1', follow: true }

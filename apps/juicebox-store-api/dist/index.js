@@ -39896,10 +39896,15 @@ app.get("/", (request, reply) => {
   request.log.info(request.body);
   reply.send({ hello: "world" });
 });
-app.post("/create-account", async (request, reply) => {
+app.get("/init", async (request, reply) => {
   if (await !table.exists()) {
     await table.createTable();
+    reply.send("created table");
+  } else {
+    reply.send("table exists");
   }
+});
+app.post("/create-account", async (request, reply) => {
   try {
     console.log(request.body);
     const {

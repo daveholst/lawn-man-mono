@@ -51,16 +51,40 @@ const certificateValidation = new aws.acm.CertificateValidation(
 )
 
 // Create a Database infrastructure
-// const juiceboxTable = new aws.dynamodb.Table('juicebox-table', {
-//     attributes: [
-//         {
-//             name: 'id',
-//             type: 'S',
-//         },
-//     ],
-//     hashKey: 'id',
-//     billingMode: 'PAY_PER_REQUEST',
-// })
+const juiceboxTable = new aws.dynamodb.Table('juicebox-table', {
+    attributes: [
+        {
+            name: 'gs1pk',
+            type: 'S',
+        },
+        {
+            name: 'gs1sk',
+            type: 'S',
+        },
+        {
+            name: 'pk',
+            type: 'S',
+        },
+        {
+            name: 'sk',
+            type: 'S',
+        },
+    ],
+    hashKey: 'pk',
+    rangeKey: 'sk',
+    globalSecondaryIndexes: [
+        {
+            hashKey: 'gs1pk',
+            name: 'gs1',
+            nonKeyAttributes: ['gs1sk', 'gs1pk'],
+            projectionType: 'INCLUDE',
+            rangeKey: 'gs1sk',
+            readCapacity: 10,
+            writeCapacity: 10,
+        },
+    ],
+    billingMode: 'PAY_PER_REQUEST',
+})
 
 // lambda policy
 const role = new aws.iam.Role(`${name}-lambda-policy`, {
@@ -71,29 +95,32 @@ const role = new aws.iam.Role(`${name}-lambda-policy`, {
 
 const policy = new aws.iam.RolePolicy(`${name}-lambda-policy`, {
     role,
-    policy: pulumi.output({
-        Version: '2012-10-17',
-        Statement: [
-            {
-                Action: [
-                    'dynamodb:Query',
-                    'dynamodb:CreateTable',
-                    'dynamodb:ListTables',
-                    'dynamodb:UpdateItem',
-                    'dynamodb:PutItem',
-                    'dynamodb:GetItem',
-                    'dynamodb:DescribeTable',
-                ],
-                Resource: '*',
-                Effect: 'Allow',
-            },
-            {
-                Action: ['logs:*', 'cloudwatch:*'],
-                Resource: '*',
-                Effect: 'Allow',
-            },
-        ],
-    }),
+    policy: juiceboxTable.arn.apply((arn) =>
+        JSON.stringify({
+            Version: '2012-10-17',
+            Statement: [
+                {
+                    Action: [
+                        'dynamodb:*',
+                        // 'dynamodb:CreateTable',
+                        // 'dynamodb:ListTables',
+                        // 'dynamodb:UpdateItem',
+                        // 'dynamodb:PutItem',
+                        // 'dynamodb:GetItem',
+                        // 'dynamodb:DescribeTable',
+                    ],
+                    Resource: [arn, `${arn}/index/*`],
+                    // Resource: [juiceboxTable.arn, `${juiceboxTable.arn}/index/*`],
+                    Effect: 'Allow',
+                },
+                {
+                    Action: ['logs:*', 'cloudwatch:*'],
+                    Resource: '*',
+                    Effect: 'Allow',
+                },
+            ],
+        })
+    ),
 })
 
 // create lambda from code (webpacked?) -> https://www.pulumi.com/registry/packages/aws/api-docs/lambda/function/
@@ -127,7 +154,7 @@ const apiProxy = new ApiGatewayLambdaProxy(`${name}-lambda-proxy`, {
         memorySize: 256,
         environment: {
             variables: {
-                DB_NAME: dbName,
+                DB_NAME: juiceboxTable.name,
             },
         },
     },
@@ -193,4 +220,4 @@ function getTags(name: string) {
 }
 
 exports.url = apiProxy.invokeUrl
-// exports.dbArn = juiceboxTable.arn
+exports.dbArn = juiceboxTable.arn
