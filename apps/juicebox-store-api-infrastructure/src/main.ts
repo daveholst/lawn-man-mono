@@ -10,6 +10,7 @@ const projectRoot = '../juicebox-store-api'
 
 const name = 'juicebox-store-api'
 const domain = 'juicebox-store-api.lawnman.club'
+const dbName = 'juicebox-table-prod'
 const domainParts = getDomainAndSubdomain(domain)
 const tenMinutes = 60 * 10
 
@@ -50,16 +51,16 @@ const certificateValidation = new aws.acm.CertificateValidation(
 )
 
 // Create a Database infrastructure
-const juiceboxTable = new aws.dynamodb.Table('juicebox-table', {
-    attributes: [
-        {
-            name: 'id',
-            type: 'S',
-        },
-    ],
-    hashKey: 'id',
-    billingMode: 'PAY_PER_REQUEST',
-})
+// const juiceboxTable = new aws.dynamodb.Table('juicebox-table', {
+//     attributes: [
+//         {
+//             name: 'id',
+//             type: 'S',
+//         },
+//     ],
+//     hashKey: 'id',
+//     billingMode: 'PAY_PER_REQUEST',
+// })
 
 // lambda policy
 const role = new aws.iam.Role(`${name}-lambda-policy`, {
@@ -75,12 +76,15 @@ const policy = new aws.iam.RolePolicy(`${name}-lambda-policy`, {
         Statement: [
             {
                 Action: [
+                    'dynamodb:Query',
+                    'dynamodb:CreateTable',
+                    'dynamodb:ListTables',
                     'dynamodb:UpdateItem',
                     'dynamodb:PutItem',
                     'dynamodb:GetItem',
                     'dynamodb:DescribeTable',
                 ],
-                Resource: juiceboxTable.arn,
+                Resource: '*',
                 Effect: 'Allow',
             },
             {
@@ -123,7 +127,7 @@ const apiProxy = new ApiGatewayLambdaProxy(`${name}-lambda-proxy`, {
         memorySize: 256,
         environment: {
             variables: {
-                DB_NAME: juiceboxTable.name,
+                DB_NAME: dbName,
             },
         },
     },
@@ -189,4 +193,4 @@ function getTags(name: string) {
 }
 
 exports.url = apiProxy.invokeUrl
-exports.dbArn = juiceboxTable.arn
+// exports.dbArn = juiceboxTable.arn

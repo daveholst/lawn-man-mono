@@ -36862,8 +36862,12 @@ var Expression = class {
     }
     if (params.fields) {
       for (let name of params.fields) {
-        let att = op == "batchGet" ? name : fields[name].attribute[0];
-        this.project.push(`#_${this.addName(att)}`);
+        if (op == "batchGet") {
+          this.project.push(`#_${this.addName(name)}`);
+        } else if (fields[name]) {
+          let att = fields[name].attribute[0];
+          this.project.push(`#_${this.addName(att)}`);
+        }
       }
     }
   }
@@ -36958,7 +36962,7 @@ var Expression = class {
       index = this.addValue(substitutions[name]);
       return `:_${index}`;
     });
-    where = where.replace(/{(.*?)}/g, (match, value) => {
+    where = where.replace(/{(.*?)}/sg, (match, value) => {
       let index;
       if (value.match(/^[-+]?([0-9]+(\.[0-9]*)?|\.[0-9]+)$/)) {
         index = this.addValue(+value);
@@ -37889,7 +37893,7 @@ var Model = class {
         [att, sub] = field.attribute;
       }
       let value = raw[att];
-      if (value == void 0) {
+      if (value === void 0) {
         continue;
       }
       if (sub) {
@@ -38122,7 +38126,7 @@ var Model = class {
       } else {
         let value = properties[field.name];
         if (value === void 0 && !field.value) {
-          if (field.default != null) {
+          if (field.default !== void 0) {
             value = field.default;
           } else if (op == "init") {
             if (!field.uuid) {
@@ -39771,15 +39775,98 @@ var schema_default = {
   models: {
     User: {
       pk: { type: String, value: "user#${id}" },
-      sk: { type: String, value: "user#" },
+      sk: { type: String, value: "user#${email}" },
       id: { type: String, uuid: true, validate: Match.ulid },
-      cognitoId: { type: String, required: true, unique: true },
+      cognitoId: { type: String, required: true },
       email: { type: String, required: true, unique: true },
       firstName: { type: String, required: true },
       lastName: { type: String, required: true },
       username: { type: String, required: true },
+      address: { type: String },
+      postcode: { type: Number },
+      state: { type: String },
+      country: { type: String },
+      climateZone: { type: String },
+      role: {
+        type: String,
+        enum: ["user", "admin"],
+        required: true,
+        default: "user"
+      },
       gs1pk: { type: String, value: "user#" },
-      gs1sk: { type: String, value: "user#${email}#${id}" }
+      gs1sk: { type: String, value: "user#${email}" }
+    },
+    Opensprinkler: {
+      pk: { type: String, value: "user#${ownerId}" },
+      sk: { type: String, value: "opensprinkler#" },
+      id: { type: String, uuid: true, validate: Match.ulid },
+      uri: { type: String, required: true },
+      apiKey: { type: String, required: true },
+      ownerId: { type: String, required: true },
+      zones: {
+        type: Array
+      }
+    },
+    Juicebox: {
+      pk: { type: String, value: "user#${ownerId}" },
+      sk: { type: String, value: "juicebox#" },
+      id: { type: String, uuid: true, validate: Match.ulid },
+      ownerId: { type: String, required: true },
+      deviceName: { type: String, required: true },
+      fertBay1: {
+        type: Object,
+        schema: {
+          relayChannel: { type: Number, required: true, default: 1 },
+          status: {
+            type: String,
+            enum: ["idle", "disabled", "pumping", "priming"],
+            required: true,
+            default: "disabled"
+          },
+          pumpRate: { type: Number, default: 2.9 },
+          maxVolume: { type: Number },
+          currentVolume: { type: Number },
+          fertilserId: { type: String },
+          fertiliserName: { type: String },
+          fertiliserRate: { type: Number }
+        }
+      },
+      fertBay2: {
+        type: Object,
+        schema: {
+          relayChannel: { type: Number, required: true, default: 2 },
+          status: {
+            type: String,
+            enum: ["idle", "disabled", "pumping", "priming"],
+            required: true,
+            default: "disabled"
+          },
+          pumpRate: { type: Number, default: 2.9 },
+          maxVolume: { type: Number },
+          currentVolume: { type: Number },
+          fertilserId: { type: String },
+          fertiliserName: { type: String },
+          fertiliserRate: { type: Number }
+        }
+      },
+      fertBay3: {
+        type: Object,
+        schema: {
+          relayChannel: { type: Number, required: true, default: 3 },
+          status: {
+            type: String,
+            enum: ["idle", "disabled", "pumping", "priming"],
+            required: true,
+            default: "disabled"
+          },
+          pumpRate: { type: Number, default: 2.9 },
+          maxVolume: { type: Number },
+          currentVolume: { type: Number },
+          fertilserId: { type: String },
+          fertiliserName: { type: String },
+          fertiliserRate: { type: Number }
+        }
+      }
     }
   }
 };
@@ -39802,38 +39889,34 @@ var table = new Table({
   schema: schema_default
 });
 var User = table.getModel("User");
+var Opensprinkler = table.getModel("Opensprinkler");
+var Juicebox = table.getModel("Juicebox");
 var app = (0, import_fastify.default)();
 app.get("/", (request, reply) => {
   request.log.info(request.body);
   reply.send({ hello: "world" });
 });
 app.post("/create-account", async (request, reply) => {
+  if (await !table.exists()) {
+    await table.createTable();
+  }
   try {
-    const testUser = {
-      user: {
-        cognitoId: "sdfsdf",
-        email: "test@test.com.au",
-        firstName: "Dave",
-        lastName: "Holst",
-        username: "daveholst",
-        role: "admin"
-      },
-      opensprinkler: {
-        uri: "ererre",
-        apikery: "easdsaddsarerre"
-      },
-      juicebox: {
-        deviceName: "sdfadsf"
-      }
-    };
-    const user = await User.create({
-      cognitoId: "sdfsdf",
-      email: "test@test.com.au",
-      firstName: "Dave",
-      lastName: "Holst",
-      username: "daveholst"
-    });
-    reply.send(user);
+    console.log(request.body);
+    const {
+      user: rawUser,
+      opensprinkler: rawOpensprinkler,
+      juicebox: rawJuicebox
+    } = request.body;
+    const checkUser = await User.get({ email: rawUser.email }, { index: "gs1", follow: true });
+    console.log(checkUser);
+    if (checkUser) {
+      reply.code(500).send({ message: "email in use", existingUser: checkUser });
+    }
+    const user = await User.create(rawUser);
+    table.setContext({ ownerId: user.id });
+    const opensprinkler = await Opensprinkler.create(rawOpensprinkler);
+    const juicebox = await Juicebox.create(rawJuicebox);
+    reply.send({ user, opensprinkler, juicebox });
   } catch (error) {
     reply.code(500).send(error);
     console.error(error);
