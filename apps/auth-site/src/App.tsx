@@ -1,29 +1,18 @@
 import React, { useState } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
-import { useAuth } from '@lawn-man-mono/shared-components'
+import { RequireAuth, useAuth } from '@lawn-man-mono/shared-components'
 import { AddJuicebox } from './routes/add-juicebox'
 import { Auth } from './routes/auth'
 
 const App = () => {
     const { user, performLogout } = useAuth()
 
-    //TODO how do I type this ???
-    function RequireAuth({ children }: any) {
-        if (user) {
-            return children
-        }
-        // TODO can add some tricks here to redirect to previous page? broke it last time
-        return <Navigate to="/login" />
-    }
-
-    console.log(user)
-
     return (
         <Routes>
             <Route
                 path="/"
                 element={
-                    <RequireAuth>
+                    <RequireAuth redirectPath="/login">
                         <h1>Base App</h1>
                         <p>Hellooo {user?.idToken.payload.email} </p>
                         <button onClick={performLogout}>Log Out!!!!!!!!</button>
