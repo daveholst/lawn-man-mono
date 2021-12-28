@@ -1,31 +1,6 @@
 {
     "version": 2,
     "projects": {
-        "auth-components": {
-            "root": "libs/auth-components",
-            "sourceRoot": "libs/auth-components/src",
-            "projectType": "library",
-            "tags": [],
-            "targets": {
-                "lint": {
-                    "executor": "@nrwl/linter:eslint",
-                    "outputs": ["{options.outputFile}"],
-                    "options": {
-                        "lintFilePatterns": [
-                            "libs/auth-components/**/*.{ts,tsx,js,jsx}"
-                        ]
-                    }
-                },
-                "test": {
-                    "executor": "@nrwl/jest:jest",
-                    "outputs": ["coverage/libs/auth-components"],
-                    "options": {
-                        "jestConfig": "libs/auth-components/jest.config.js",
-                        "passWithNoTests": true
-                    }
-                }
-            }
-        },
         "auth-site": {
             "root": "apps/auth-site",
             "projectType": "application",
@@ -97,6 +72,36 @@
             },
             "tags": [],
             "implicitDependencies": ["fert-site"]
+        },
+        "direct-site": {
+            "root": "apps/direct-site",
+            "projectType": "application",
+            "sourceRoot": "apps/direct-site/src",
+            "targets": {
+                "build": {
+                    "executor": "@wanews/nx-vite:build",
+                    "options": {}
+                },
+                "serve": {
+                    "executor": "@wanews/nx-vite:serve",
+                    "options": {}
+                },
+                "lint": {
+                    "executor": "@nrwl/linter:eslint",
+                    "options": {
+                        "lintFilePatterns": ["apps/direct-site/**/*.ts"]
+                    }
+                },
+                "test": {
+                    "executor": "@nrwl/jest:jest",
+                    "options": {
+                        "jestConfig": "apps/direct-site/jest.config.js",
+                        "passWithNoTests": true
+                    },
+                    "outputs": ["coverage/apps/direct-site"]
+                }
+            },
+            "tags": []
         },
         "fert-site": {
             "root": "apps/fert-site",
@@ -288,6 +293,28 @@
                         "jestConfig": "libs/pulumi-utils/jest.config.js",
                         "passWithNoTests": true
                     }
+                }
+            },
+            "tags": []
+        },
+        "shared-components": {
+            "root": "libs/shared-components",
+            "projectType": "library",
+            "sourceRoot": "libs/shared-components/src",
+            "targets": {
+                "lint": {
+                    "executor": "@nrwl/linter:eslint",
+                    "options": {
+                        "lintFilePatterns": ["libs/shared-components/**/*.ts"]
+                    }
+                },
+                "test": {
+                    "executor": "@nrwl/jest:jest",
+                    "options": {
+                        "jestConfig": "libs/shared-components/jest.config.js",
+                        "passWithNoTests": true
+                    },
+                    "outputs": ["coverage/libs/shared-components"]
                 }
             },
             "tags": []

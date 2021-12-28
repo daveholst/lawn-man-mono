@@ -3923,6 +3923,13 @@
   dependencies:
     "@types/node" "*"
 
+"@types/fs-extra@^9.0.11":
+  version "9.0.13"
+  resolved "https://registry.yarnpkg.com/@types/fs-extra/-/fs-extra-9.0.13.tgz#7594fbae04fe7f1918ce8b3d213f74ff44ac1f45"
+  integrity sha512-nEnwB++1u5lVDM2UI4c1+5R+FYaKfaAzS4OococimjVm3nQw3TuzH5UNsocrcTBbhnerblyHj4A49qXbIiZdpA==
+  dependencies:
+    "@types/node" "*"
+
 "@types/glob@^7.1.1":
   version "7.2.0"
   resolved "https://registry.yarnpkg.com/@types/glob/-/glob-7.2.0.tgz#bc1b5bf3aa92f25bd5dd39f35c57361bdce5b2eb"
@@ -4263,10 +4270,18 @@
     execa "^5.0.0"
     js-yaml "^4.0.0"
 
+"@wanews/nx-typescript-project-references@^0.14.3":
+  version "0.14.3"
+  resolved "https://registry.yarnpkg.com/@wanews/nx-typescript-project-references/-/nx-typescript-project-references-0.14.3.tgz#3f69f071fde7d126d423dda6401299512185b312"
+  integrity sha512-lHLDypYqYvkjUS4BTxA39cGxWRjmo63PSORtoYEgqsu+mVJK5yKipn7RtndHQ5N5R2kjKkzImE8dS1CDPxXZ2Q==
+  dependencies:
+    "@types/fs-extra" "^9.0.11"
+    execa "^5.0.0"
+
 "@wanews/nx-vite@^0.5.1":
-  version "0.5.2"
-  resolved "https://registry.yarnpkg.com/@wanews/nx-vite/-/nx-vite-0.5.2.tgz#d8a0d78b01ce637190b2a1785aff6cf2020344cc"
-  integrity sha512-Qimtc8cIqNTZst50DLDmB5jVD58Fe8hhODBmJVd8QHc8BT8iNcZKR+evisl8o9NagQx2vvSfbBJt/lnvnW7MIw==
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/@wanews/nx-vite/-/nx-vite-0.5.3.tgz#9a8511da7d920f92cd205a0075e8524b242fef35"
+  integrity sha512-QWb+yo6b03BrKd0qHTKFmiEhZbdxOYaJaTZAzXEo0LtLIzR5v/y7K3A+shZ43MhHLlLeMbC+2GOOxou7PvcZMQ==
   dependencies:
     execa "^5.0.0"
 
@@ -11376,12 +11391,12 @@ side-channel@^1.0.4:
     get-intrinsic "^1.0.2"
     object-inspect "^1.9.0"
 
-signal-exit@^3.0.0:
+signal-exit@^3.0.0, signal-exit@^3.0.3:
   version "3.0.6"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.6.tgz#24e630c4b0f03fea446a2bd299e62b4a6ca8d0af"
   integrity sha512-sDl4qMFpijcGw22U5w63KmD3cZJfBuFlVNbVMKje2keoKML7X2UzWbc4XrmEbDwg0NXJc3yv4/ox7b+JWb57kQ==
 
-signal-exit@^3.0.2, signal-exit@^3.0.3:
+signal-exit@^3.0.2:
   version "3.0.5"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.5.tgz#9e3e8cc0c75a99472b44321033a7702e7738252f"
   integrity sha512-KWcOiKeQj6ZyXx7zq4YxSMgHRlod4czeBQZrPb8OKcohcqAXShm7E20kEMle9WBt26hFcAf0qLOcp5zmY7kOqQ==

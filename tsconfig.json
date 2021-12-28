@@ -11,6 +11,9 @@
             "path": "./apps/auth-site-infrastructure"
         },
         {
+            "path": "./apps/direct-site"
+        },
+        {
             "path": "./apps/fert-site"
         },
         {
@@ -24,6 +27,9 @@
         },
         {
             "path": "./libs/pulumi-utils"
+        },
+        {
+            "path": "./libs/shared-components"
         }
     ]
 }
