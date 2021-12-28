@@ -23,10 +23,8 @@
             "@lawn-man-mono/pulumi-utils": ["libs/pulumi-utils/src/index.ts"],
             "@lawn-man-mono/shared-components": [
                 "libs/shared-components/src/index.ts"
-            ],
-            "@lawn-man/auth-components": ["libs/auth-components/src/index.ts"]
+            ]
         }
     },
-    "include": ["src/**/*.ts", "tests/**/*.ts"],
     "exclude": ["node_modules", "tmp"]
 }

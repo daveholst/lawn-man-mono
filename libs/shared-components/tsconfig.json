@@ -2,9 +2,12 @@
     "extends": "../../tsconfig.settings.json",
     "compilerOptions": {
         "jsx": "react",
-        "outDir": "./out-tsc",
-        "rootDir": "./src",
-        "types": ["jest", "node"]
+        "allowJs": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "outDir": "./tsc-out",
+        "rootDir": "./src"
     },
+    "moduleResolution": "node",
     "include": ["src/**/*.ts", "src/**/*.tsx"]
 }

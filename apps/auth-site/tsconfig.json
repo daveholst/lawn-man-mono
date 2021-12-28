@@ -6,5 +6,9 @@
         "rootDir": "./src"
     },
     "include": ["src/**/*.ts", "src/**/*.tsx"],
-    "references": []
+    "references": [
+        {
+            "path": "../../libs/shared-components"
+        }
+    ]
 }

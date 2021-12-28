@@ -110,6 +110,6 @@ export function AuthProvider({
     )
 }
 
-export default function useAuth() {
+export function useAuth() {
     return useContext(AuthContext)
 }

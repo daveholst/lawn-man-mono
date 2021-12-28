@@ -1,1 +1,1 @@
-const variable = 'shared-components'
+export * from './auth-provider/AuthProvider'

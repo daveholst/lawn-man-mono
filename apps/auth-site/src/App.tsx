@@ -1,13 +1,14 @@
-import React, { useState } from "react";
-import { Navigate, Route, Routes } from "react-router-dom";
-import useAuth from "./hooks/useAuth"
-import { AddJuicebox } from "./routes/add-juicebox";
-import { Auth } from "./routes/auth";
+import React, { useState } from 'react'
+import { Navigate, Route, Routes } from 'react-router-dom'
+import { useAuth } from '@lawn-man-mono/shared-components'
+import { AddJuicebox } from './routes/add-juicebox'
+import { Auth } from './routes/auth'
 
 const App = () => {
     const { user, performLogout } = useAuth()
 
-    function RequireAuth({ children }) {
+    //TODO how do I type this ???
+    function RequireAuth({ children }: any) {
         if (user) {
             return children
         }
@@ -16,7 +17,6 @@ const App = () => {
     }
 
     console.log(user)
-
 
     return (
         <Routes>
@@ -30,16 +30,10 @@ const App = () => {
                     </RequireAuth>
                 }
             />
-            <Route
-                path="/login"
-                element={<Auth />}
-            />
-            <Route
-                path="/add-juicebox"
-                element={<AddJuicebox />}
-            />
+            <Route path="/login" element={<Auth />} />
+            <Route path="/add-juicebox" element={<AddJuicebox />} />
         </Routes>
-    );
-};
+    )
+}
 
-export default App;
+export default App

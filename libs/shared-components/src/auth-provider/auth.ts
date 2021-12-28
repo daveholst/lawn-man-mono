@@ -7,7 +7,7 @@ import {
     CognitoIdToken,
     CognitoUserSession,
 } from 'amazon-cognito-identity-js'
-import userPool from './userPoolConfig'
+import { userPool } from './userPoolConfig'
 
 export const login = async (email: string, password: string) => {
     return await new Promise((resolve, reject) => {

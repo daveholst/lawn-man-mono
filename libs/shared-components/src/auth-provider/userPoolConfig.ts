@@ -12,4 +12,4 @@ const poolData = {
     }),
 }
 
-export default new CognitoUserPool(poolData)
+export const userPool = new CognitoUserPool(poolData)

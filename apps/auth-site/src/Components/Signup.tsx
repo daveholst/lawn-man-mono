@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react'
 
 import {
     Flex,
@@ -14,36 +14,37 @@ import {
     Avatar,
     FormControl,
     FormHelperText,
-    InputRightElement
-} from "@chakra-ui/react";
-import { FaUserAlt, FaLock } from "react-icons/fa";
-import { signup } from '../utils/auth'
+    InputRightElement,
+} from '@chakra-ui/react'
+import { FaUserAlt, FaLock } from 'react-icons/fa'
+// import { signup } from '../utils/auth'
+import { useAuth } from '@lawn-man-mono/shared-components'
 
-const CFaUserAlt = chakra(FaUserAlt);
-const CFaLock = chakra(FaLock);
-
+const CFaUserAlt = chakra(FaUserAlt)
+const CFaLock = chakra(FaLock)
 
 export function Signup() {
-    const [showPassword, setShowPassword] = useState(false);
-    const handleShowClick = () => setShowPassword(!showPassword);
+    const [showPassword, setShowPassword] = useState(false)
+    const handleShowClick = () => setShowPassword(!showPassword)
 
-    const [username, setUsername] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [username, setUsername] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+
+    const { performSignup } = useAuth()
 
     const onSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
+        e.preventDefault()
         try {
-            const data = await signup(email, password, username);
-            console.log('Signed Up: ', data);
+            const data = await performSignup(email, password, username)
+            console.log('Signed Up: ', data)
         } catch (error) {
-            console.error('Failed to SignUp: ', error);
+            console.error('Failed to SignUp: ', error)
         }
-    };
-
+    }
 
     return (
-        <Box minW={{ base: "90%", md: "468px" }}>
+        <Box minW={{ base: '90%', md: '468px' }}>
             <form onSubmit={onSubmit}>
                 <Stack
                     spacing={4}
@@ -60,7 +61,7 @@ export function Signup() {
                             <Input
                                 type="text"
                                 placeholder="username"
-                                onChange={(e: React.FormEvent) => setUsername(e.target.value)}
+                                onChange={(e) => setUsername(e.target.value)}
                             />
                         </InputGroup>
                     </FormControl>
@@ -73,7 +74,7 @@ export function Signup() {
                             <Input
                                 type="email"
                                 placeholder="email address"
-                                onChange={(e: React.FormEvent) => setEmail(e.target.value)}
+                                onChange={(e) => setEmail(e.target.value)}
                             />
                         </InputGroup>
                     </FormControl>
@@ -85,13 +86,17 @@ export function Signup() {
                                 children={<CFaLock color="gray.300" />}
                             />
                             <Input
-                                type={showPassword ? "text" : "password"}
+                                type={showPassword ? 'text' : 'password'}
                                 placeholder="Password"
-                                onChange={(e: React.FormEvent) => setPassword(e.target.value)}
+                                onChange={(e) => setPassword(e.target.value)}
                             />
                             <InputRightElement width="4.5rem">
-                                <Button h="1.75rem" size="sm" onClick={handleShowClick}>
-                                    {showPassword ? "Hide" : "Show"}
+                                <Button
+                                    h="1.75rem"
+                                    size="sm"
+                                    onClick={handleShowClick}
+                                >
+                                    {showPassword ? 'Hide' : 'Show'}
                                 </Button>
                             </InputRightElement>
                         </InputGroup>
@@ -111,6 +116,5 @@ export function Signup() {
                 </Stack>
             </form>
         </Box>
-
     )
 }
