@@ -99,9 +99,51 @@
                         "passWithNoTests": true
                     },
                     "outputs": ["coverage/apps/direct-site"]
+                },
+                "deploy": {
+                    "executor": "@nrwl/workspace:run-commands",
+                    "options": {
+                        "commands": ["nx run direct-site-infrastructure:up"]
+                    }
                 }
             },
             "tags": []
+        },
+        "direct-site-infrastructure": {
+            "root": "apps/direct-site-infrastructure",
+            "projectType": "application",
+            "sourceRoot": "apps/direct-site-infrastructure/src",
+            "targets": {
+                "lint": {
+                    "executor": "@nrwl/linter:eslint",
+                    "options": {
+                        "lintFilePatterns": [
+                            "apps/direct-site-infrastructure/**/*.ts"
+                        ]
+                    }
+                },
+                "test": {
+                    "executor": "@nrwl/jest:jest",
+                    "options": {
+                        "jestConfig": "apps/direct-site-infrastructure/jest.config.js",
+                        "passWithNoTests": true
+                    },
+                    "outputs": ["coverage/apps/direct-site-infrastructure"]
+                },
+                "up": {
+                    "executor": "@wanews/nx-pulumi:up",
+                    "options": {
+                        "buildTargets": [
+                            {
+                                "project": "direct-site",
+                                "target": "build"
+                            }
+                        ]
+                    }
+                }
+            },
+            "tags": [],
+            "implicitDependencies": ["direct-site"]
         },
         "fert-site": {
             "root": "apps/fert-site",

@@ -1,9 +1,9 @@
 import React from 'react'
-import { Navigate } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 import { useAuth } from './AuthProvider'
 
 interface RequireAuthProps {
-    redirectPath: string
+    // redirectPath: string
     children: React.ReactNode
 }
 
@@ -13,5 +13,10 @@ export function RequireAuth(props: RequireAuthProps): JSX.Element {
         return <>{props.children}</>
     }
     // TODO can add some tricks here to redirect to previous page? broke it last time
-    return <Navigate to={props.redirectPath} />
+    if (window.location.host.split('.')[0] === 'auth') {
+        return <Navigate to="/login" />
+    }
+    //TODO pass something in to allow returning??
+    window.location.href = 'https://auth.lawnman.club'
+    return <></>
 }

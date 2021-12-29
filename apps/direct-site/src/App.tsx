@@ -10,7 +10,7 @@ const App = () => {
             <Route
                 path="/"
                 element={
-                    <RequireAuth redirectPath="https://auth.lawnman.club/login">
+                    <RequireAuth>
                         <h1>Direct Control Site</h1>
                         <p>Hellooo {user?.idToken.payload.email} </p>
                         <button onClick={performLogout}>Log Out!!!!!!!!</button>
