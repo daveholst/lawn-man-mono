@@ -1,7 +1,7 @@
 import reactRefresh from '@vitejs/plugin-react-refresh'
 import { defineConfig } from 'vite'
 import tsconfigPaths from 'vite-tsconfig-paths'
-// import polyfillNode from 'rollup-plugin-polyfill-node'
+import polyfillNode from 'rollup-plugin-polyfill-node'
 
 export default defineConfig(({ command }) => {
     if (command === 'serve') {
@@ -14,9 +14,11 @@ export default defineConfig(({ command }) => {
             define: {
                 global: {},
             },
-            //     optimizeDeps: {
-            //         exclude: ['mqtt'], // <= The libraries that need shimming should be excluded from dependency optimization.
-            //     },
+            // optimizeDeps: {
+            //     exclude: ['mqtt'], // <= The libraries that need shimming should be excluded from dependency optimization.
+            // },
+            // required for mqtt to work:https://github.com/mqttjs/MQTT.js/issues/1269
+            resolve: { alias: { mqtt: 'mqtt/dist/mqtt.js' } },
         }
     }
     return {
@@ -25,9 +27,12 @@ export default defineConfig(({ command }) => {
             reactRefresh(),
             // polyfillNode(),
         ],
+        // define: {
+        //     global: {},
+        // },
         // optimizeDeps: {
         // exclude: ['mqtt'], // <= The libraries that need shimming should be excluded from dependency optimization.
         // },
-        // resolve: { alias: { mqtt: 'mqtt/dist/mqtt.js' } },
+        resolve: { alias: { mqtt: 'mqtt/dist/mqtt.js' } },
     }
 })
