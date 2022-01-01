@@ -9,6 +9,7 @@ interface RequireAuthProps {
 
 export function RequireAuth(props: RequireAuthProps): JSX.Element {
     const { user } = useAuth()
+    console.log(window.location.hostname)
     if (user) {
         return <>{props.children}</>
     }
@@ -16,6 +17,20 @@ export function RequireAuth(props: RequireAuthProps): JSX.Element {
     if (window.location.host.split('.')[0] === 'auth') {
         return <Navigate to="/login" />
     }
+    if (
+        window.location.hostname === 'localhost' &&
+        window.location.port !== '3100'
+    ) {
+        window.location.href = 'http://localhost:3100'
+        return <></>
+    }
+    if (
+        window.location.hostname === 'localhost' &&
+        window.location.port === '3100'
+    ) {
+        return <Navigate to="/login" />
+    }
+
     //TODO pass something in to allow returning??
     window.location.href = 'https://auth.lawnman.club'
     return <></>

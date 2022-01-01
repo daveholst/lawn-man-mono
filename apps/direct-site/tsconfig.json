@@ -5,7 +5,7 @@
         "outDir": "./out-tsc",
         "rootDir": "./src"
     },
-    "include": ["src/**/*.ts", "src/**/*.tsx"],
+    "include": ["src/**/*.ts", "src/**/*.tsx", "src/ca.js"],
     "references": [
         {
             "path": "../../libs/shared-components"
