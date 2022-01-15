@@ -2,7 +2,6 @@ import AWS from 'aws-sdk'
 import mqtt from 'mqtt'
 
 import { config } from '../config'
-import { environment } from './environments/environment'
 
 AWS.config.update({
     region: config.region,
@@ -63,5 +62,5 @@ client.on('message', async (topic, message) => {
 
 // Error Handling
 client.on('error', (err) => {
-    console.log(err)
+    console.error(err)
 })
