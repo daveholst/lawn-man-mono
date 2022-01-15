@@ -33,8 +33,8 @@ const certificate = new aws.acm.Certificate(
     {
         domainName: domain,
         validationMethod: 'DNS',
-    },
-    { provider: eastRegion }
+    }
+    // { provider: eastRegion }
 )
 // Create the Certificate Validation Records in the DNS
 const certificateValidationDomain = new aws.route53.Record(
@@ -54,8 +54,8 @@ const certificateValidation = new aws.acm.CertificateValidation(
     {
         certificateArn: certificate.arn,
         validationRecordFqdns: [certificateValidationDomain.fqdn],
-    },
-    { provider: eastRegion }
+    }
+    // { provider: eastRegion }
 )
 
 // Create an AWS resource (S3 Bucket)

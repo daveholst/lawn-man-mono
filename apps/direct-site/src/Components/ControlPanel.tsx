@@ -110,9 +110,6 @@ export const ControlPanel = () => {
             })
             client.subscribe('juicebox1/#')
             client.on('message', (topic, payload) => {
-                console.log('message-in::', topic, payload.toString())
-
-                payload.toString()
                 if (topic === 'juicebox1/status') {
                     setjuiceboxState((juiceboxState) => ({
                         ...juiceboxState,
@@ -176,13 +173,21 @@ export const ControlPanel = () => {
                 </Heading>
                 <hr />
                 <br />
-                <p>juicebox :: {juiceboxState.jbstatus}</p>
-                <p>bypass valve :: {juiceboxState.switch.bypass_valve}</p>
                 <p>
-                    water does valve :: {juiceboxState.switch.water_fill_valve}
+                    juicebox :: <b>{juiceboxState.jbstatus}</b>{' '}
+                </p>
+                <p>
+                    bypass valve :: <b>{juiceboxState.switch.bypass_valve}</b>{' '}
+                </p>
+                <p>
+                    water does valve ::{' '}
+                    <b>{juiceboxState.switch.water_fill_valve}</b>
                 </p>
                 <hr />
-                <p>fert 1 pump :: {juiceboxState.switch.fert_1_dose_valve}</p>
+                <p>
+                    fert 1 pump ::{' '}
+                    <b>{juiceboxState.switch.fert_1_dose_valve}</b>
+                </p>
                 <p>fert 2 pump ::</p>
                 <p>fert 3 pump ::</p>
             </Box>

@@ -316,6 +316,58 @@
             "tags": [],
             "implicitDependencies": ["juicebox-store-api"]
         },
+        "mqtt-bridge": {
+            "root": "apps/mqtt-bridge",
+            "sourceRoot": "apps/mqtt-bridge/src",
+            "projectType": "application",
+            "targets": {
+                "build": {
+                    "executor": "@nrwl/node:build",
+                    "outputs": ["{options.outputPath}"],
+                    "options": {
+                        "outputPath": "dist/apps/mqtt-bridge",
+                        "main": "apps/mqtt-bridge/src/main.ts",
+                        "tsConfig": "apps/mqtt-bridge/tsconfig.app.json",
+                        "assets": ["apps/mqtt-bridge/src/assets"]
+                    },
+                    "configurations": {
+                        "production": {
+                            "optimization": true,
+                            "extractLicenses": true,
+                            "inspect": false,
+                            "fileReplacements": [
+                                {
+                                    "replace": "apps/mqtt-bridge/src/environments/environment.ts",
+                                    "with": "apps/mqtt-bridge/src/environments/environment.prod.ts"
+                                }
+                            ]
+                        }
+                    }
+                },
+                "serve": {
+                    "executor": "@nrwl/node:execute",
+                    "options": {
+                        "buildTarget": "mqtt-bridge:build"
+                    }
+                },
+                "lint": {
+                    "executor": "@nrwl/linter:eslint",
+                    "outputs": ["{options.outputFile}"],
+                    "options": {
+                        "lintFilePatterns": ["apps/mqtt-bridge/**/*.ts"]
+                    }
+                },
+                "test": {
+                    "executor": "@nrwl/jest:jest",
+                    "outputs": ["coverage/apps/mqtt-bridge"],
+                    "options": {
+                        "jestConfig": "apps/mqtt-bridge/jest.config.js",
+                        "passWithNoTests": true
+                    }
+                }
+            },
+            "tags": []
+        },
         "pulumi-utils": {
             "root": "libs/pulumi-utils",
             "sourceRoot": "libs/pulumi-utils/src",
