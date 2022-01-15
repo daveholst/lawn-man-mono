@@ -325,7 +325,7 @@
                     "executor": "@nrwl/node:build",
                     "outputs": ["{options.outputPath}"],
                     "options": {
-                        "outputPath": "dist/apps/mqtt-bridge",
+                        "outputPath": "apps/mqtt-bridge/dist",
                         "main": "apps/mqtt-bridge/src/main.ts",
                         "tsConfig": "apps/mqtt-bridge/tsconfig.app.json",
                         "assets": ["apps/mqtt-bridge/src/assets"]
@@ -363,6 +363,19 @@
                     "options": {
                         "jestConfig": "apps/mqtt-bridge/jest.config.js",
                         "passWithNoTests": true
+                    }
+                },
+                "publish": {
+                    "executor": "@nrwl/workspace:run-commands",
+                    "options": {
+                        "cwd": "./apps/mqtt-bridge",
+                        "commands": [
+                            "nx run mqtt-bridge:build:production",
+                            "docker build -t daveholst/lawn-man:latest .",
+                            "docker push daveholst/lawn-man"
+                        ],
+                        "color": true,
+                        "parallel": false
                     }
                 }
             },
