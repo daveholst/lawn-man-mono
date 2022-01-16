@@ -10,13 +10,27 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.config = void 0;
 exports.config = {
     region: 'ap-southeast-2',
-    mqttServer: 'mqtt://mqtt.holstsolutions.com',
+    mqttServer: 'mqtt://mqtt:1883',
     mqttUsername: 'juicebox',
     mqttPassword: 'dY*t7LSgGhc%M4',
     snsTopicArn: 'arn:aws:sns:ap-southeast-2:739766728346:mqttBridge',
     mqttBridgeUserArn: 'arn:aws:iam::739766728346:user/mqttBridge',
     mqttBridgeUserId: 'AKIA2YPMIO2NDZUVGPEP',
     mqttBridgeUserSecret: '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',
+};
+
+
+/***/ }),
+
+/***/ "./apps/mqtt-bridge/src/environments/environment.prod.ts":
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.environment = void 0;
+exports.environment = {
+    production: true,
+    mqttServer: 'mqtt://mqtt:1883',
 };
 
 
@@ -80,20 +94,22 @@ const tslib_1 = __webpack_require__("tslib");
 const aws_sdk_1 = (0, tslib_1.__importDefault)(__webpack_require__("aws-sdk"));
 const mqtt_1 = (0, tslib_1.__importDefault)(__webpack_require__("mqtt"));
 const config_1 = __webpack_require__("./apps/mqtt-bridge/config.ts");
+const environment_prod_1 = __webpack_require__("./apps/mqtt-bridge/src/environments/environment.prod.ts");
 aws_sdk_1.default.config.update({
     region: config_1.config.region,
     accessKeyId: config_1.config.mqttBridgeUserId,
     secretAccessKey: config_1.config.mqttBridgeUserSecret,
 });
-const clientId = `mqtt-bridge_${Math.random().toString(16).slice(3)}`;
-const client = mqtt_1.default.connect(config_1.config.mqttServer, {
+const clientId = `mqtt_bridge_${Math.random().toString(16).slice(3)}`;
+const client = mqtt_1.default.connect(environment_prod_1.environment.mqttServer, {
     clientId,
     clean: true,
     username: config_1.config.mqttUsername,
     password: config_1.config.mqttPassword,
-    connectTimeout: 4000,
+    // connectTimeout: 5,
     reconnectPeriod: 1000,
 });
+console.log('STARTED SERICE ON :: ', environment_prod_1.environment.mqttServer);
 // SNS message publisher
 async function publishMessage(msg) {
     try {
@@ -134,7 +150,10 @@ client.on('message', async (topic, message) => {
 });
 // Error Handling
 client.on('error', (err) => {
-    console.log(err);
+    console.error(err);
+});
+client.on('reconnect', () => {
+    console.log('reconnecting!');
 });
 
 })();

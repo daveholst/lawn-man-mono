@@ -1,6 +1,6 @@
 export const config = {
     region: 'ap-southeast-2',
-    mqttServer: 'mqtt://mqtt.holstsolutions.com',
+    mqttServer: 'mqtt://mqtt:1883',
     mqttUsername: 'juicebox',
     mqttPassword: 'dY*t7LSgGhc%M4',
     snsTopicArn: 'arn:aws:sns:ap-southeast-2:739766728346:mqttBridge',

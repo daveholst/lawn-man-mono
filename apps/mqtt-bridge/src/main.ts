@@ -2,6 +2,7 @@ import AWS from 'aws-sdk'
 import mqtt from 'mqtt'
 
 import { config } from '../config'
+import { environment } from './environments/environment.prod'
 
 AWS.config.update({
     region: config.region,
@@ -9,16 +10,18 @@ AWS.config.update({
     secretAccessKey: config.mqttBridgeUserSecret,
 })
 
-const clientId = `mqtt-bridge_${Math.random().toString(16).slice(3)}`
+const clientId = `mqtt_bridge_${Math.random().toString(16).slice(3)}`
 
-const client = mqtt.connect(config.mqttServer, {
+const client = mqtt.connect(environment.mqttServer, {
     clientId,
     clean: true,
     username: config.mqttUsername,
     password: config.mqttPassword,
-    connectTimeout: 4000,
+    // connectTimeout: 5,
     reconnectPeriod: 1000,
 })
+
+console.log('STARTED SERICE ON :: ', environment.mqttServer)
 
 // SNS message publisher
 async function publishMessage(msg: unknown) {
@@ -63,4 +66,8 @@ client.on('message', async (topic, message) => {
 // Error Handling
 client.on('error', (err) => {
     console.error(err)
+})
+
+client.on('reconnect', () => {
+    console.log('reconnecting!')
 })
