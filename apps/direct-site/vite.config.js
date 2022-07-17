@@ -1,7 +1,6 @@
 import reactRefresh from '@vitejs/plugin-react-refresh'
 import { defineConfig } from 'vite'
 import tsconfigPaths from 'vite-tsconfig-paths'
-import polyfillNode from 'rollup-plugin-polyfill-node'
 
 export default defineConfig(({ command }) => {
     if (command === 'serve') {

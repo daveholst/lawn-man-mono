@@ -12,7 +12,7 @@ const App = () => {
             <Route
                 path="/"
                 element={
-                    <RequireAuth redirectPath="/login">
+                    <RequireAuth>
                         <h1>Base App</h1>
                         <p>Hellooo {user?.idToken.payload.email} </p>
                         <button onClick={performLogout}>Log Out!!!!!!!!</button>

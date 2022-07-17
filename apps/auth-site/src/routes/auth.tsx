@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react'
 import {
     Flex,
     Heading,
@@ -13,17 +13,15 @@ import {
     Avatar,
     FormControl,
     FormHelperText,
-    InputRightElement
-} from "@chakra-ui/react";
+    InputRightElement,
+} from '@chakra-ui/react'
 
-import { Login } from '../components/Login'
-import { Signup } from '../components/Signup'
+import { FaUserAlt, FaLock } from 'react-icons/fa'
+import { Login } from '../Components/Login'
+import { Signup } from '../Components/Signup'
 
-import { FaUserAlt, FaLock } from "react-icons/fa";
-
-const CFaUserAlt = chakra(FaUserAlt);
-const CFaLock = chakra(FaLock);
-
+const CFaUserAlt = chakra(FaUserAlt)
+const CFaLock = chakra(FaLock)
 
 export function Auth() {
     const [signup, setSignup] = useState(false)
@@ -48,11 +46,15 @@ export function Auth() {
                 {!signup ? <Login /> : <Signup />}
             </Stack>
             <Box>
-                {!signup ? "New to us? " : "Go back to "}
-                <Link color="teal.500" href="#" onClick={() => setSignup(!signup)}>
-                    {!signup ? "Sign Up" : "Login"}
+                {!signup ? 'New to us? ' : 'Go back to '}
+                <Link
+                    color="teal.500"
+                    href="#"
+                    onClick={() => setSignup(!signup)}
+                >
+                    {!signup ? 'Sign Up' : 'Login'}
                 </Link>
             </Box>
         </Flex>
-    );
+    )
 }

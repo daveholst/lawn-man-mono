@@ -136,12 +136,13 @@ const distributionArgs: aws.cloudfront.DistributionArgs = {
 
     // "All" is the most broad distribution, and also the most expensive.
     // "100" is the least broad, and also the least expensive.
-    priceClass: 'PriceClass_100',
+    priceClass: 'PriceClass_All',
 
     // You can customize error responses. When CloudFront receives an error from the origin (e.g. S3 or some other
     // web service) it can return a different error code, and return the response for a different resource.
     customErrorResponses: [
-        { errorCode: 404, responseCode: 404, responsePagePath: '/404.html' },
+        { errorCode: 404, responseCode: 200, responsePagePath: '/index.html' },
+        { errorCode: 403, responseCode: 200, responsePagePath: '/index.html' },
     ],
 
     restrictions: {

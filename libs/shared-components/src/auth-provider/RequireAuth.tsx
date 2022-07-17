@@ -17,15 +17,16 @@ export function RequireAuth(props: RequireAuthProps): JSX.Element {
     if (window.location.host.split('.')[0] === 'auth') {
         return <Navigate to="/login" />
     }
+    // TODO not sure what this was doing
+    // if (
+    //     window.location.hostname === 'localhost' &&
+    //     window.location.port !== '3100'
+    // ) {
+    //     window.location.href = 'http://localhost:3100'
+    //     return <></>
+    // }
     if (
-        window.location.hostname === 'localhost' &&
-        window.location.port !== '3100'
-    ) {
-        window.location.href = 'http://localhost:3100'
-        return <></>
-    }
-    if (
-        window.location.hostname === 'localhost' &&
+        (window.location.hostname === 'localhost' || '127.0.01') &&
         window.location.port === '3100'
     ) {
         return <Navigate to="/login" />
